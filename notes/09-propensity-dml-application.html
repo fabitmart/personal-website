@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Propensity Score and Double Machine Learning Identification: an application – Applied Econometrics Reading Group Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./10-dml-theory.html" rel="next">
+<link href="./08-did-event-studies.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6c5314280c86e53d2a1a2ca4c5fd5b4a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./09-propensity-dml-application.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Econometrics Reading Group Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-experimental-ideal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-sampling-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-dags.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">DAG</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sensitivity Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-instrumental-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Instrumental Variable</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-synthetic-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Synthetic Control Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regression Discontinuity Designs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-did-event-studies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Difference in Differences and Event Study</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-propensity-dml-application.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-dml-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#unconfoundedness" id="toc-unconfoundedness" class="nav-link active" data-scroll-target="#unconfoundedness"><span class="header-section-number">9.1</span> Unconfoundedness</a></li>
+  <li><a href="#interactive-regression-model" id="toc-interactive-regression-model" class="nav-link" data-scroll-target="#interactive-regression-model"><span class="header-section-number">9.2</span> Interactive Regression Model</a></li>
+  <li><a href="#random-forests" id="toc-random-forests" class="nav-link" data-scroll-target="#random-forests"><span class="header-section-number">9.3</span> Random Forests</a></li>
+  <li><a href="#identification" id="toc-identification" class="nav-link" data-scroll-target="#identification"><span class="header-section-number">9.4</span> Identification</a></li>
+  <li><a href="#implementation-with-doubleml" id="toc-implementation-with-doubleml" class="nav-link" data-scroll-target="#implementation-with-doubleml"><span class="header-section-number">9.5</span> Implementation with <code>DoubleML</code></a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Double Machine Learning <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> one can, under unconfoundedness <span class="citation" data-cites="rosenbaum1983">Rosenbaum and Rubin (<a href="#ref-rosenbaum1983" role="doc-biblioref">1983</a>)</span>, identify the average treatment effect (ATE) and the average treatment effect on the treated (ATT) for the whole sample population. In the sections below, I follow <span class="citation" data-cites="imbens2015">Imbens and Rubin (<a href="#ref-imbens2015" role="doc-biblioref">2015</a>)</span>’s exposition on the topic. I first present the unconfoundedness assumption and break it down by introducing the required definitions.</p>
+<p>Before delving into the technical part, stating the key idea concisely can be helpful. Legal Aid decides on aid allocation based on the information contained in a form. All this information is included in my dataset. The allocation of aid follows sharp rules only partly, as more loose principles play an important role via discretion. My claim is that the flexibility of double machine learning with random forests allows me to credibly recover the treatment assignment function and hence identify both ATE and ATT while addressing the two main threats to identification. First, such flexibility effectively tackles potential bias due to functional-form misspecification. Second, the complete access to the form data greatly reduces omitted variable bias concerns.</p>
+<section id="unconfoundedness" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="unconfoundedness"><span class="header-section-number">9.1</span> Unconfoundedness</h2>
+<p>Unconfoundedness, referred to as <em>strongly ignorable</em> treatment assignment in the original <span class="citation" data-cites="rosenbaum1983">Rosenbaum and Rubin (<a href="#ref-rosenbaum1983" role="doc-biblioref">1983</a>)</span> article, characterises assignments mechanisms that (i) do not depend on potential outcomes, (ii) are probabilistic—no unit is assigned to treatment or control with probability one—and (iii) are individualistic. I break down this definition in the paragraphs below. Notice that after I introduce an assumption, I will hold it as true when introducing the following ones. Moreover, I make a notation change and indicate matrices and column vectors in bold as in <span class="citation" data-cites="imbens2015">Imbens and Rubin (<a href="#ref-imbens2015" role="doc-biblioref">2015</a>)</span>. This makes the exposition clearer in some passages.</p>
+<p>An <em>assignment mechanism</em> is a row-exchangeable function <span class="math inline">\(\operatorname{Pr}(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1))\)</span> which returns values in the interval <span class="math inline">\([0,1]\)</span> and satisfies <span class="math display">\[
+    \sum_{\mathbf{D} \in\{0,1\}^N}
+    \operatorname{Pr}(
+    \mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1)
+    ) = 1,
+\]</span> for all <span class="math inline">\(\mathbf{X}, \mathbf{Y}(0)\)</span>, and <span class="math inline">\(\mathbf{Y}(1)\)</span>.</p>
+<p>The set <span class="math inline">\(\mathbb{D}=\{0,1\}^N\)</span> is the set of all vectors of length N in which each element is equal to either 0 or 1, where <em>N</em> is the given (finite) population size. <span class="math inline">\(\mathbf{Y}(0)\)</span> and <span class="math inline">\(\mathbf{Y}(1)\)</span> are also N-vectors, while <span class="math inline">\(\mathbf{X}\)</span> is a <span class="math inline">\(N \times K\)</span> matrix of covariates. Here, <span class="math inline">\(\mathbf{X}\)</span> is made of <span class="math inline">\(N\)</span> <em>row</em> vectors <span class="math inline">\(X_i\)</span>, each <span class="math inline">\(X_i\)</span> including all the <span class="math inline">\(K\)</span> covariates of unit <span class="math inline">\(i\)</span>. Row-exchangeable means that it does not matter how one orders the elements within a vector or matrix. Notice that the bold notation here indicates vectors (or matrices in the <span class="math inline">\(\mathbf{X}\)</span> case), so that <span class="math inline">\(\operatorname{Pr}(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1))\)</span> is the probability that a given treatment assignment vector <span class="math inline">\(\mathbf{D}\)</span> occurs, where each <span class="math inline">\(\mathbf{D}\)</span> specifies the treatment status of each unit in <em>N</em>. Such assignment vectors, <span class="math inline">\(2^{N}\)</span> in total, are assumed to sum up to one.</p>
+<p>While in this general definition treatment assignment is allowed to depend on the potential outcomes, this is not true under unconfoundedness. Unconfoundedness requires that the assignment mechanism is <em>independent of the potential outcomes</em>: <span class="math display">\[
+    \operatorname{Pr}(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1))=\operatorname{Pr}\left(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}^{\prime}(0), \mathbf{Y}^{\prime}(1)\right)
+\]</span> for all <span class="math inline">\(\mathbf{D}, \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1),
+    \mathbf{Y}^{\prime}(0)\)</span>, and <span class="math inline">\(\mathbf{Y}^{\prime}(1)\)</span>, which allows to drop the potential outcomes from the assignment mechanism notation, now written as <span class="math inline">\(\operatorname{Pr}(\mathbf{D} \mid \mathbf{X})\)</span>. This is the first of three assumptions embedded into the unconfoundedness concept.</p>
+<p>Now, we can define the probability <span class="math inline">\(p_i\)</span> that unit <span class="math inline">\(i\)</span> is assigned to treatment as <span class="math display">\[
+    p_i(\mathbf{X}) =
+    \sum_{\mathbf{W}: D_i=1}
+    \operatorname{Pr}(\mathbf{D} \mid \mathbf{X})
+\]</span> meaning that one can find the assignment probability of a unit by calculating the share of assignment vectors <span class="math inline">\(\mathbf{D}\)</span> where it is assigned to treatment. Notice that in the present application, the <span class="math inline">\(\mathbf{X}\)</span> matrix (exclusively) includes the information contained in the Legal Aid application form.</p>
+<p>Then, taking the average probability of being assigned to treatment for units with covariates <span class="math inline">\(X_i = x\)</span>, one can find the <em>propensity score</em>. Formally, <span class="math display">\[
+    e(x)=\frac{1}{N(x)} \sum_{i=1}^{N} p_i(\mathbf{X})
+\]</span> where <span class="math inline">\(N(x)=\sum_{i=1}^{N} \left\{ \mathbf{1}_{X_i=x} \right\}\)</span> counts the number of units that have <span class="math inline">\(X_i=x\)</span>. If <span class="math inline">\(N(x)=0\)</span> for some <span class="math inline">\(x\)</span>, the propensity score is defined to be zero at that <span class="math inline">\(x\)</span>. We can now go back to presenting the second and third elements of unconfoundedness assumption.</p>
+<p>The second assumption is that the assignment mechanism is <em>individualistic</em>, i.e.&nbsp;it is such that, for some function <span class="math inline">\(q(\cdot) \in[0,1]\)</span>, <span class="math display">\[
+    p_i(\mathbf{X})
+    = q\left(X_i\right), \text{ for all }i=1, \ldots, N,
+\]</span> and <span class="math display">\[
+    \operatorname{Pr}(\mathbf{D} \mid \mathbf{X})
+    = c \cdot \prod_{i=1}^N q\left(X_i\right)^{D_i}
+    \left(1-q\left(X_i\right)\right)^{1-D_i}
+\]</span> for <span class="math inline">\((\mathbf{D}, \mathbf{X}) \in \mathbb{A}\)</span>, for some set <span class="math inline">\(\mathbb{A}\)</span>, and zero elsewhere, where constant <span class="math inline">\(c\)</span> is such that the probabilities sum up to one. Hence, individualistic assignment allows to simplify the propensity score to: <span class="math display">\[
+    e(x)=\frac{1}{N(x)} \sum_{i: X_i=x} q\left(X_i\right)
+\]</span> or, in short, <span class="math display">\[
+    e(x)=q\left(x\right)
+\]</span> implying (a) that the assignment probability of each unit <span class="math inline">\(i\)</span> is not allowed to depend on the covariate values of other units— but only on its own—and (b) that <span class="math inline">\(q(.)\)</span> now only depends on <span class="math inline">\(X_i\)</span>, making it equal to propensity score <span class="math inline">\(e(x)\)</span>. Finally, notice that the independence from potential outcomes combined with the probabilistic assignment assumption implies that the propensity score can be interpreted as the unit-level assignment probability, rather than the average probability of assignment for units with <span class="math inline">\(X_i = x\)</span>.</p>
+<p>Third, an assignment mechanism said to be <em>probabilistic</em> if each unit is assigned to treatment with probability <span class="math display">\[
+    0&lt;p_i(X_i)&lt;1 \text{, for each possible }
+    X_i\text{ for all }i=1, \ldots, N
+\]</span>, so that no unit is treated or not treated with certainty. This is also called the <em>overlap</em> or <em>common support</em> assumption.</p>
+<p>In sum, unconfoundedness imposes that the treatment is assigned to each <span class="math inline">\(i\)</span> independently of the characteristics and potential outcomes of the other units, as well as the potential outcomes of <span class="math inline">\(i\)</span> itself. Violations of the former imply, among other things, network/spillover effects, while violations of the latter imply selection into treatment.</p>
+</section>
+<section id="interactive-regression-model" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="interactive-regression-model"><span class="header-section-number">9.2</span> Interactive Regression Model</h2>
+<p><span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> applies the general DML theory to four different models, two of which use instrumental variables. Both of the remaining two models can be used in the present application: the Partially Linear Regression Model (PLR) and the Interactive Regression Model (IRM). I focus on the IRM as (i) it subsumes PLR as a special case, and (ii) it implies estimating a propensity score, which is useful to help unpacking and interpreting the results. The only advantage of PLR and IRM is efficiency and this is not a concern in the present application.</p>
+<p>The Interactive Regression Model allows to estimate average treatment effects allowing for fully heterogeneous treatment effects, given a binary treatment variable. Fully heterogeneous means that each of the two response curves—the potential outcomes as a function of <span class="math inline">\(\mathbf{X}\)</span>—is allowed to be a different nonparametric function. Vectors <span class="math inline">\(\mathbf{Y}\)</span> and <span class="math inline">\(\mathbf{D}\)</span> are modelled such that <span id="eq-dml_y"><span class="math display">\[
+\mathbf{Y} = g_0(\mathbf{D}, \mathbf{X}) + \mathbf{U}, \quad \mathbb{E}(\mathbf{U} \mid \mathbf{X}, \mathbf{D}) = \mathbf{0},
+\tag{9.1}\]</span></span></p>
+<p><span id="eq-dml_d"><span class="math display">\[
+\mathbf{D} = m_0(\mathbf{X}) + \mathbf{V}, \quad \mathbb{E}(\mathbf{V} \mid \mathbf{X}) = \mathbf{0}.
+\tag{9.2}\]</span></span> This model allows me to estimate not only the ATE, here written as: <span class="math display">\[
+    \tau_{ATE}=\mathbb{E}\left[g_0(\mathbf{1}, \mathbf{X})-g_0(\mathbf{0}, \mathbf{X})\right]
+\]</span> but also the ATT: <span class="math display">\[
+    \tau_{ATT}=\mathbb{E}\left[g_0(\mathbf{1}, \mathbf{X}) - g_0(\mathbf{0}, \mathbf{X}) \mid \mathbf{D}=\mathbf{1}\right] .
+\]</span></p>
+<p>Variables <span class="math inline">\(\mathbf{X}\)</span> are allowed to affect both the outcome <span class="math inline">\(\mathbf{Y}\)</span> and the treatment <span class="math inline">\(\mathbf{D}\)</span>, each via a different function— <span class="math inline">\(m_0(\mathbf{X})\)</span> and <span class="math inline">\(g_0(\mathbf{X})\)</span>, respectively. In particular, <span class="math inline">\(m_0(\mathbf{X})\)</span> is the propensity score and as such, its estimate can be inspected and used to test assumptions such as overlap. This can help dissipate the black-box-type concerns typical of ML applications.</p>
+<p>Moreover, both <span class="math inline">\(m_0(\mathbf{X})\)</span> and <span class="math inline">\(g_0(\mathbf{X})\)</span> are unknown and likely to be highly non-linear in this application, where the decision to assign a unit to treatment is made via a mix of sharp rules, loose principles and discretion. Hence, the benefits of estimating them flexibly using ML methods—here random forests <span class="citation" data-cites="athey2019">Athey, Tibshirani, and Wager (<a href="#ref-athey2019" role="doc-biblioref">2019a</a>)</span>—are potentially large.</p>
+<p>Another useful property of DML is double robustness, which states that the estimator is consistent for <span class="math inline">\(\tau_{ATE}\)</span> and <span class="math inline">\(\tau_{ATT}\)</span> as long as either the outcome model (<a href="#eq-dml_y" class="quarto-xref">Equation&nbsp;<span>9.1</span></a>) or the treatment model (<a href="#eq-dml_d" class="quarto-xref">Equation&nbsp;<span>9.2</span></a>) are correctly specified. In the present application, the emphasis is put on the correct specification of the treatment model, as all the variables used to assign treatment are observed and included (see the <a href="#identification">Identification</a> Section).</p>
+</section>
+<section id="random-forests" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="random-forests"><span class="header-section-number">9.3</span> Random Forests</h2>
+<p>This section briefly introduces random forests and regression trees, on which random forests are based. They are introduced as DML requires choosing an ML method and I use random forests in the present application. For an econometrics textbook introduction, see <span class="citation" data-cites="hansen2022">Hansen (<a href="#ref-hansen2022" role="doc-biblioref">2022</a>)</span> (which I follow closely), while for a more general-audience introduction, see <span class="citation" data-cites="krzywinski2017">Krzywinski and Altman (<a href="#ref-krzywinski2017" role="doc-biblioref">2017</a>)</span>.</p>
+<p>A regression tree is a nonparametric regression that relies on many step functions to approximate an unknown conditional expectation function. More formally, regression trees aim at estimating <span class="math inline">\(m(x)=\mathbb{E}[y_i \mid \mathbf{X_k}=x]\)</span> for each scalar <span class="math inline">\(y_i \in \mathbf{Y}\)</span> and vector <span class="math inline">\(\mathbf{X_k} \in \mathbf{X}\)</span>, the <span class="math inline">\(N \times K\)</span> matrix of covariates.</p>
+<p>The first step is to ``grow the tree’’. This involves sequentially partitioning, or splitting, the sample into increasingly small subsamples, or <em>branches</em>. The sample is split sequentially and at least once per each covariate <span class="math inline">\(\mathbf{X_k}\)</span>. At each iteration, the algorithm selects a covariate and estimates a threshold for that covariate, which will determine how the sample is split. The algorithm’s goal is to generate subsamples that are maximally homogeneous in <span class="math inline">\(\mathbf{Y}\)</span> and heterogeneous across each other. In an example where <span class="math inline">\(\mathbf{Y}\)</span> is a categorical variable with three values, each subsample is generated so to included as many observation as possible of a given category while including as little observations as possible of the other categories.</p>
+<p>More formally, the splits are determined by estimating the following model using non-linear least squares: <span class="math display">\[
+    \begin{aligned}
+        \mathbf{Y}                             &amp; =\mu_1 \mathbf{1}\left\{\mathbf{X}_k \leq \gamma\right\}+\mu_2 \mathbf{1}\left\{\mathbf{X}_k&gt;\gamma\right\}+\mathbf{e} \\
+        \mathbb{E}[\mathbf{e} \mid \mathbf{X}] &amp; =0
+    \end{aligned}
+\]</span> where covariate index <span class="math inline">\(k\)</span> and parameter <span class="math inline">\(\gamma\)</span> are free parameters—the latter setting the threshold of the covariate at which the split occurs.</p>
+<p>This initial procedure leads to a large tree with small estimation bias and high overfitting. Overfitting is then addressed by the second step, the <em>pruning</em> step, where the number of subsamples is reduced based on an information criterion.</p>
+<p>Regression trees are not very good at approximating smooth functions and are sensitive to small changes in the data. These issues are addressed by random forests, which have the further advantage of performing better out-of-sample. Random forests, introduced by <span class="citation" data-cites="breiman2001">Breiman (<a href="#ref-breiman2001" role="doc-biblioref">2001</a>)</span>, work by model averaging, or <em>ensembling</em>, many different regression trees. Such trees are constructed by using random subsamples of the data and of the covariates—a form of bootstrapping. The use of random subset of covariates is warranted because it removes the correlation between the bootstrapped regression trees, thus decreasing the variance of the bootstrapped conditional mean, <span class="math inline">\(m(x)\)</span>. Notice that both regression trees and random forests, like most ML methods, aim at predicting rather than estimating. The insight of DML is that by using such prediction algorithms once on the outcome model and once on the treatment model we can consistently estimate treatment effects. An important role is also played by (i) a procedure called <em>cross-fitting</em> and (ii) the use of Neyman-orthogonal moments, the combination of which removes the regularisation bias and overfitting that otherwise make ML estimators unhelpful in estimation settings.</p>
+</section>
+<section id="identification" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="identification"><span class="header-section-number">9.4</span> Identification</h2>
+<p>While comparing randomised control trials and observational studies, <span class="citation" data-cites="rosenbaum1983">Rosenbaum and Rubin (<a href="#ref-rosenbaum1983" role="doc-biblioref">1983</a>)</span> note: ``[…] in a randomized trial, x [in <span class="math inline">\(e(x)\)</span>] is known to include all covariates that are both used to assign treatments and possibly related to the [potential outcomes]. This condition is usually not known to hold in a nonrandomized experiment [i.e.&nbsp;observational studies]’’. The other difference that they point out is that in RCTs the propensity is a known function while in observational studies it needs to be estimated.</p>
+<p>However, thanks to rich administrative data and a DML approach, I am able to credibly fill the gap between RCTs and observational studies. On the one hand, my dataset includes all the variables used to determine assignment to treatment (and which likely affects outcomes too). They codify all the information an applicant has to write down in the Legal Aid application form. On the other hand, the Random Forests algorithm allows me to flexibly estimate the propensity score without imposing strong functional form assumptions. The result is likely to be a good approximation of the true propensity score.</p>
+<p>In other words, studies that rely on propensity score to achieve identification are vulnerable to omitted variable bias (OVB). This can be either due to the confounding effect of (i) variables that affect both outcome and treatment but are not included in the regression(s), and (ii) functional-form misspecification of <span class="math inline">\(m_0(\mathbf{X})\)</span> and <span class="math inline">\(g_0(\mathbf{X})\)</span>. Point (i) is addressed by the rich dataset, as explained above, while point (ii) is addressed via the use of random forests—which allow to estimate functions far more complex than the standard linear additive models.</p>
+</section>
+<section id="implementation-with-doubleml" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="implementation-with-doubleml"><span class="header-section-number">9.5</span> Implementation with <code>DoubleML</code></h2>
+<p>The <code>DoubleML</code> R package <span class="citation" data-cites="bach2024doubleml">(<a href="#ref-bach2024doubleml" role="doc-biblioref">Bach et al. 2024</a>)</span> provides the official implementation of the DML framework introduced by <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span>. Built on the <code>mlr3</code> ecosystem, it supports a range of causal models—including the Interactive Regression Model (IRM), the Partially Linear Regression Model (PLR), and their instrumental-variable counterparts—while allowing the user to plug in any machine learning method available in <code>mlr3learners</code>. For a comprehensive applied guide to DML and related methods, see <span class="citation" data-cites="chernozhukov2024applied">Chernozhukov et al. (<a href="#ref-chernozhukov2024applied" role="doc-biblioref">2024</a>)</span>.</p>
+<p>Before demonstrating the full DML approach, it is useful to see the propensity score at work in a simpler setting. The following code simulates data with selection on observables and estimates the ATE using inverse probability weighting (IPW)—the most direct use of the propensity score for causal inference.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Simple IPW estimator on simulated data ---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment assignment depends on X1 and X2 (selection on observables)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>p_true <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.8</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> X2)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, p_true)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential outcomes: true ATE = 2</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> Y0 <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(D <span class="sc">==</span> <span class="dv">1</span>, Y1, Y0)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate propensity score with logistic regression</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ps_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(D <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">family =</span> binomial)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>e_hat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(ps_model)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Horvitz-Thompson IPW estimator for the ATE</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>tau_ipw <span class="ot">&lt;-</span> <span class="fu">mean</span>(D <span class="sc">*</span> Y <span class="sc">/</span> e_hat) <span class="sc">-</span> <span class="fu">mean</span>((<span class="dv">1</span> <span class="sc">-</span> D) <span class="sc">*</span> Y <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> e_hat))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"--- Inverse Probability Weighting (IPW) ---</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>--- Inverse Probability Weighting (IPW) ---</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"True ATE:      %.2f</span><span class="sc">\n</span><span class="st">"</span>, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>True ATE:      2.00</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Estimated ATE: %.2f</span><span class="sc">\n</span><span class="st">"</span>, tau_ipw))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated ATE: 1.98</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Sample size:   %d  (treated: %d, control: %d)</span><span class="sc">\n</span><span class="st">"</span>, n, <span class="fu">sum</span>(D), <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">-</span> D)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample size:   2000  (treated: 990, control: 1010)</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlap check: propensity score distribution</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Propensity score summary by treatment group:</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Propensity score summary by treatment group:</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Treated:  "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Treated:  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"min=%.3f  median=%.3f  max=%.3f</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">min</span>(e_hat[D <span class="sc">==</span> <span class="dv">1</span>]), <span class="fu">median</span>(e_hat[D <span class="sc">==</span> <span class="dv">1</span>]), <span class="fu">max</span>(e_hat[D <span class="sc">==</span> <span class="dv">1</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>min=0.101  median=0.603  max=0.969</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Control:  "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Control:  </code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"min=%.3f  median=%.3f  max=%.3f</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">min</span>(e_hat[D <span class="sc">==</span> <span class="dv">0</span>]), <span class="fu">median</span>(e_hat[D <span class="sc">==</span> <span class="dv">0</span>]), <span class="fu">max</span>(e_hat[D <span class="sc">==</span> <span class="dv">0</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>min=0.032  median=0.389  max=0.924</code></pre>
+</div>
+</div>
+<p>The IPW estimator re-weights observations so that treated and control groups are comparable in terms of covariates. The propensity score summaries confirm overlap—both groups span a similar range of estimated treatment probabilities, which is a necessary condition for valid inference under unconfoundedness.</p>
+<p>The code below illustrates how to estimate an IRM using <code>DoubleML</code> with random forests as the underlying learner. The example uses simulated data where treatment assignment depends on covariates through a logistic function, mimicking the kind of selection-on-observables setting discussed in the sections above.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DoubleML)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Interactive Regression Model</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> <span class="dv">5</span>), <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(X[,<span class="dv">1</span>] <span class="sc">+</span> X[,<span class="dv">2</span>]))</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> D <span class="sc">+</span> X[,<span class="dv">1</span>] <span class="sc">+</span> X[,<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DoubleML data object</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>dml_data <span class="ot">&lt;-</span> DoubleMLData<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> Y, <span class="at">D =</span> D, X),</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_col =</span> <span class="st">"Y"</span>, <span class="at">d_cols =</span> <span class="st">"D"</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit IRM with random forest</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>ml_g <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>ml_m <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"classif.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>dml_irm <span class="ot">&lt;-</span> DoubleMLIRM<span class="sc">$</span><span class="fu">new</span>(dml_data, ml_g, ml_m)</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>dml_irm<span class="sc">$</span><span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>INFO  [16:03:45.297] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 1/5)
+INFO  [16:03:45.474] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 2/5)
+INFO  [16:03:45.664] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 3/5)
+INFO  [16:03:45.803] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 4/5)
+INFO  [16:03:45.941] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 5/5)
+INFO  [16:03:46.754] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 1/5)
+INFO  [16:03:46.831] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 2/5)
+INFO  [16:03:46.917] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 3/5)
+INFO  [16:03:46.994] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 4/5)
+INFO  [16:03:47.073] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 5/5)
+INFO  [16:03:47.458] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g1' (iter 1/5)
+INFO  [16:03:47.536] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g1' (iter 2/5)
+INFO  [16:03:47.606] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g1' (iter 3/5)
+INFO  [16:03:47.677] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g1' (iter 4/5)
+INFO  [16:03:47.748] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g1' (iter 5/5)</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>dml_irm<span class="sc">$</span><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimates and significance testing of the effect of target variables
+  Estimate. Std. Error t value Pr(&gt;|t|)    
+D    0.9814     0.1573   6.239 4.41e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>In this example, <code>ml_g</code> is the learner for the outcome nuisance function <span class="math inline">\(g_0(\mathbf{D}, \mathbf{X})\)</span> and <code>ml_m</code> is the learner for the propensity score <span class="math inline">\(m_0(\mathbf{X})\)</span>. The <code>DoubleMLIRM</code> object handles cross-fitting and Neyman-orthogonal score construction automatically. The <code>summary()</code> method reports the estimated ATE along with standard errors and confidence intervals that are valid under the conditions discussed in <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span>.</p>
+<p>To estimate the ATT instead, one can set the <code>score</code> argument:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>dml_irm_att <span class="ot">&lt;-</span> DoubleMLIRM<span class="sc">$</span><span class="fu">new</span>(dml_data, ml_g, ml_m, <span class="at">score =</span> <span class="st">"ATTE"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>dml_irm_att<span class="sc">$</span><span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>INFO  [16:03:48.177] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 1/5)
+INFO  [16:03:48.292] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 2/5)
+INFO  [16:03:48.408] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 3/5)
+INFO  [16:03:48.523] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 4/5)
+INFO  [16:03:48.638] [mlr3] Applying learner 'classif.ranger' on task 'nuis_m' (iter 5/5)
+INFO  [16:03:49.478] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 1/5)
+INFO  [16:03:49.556] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 2/5)
+INFO  [16:03:49.637] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 3/5)
+INFO  [16:03:49.712] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 4/5)
+INFO  [16:03:49.786] [mlr3] Applying learner 'regr.ranger' on task 'nuis_g0' (iter 5/5)</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dml_irm_att<span class="sc">$</span><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimates and significance testing of the effect of target variables
+  Estimate. Std. Error t value Pr(&gt;|t|)    
+D    1.2630     0.2344   5.388 7.12e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>For heterogeneous treatment effects, the <code>grf</code> package <span class="citation" data-cites="athey2019grf">(<a href="#ref-athey2019grf" role="doc-biblioref">Athey, Tibshirani, and Wager 2019b</a>)</span> provides causal forests that can be used to estimate conditional average treatment effects (CATE). The two approaches are complementary: <code>DoubleML</code> targets well-defined summary parameters (ATE, ATT) with valid inference, while <code>grf</code> explores treatment effect heterogeneity across the covariate space.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Further Reading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> — The foundational DML paper, covering theory, cross-fitting, and Neyman-orthogonal scores.</li>
+<li><span class="citation" data-cites="chernozhukov2024applied">Chernozhukov et al. (<a href="#ref-chernozhukov2024applied" role="doc-biblioref">2024</a>)</span> — <em>Applied Causal Inference Powered by ML and AI</em>, a recent textbook-length guide to DML and related methods with worked examples.</li>
+<li><span class="citation" data-cites="bach2024doubleml">Bach et al. (<a href="#ref-bach2024doubleml" role="doc-biblioref">2024</a>)</span> — Documentation and vignettes for the <code>DoubleML</code> R package.</li>
+<li><span class="citation" data-cites="athey2019grf">Athey, Tibshirani, and Wager (<a href="#ref-athey2019grf" role="doc-biblioref">2019b</a>)</span> — The <code>grf</code> package for causal forests, heterogeneous treatment effects, and policy learning.</li>
+<li><span class="citation" data-cites="rosenbaum1983">Rosenbaum and Rubin (<a href="#ref-rosenbaum1983" role="doc-biblioref">1983</a>)</span> — The original formulation of unconfoundedness and the propensity score.</li>
+<li><span class="citation" data-cites="imbens2015">Imbens and Rubin (<a href="#ref-imbens2015" role="doc-biblioref">2015</a>)</span> — Textbook treatment of causal inference under unconfoundedness.</li>
+</ul>
+</div>
+</div>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-athey2019" class="csl-entry" role="listitem">
+Athey, Susan, Julie Tibshirani, and Stefan Wager. 2019a. <span>“<span class="nocase">Generalized random forests</span>.”</span> <em>The Annals of Statistics</em> 47 (2): 1148–78. <a href="https://doi.org/10.1214/18-AOS1709">https://doi.org/10.1214/18-AOS1709</a>.
+</div>
+<div id="ref-athey2019grf" class="csl-entry" role="listitem">
+———. 2019b. <span>“Generalized Random Forests.”</span> <em>Annals of Statistics</em> 47 (2): 1148–78.
+</div>
+<div id="ref-bach2024doubleml" class="csl-entry" role="listitem">
+Bach, Philipp, Victor Chernozhukov, Malte S Kurz, and Martin Spindler. 2024. <span>“<span>DoubleML</span>: An Object-Oriented Implementation of Double Machine Learning in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 108 (3): 1–56.
+</div>
+<div id="ref-breiman2001" class="csl-entry" role="listitem">
+Breiman, Leo. 2001. <span>“Random Forests.”</span> <em>Machine Learning</em> 45 (1): 5–32. <a href="https://doi.org/10.1023/A:1010933404324">https://doi.org/10.1023/A:1010933404324</a>.
+</div>
+<div id="ref-chernozhukov2018double" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Denis Chetverikov, Mert Demirer, Esther Duflo, Christian Hansen, Whitney Newey, and James Robins. 2018. <span>“Double/Debiased Machine Learning for Treatment and Structural Parameters.”</span> Oxford University Press Oxford, UK.
+</div>
+<div id="ref-chernozhukov2024applied" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Christian Hansen, Nathan Kallus, Martin Spindler, and Vasilis Syrgkanis. 2024. <em>Applied Causal Inference Powered by ML and AI</em>. Online textbook.
+</div>
+<div id="ref-hansen2022" class="csl-entry" role="listitem">
+Hansen, Bruce. 2022. <em>Econometrics</em>. Princeton: Princeton University Press.
+</div>
+<div id="ref-imbens2015" class="csl-entry" role="listitem">
+Imbens, Guido W., and Donald B. Rubin. 2015. <em>Causal Inference in Statistics, Social, and Biomedical Sciences</em>. Cambridge University Press.
+</div>
+<div id="ref-krzywinski2017" class="csl-entry" role="listitem">
+Krzywinski, Martin, and Naomi Altman. 2017. <span>“Classification and Regression Trees.”</span> <em>Nature Methods</em> 14 (8): 757–58. <a href="https://doi.org/10.1038/nmeth.4370">https://doi.org/10.1038/nmeth.4370</a>.
+</div>
+<div id="ref-rosenbaum1983" class="csl-entry" role="listitem">
+Rosenbaum, Paul R., and Donald B. Rubin. 1983. <span>“<span class="nocase">The central role of the propensity score in observational studies for causal effects</span>.”</span> <em>Biometrika</em> 70 (1): 41–55. <a href="https://doi.org/10.1093/biomet/70.1.41">https://doi.org/10.1093/biomet/70.1.41</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./08-did-event-studies.html" class="pagination-link" aria-label="Difference in Differences and Event Study">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Difference in Differences and Event Study</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./10-dml-theory.html" class="pagination-link" aria-label="Double/Debiased Machine Learning (DML)">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb27" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Propensity Score and Double Machine Learning Identification: an application</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>Double Machine Learning </span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>@chernozhukov2018double one can, under</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>unconfoundedness @rosenbaum1983, identify</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>the average treatment effect (ATE) and the average treatment effect on the</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>treated (ATT) for the whole sample population. In the sections below, I</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>follow @imbens2015's exposition on the topic.</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>I first present the unconfoundedness</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>assumption and break it down by introducing the required definitions.</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>Before delving into the technical part, stating the key idea concisely</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>can be helpful. Legal Aid decides on aid allocation based on the information</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>contained in a form. All this information is included in my dataset.</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>The allocation of aid follows sharp rules only partly, as more loose</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>principles play an important role via discretion.</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>My claim is that the flexibility of double machine learning with random</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>forests allows me to credibly recover the treatment assignment function and</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>hence identify both ATE and ATT while addressing the two main threats</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>to identification. First, such flexibility effectively tackles</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>potential bias due to functional-form misspecification.</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>Second, the complete access to</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>the form data greatly reduces omitted variable bias concerns.</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Unconfoundedness</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>Unconfoundedness, referred to as *strongly ignorable* treatment</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    assignment in the original @rosenbaum1983 article, characterises</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>assignments mechanisms that (i) do not depend on potential outcomes, (ii) are</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>probabilistic—no unit is assigned to treatment or control with</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>probability one—and (iii) are individualistic.</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>I break down this definition in the paragraphs below. Notice that</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>after I introduce an assumption, I will hold it as true when</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>introducing the following ones.</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>Moreover, I make a notation change and indicate</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>matrices and column vectors in bold as in @imbens2015.</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>This makes the exposition clearer</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>in some passages.</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>An *assignment mechanism* is a row-exchangeable function</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>$\operatorname{Pr}(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1))$</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>which returns values in the interval $<span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$ and satisfies</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>    \sum_{\mathbf{D} \in<span class="sc">\{</span>0,1<span class="sc">\}</span>^N}</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>    \operatorname{Pr}(</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>    \mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1)</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a>    ) = 1,</span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>for all $\mathbf{X}, \mathbf{Y}(0)$, and $\mathbf{Y}(1)$.</span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>The set $\mathbb{D}=<span class="sc">\{</span>0,1<span class="sc">\}</span>^N$ is the set of all vectors of length N in which</span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>each element is equal to either 0 or 1, where *N* is the given (finite)</span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>population size. $\mathbf{Y}(0)$ and $\mathbf{Y}(1)$ are also N-vectors, while</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>$\mathbf{X}$ is a $N \times K$ matrix of covariates.</span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>Here, $\mathbf{X}$ is made of $N$ *row* vectors $X_i$,</span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>each $X_i$ including all the $K$ covariates of unit $i$.</span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>Row-exchangeable means that it does not matter how one orders the elements</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>within a vector or matrix.</span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a>Notice that the bold notation here indicates vectors (or matrices in the</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>$\mathbf{X}$ case), so that</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>$\operatorname{Pr}(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1))$</span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>is the probability that a given treatment assignment vector $\mathbf{D}$</span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>occurs, where each $\mathbf{D}$ specifies the treatment status of each unit</span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a>in *N*. Such assignment vectors, $2^{N}$ in total, are assumed to</span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>sum up to one.</span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>While in this general definition treatment assignment is allowed to</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>depend on the potential outcomes, this is not true under unconfoundedness.</span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>Unconfoundedness requires that the assignment mechanism</span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>is *independent of the potential outcomes*:</span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a>    \operatorname{Pr}(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1))=\operatorname{Pr}\left(\mathbf{D} \mid \mathbf{X}, \mathbf{Y}^{\prime}(0), \mathbf{Y}^{\prime}(1)\right)</span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a>for all $\mathbf{D}, \mathbf{X}, \mathbf{Y}(0), \mathbf{Y}(1),</span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>    \mathbf{Y}^{\prime}(0)$, and $\mathbf{Y}^{\prime}(1)$,</span>
+<span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a>which allows to drop the potential outcomes from the assignment mechanism</span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>notation, now written as $\operatorname{Pr}(\mathbf{D} \mid \mathbf{X})$.</span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a>This is the first of three assumptions embedded into the unconfoundedness</span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a>concept.</span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a>Now, we can define the probability $p_i$ that unit $i$ is assigned to</span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a>treatment as</span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a>    p_i(\mathbf{X}) =</span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a>    \sum_{\mathbf{W}: D_i=1}</span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a>    \operatorname{Pr}(\mathbf{D} \mid \mathbf{X})</span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a>meaning that one can find the assignment probability of a unit by calculating</span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a>the share of assignment vectors $\mathbf{D}$ where it is assigned to treatment.</span>
+<span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a>Notice that in the present application, the $\mathbf{X}$ matrix</span>
+<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a>(exclusively) includes</span>
+<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a>the information contained in the Legal Aid application form.</span>
+<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a>Then, taking the average probability of being assigned to treatment for</span>
+<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a>units with covariates $X_i = x$, one can find the *propensity score*.</span>
+<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a>Formally,</span>
+<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-98"><a href="#cb27-98" aria-hidden="true" tabindex="-1"></a>    e(x)=\frac{1}{N(x)} \sum_{i=1}^{N} p_i(\mathbf{X})</span>
+<span id="cb27-99"><a href="#cb27-99" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-100"><a href="#cb27-100" aria-hidden="true" tabindex="-1"></a>where $N(x)=\sum_{i=1}^{N} \left<span class="sc">\{</span> \mathbf{1}_{X_i=x} \right<span class="sc">\}</span>$ counts</span>
+<span id="cb27-101"><a href="#cb27-101" aria-hidden="true" tabindex="-1"></a>the number of units that have $X_i=x$. If $N(x)=0$ for some $x$,</span>
+<span id="cb27-102"><a href="#cb27-102" aria-hidden="true" tabindex="-1"></a>the propensity score is defined to be zero at that $x$.</span>
+<span id="cb27-103"><a href="#cb27-103" aria-hidden="true" tabindex="-1"></a>We can now go back to presenting the second and third</span>
+<span id="cb27-104"><a href="#cb27-104" aria-hidden="true" tabindex="-1"></a>elements of unconfoundedness assumption.</span>
+<span id="cb27-105"><a href="#cb27-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-106"><a href="#cb27-106" aria-hidden="true" tabindex="-1"></a>The second assumption is that the assignment mechanism is</span>
+<span id="cb27-107"><a href="#cb27-107" aria-hidden="true" tabindex="-1"></a>*individualistic*, i.e. it is such that,</span>
+<span id="cb27-108"><a href="#cb27-108" aria-hidden="true" tabindex="-1"></a>for some function $q(\cdot) \in<span class="co">[</span><span class="ot">0,1</span><span class="co">]</span>$,</span>
+<span id="cb27-109"><a href="#cb27-109" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-110"><a href="#cb27-110" aria-hidden="true" tabindex="-1"></a>    p_i(\mathbf{X})</span>
+<span id="cb27-111"><a href="#cb27-111" aria-hidden="true" tabindex="-1"></a>    = q\left(X_i\right), \text{ for all }i=1, \ldots, N,</span>
+<span id="cb27-112"><a href="#cb27-112" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-113"><a href="#cb27-113" aria-hidden="true" tabindex="-1"></a>and</span>
+<span id="cb27-114"><a href="#cb27-114" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-115"><a href="#cb27-115" aria-hidden="true" tabindex="-1"></a>    \operatorname{Pr}(\mathbf{D} \mid \mathbf{X})</span>
+<span id="cb27-116"><a href="#cb27-116" aria-hidden="true" tabindex="-1"></a>    = c \cdot \prod_{i=1}^N q\left(X_i\right)^{D_i}</span>
+<span id="cb27-117"><a href="#cb27-117" aria-hidden="true" tabindex="-1"></a>    \left(1-q\left(X_i\right)\right)^{1-D_i}</span>
+<span id="cb27-118"><a href="#cb27-118" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-119"><a href="#cb27-119" aria-hidden="true" tabindex="-1"></a>for $(\mathbf{D}, \mathbf{X}) \in \mathbb{A}$,</span>
+<span id="cb27-120"><a href="#cb27-120" aria-hidden="true" tabindex="-1"></a>for some set $\mathbb{A}$, and zero elsewhere, where constant $c$</span>
+<span id="cb27-121"><a href="#cb27-121" aria-hidden="true" tabindex="-1"></a>is such that the probabilities sum up to one.</span>
+<span id="cb27-122"><a href="#cb27-122" aria-hidden="true" tabindex="-1"></a>Hence, individualistic assignment allows to simplify the propensity score to:</span>
+<span id="cb27-123"><a href="#cb27-123" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-124"><a href="#cb27-124" aria-hidden="true" tabindex="-1"></a>    e(x)=\frac{1}{N(x)} \sum_{i: X_i=x} q\left(X_i\right)</span>
+<span id="cb27-125"><a href="#cb27-125" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-126"><a href="#cb27-126" aria-hidden="true" tabindex="-1"></a>or, in short,</span>
+<span id="cb27-127"><a href="#cb27-127" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-128"><a href="#cb27-128" aria-hidden="true" tabindex="-1"></a>    e(x)=q\left(x\right)</span>
+<span id="cb27-129"><a href="#cb27-129" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-130"><a href="#cb27-130" aria-hidden="true" tabindex="-1"></a>implying (a) that the assignment probability of each unit $i$ is not allowed</span>
+<span id="cb27-131"><a href="#cb27-131" aria-hidden="true" tabindex="-1"></a>to depend on the covariate values of other units—</span>
+<span id="cb27-132"><a href="#cb27-132" aria-hidden="true" tabindex="-1"></a>but only on its own—and (b) that $q(.)$ now only depends on $X_i$,</span>
+<span id="cb27-133"><a href="#cb27-133" aria-hidden="true" tabindex="-1"></a>making it equal to propensity score $e(x)$. Finally, notice that</span>
+<span id="cb27-134"><a href="#cb27-134" aria-hidden="true" tabindex="-1"></a>the independence from</span>
+<span id="cb27-135"><a href="#cb27-135" aria-hidden="true" tabindex="-1"></a>potential outcomes combined with the probabilistic assignment assumption implies</span>
+<span id="cb27-136"><a href="#cb27-136" aria-hidden="true" tabindex="-1"></a>that the propensity score can be interpreted as the unit-level assignment</span>
+<span id="cb27-137"><a href="#cb27-137" aria-hidden="true" tabindex="-1"></a>probability, rather than the average probability of assignment for units with</span>
+<span id="cb27-138"><a href="#cb27-138" aria-hidden="true" tabindex="-1"></a>$X_i = x$.</span>
+<span id="cb27-139"><a href="#cb27-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-140"><a href="#cb27-140" aria-hidden="true" tabindex="-1"></a>Third, an assignment mechanism said to be *probabilistic* if each unit</span>
+<span id="cb27-141"><a href="#cb27-141" aria-hidden="true" tabindex="-1"></a>is assigned to treatment with probability</span>
+<span id="cb27-142"><a href="#cb27-142" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-143"><a href="#cb27-143" aria-hidden="true" tabindex="-1"></a>    0&lt;p_i(X_i)&lt;1 \text{, for each possible }</span>
+<span id="cb27-144"><a href="#cb27-144" aria-hidden="true" tabindex="-1"></a>    X_i\text{ for all }i=1, \ldots, N</span>
+<span id="cb27-145"><a href="#cb27-145" aria-hidden="true" tabindex="-1"></a>$$,</span>
+<span id="cb27-146"><a href="#cb27-146" aria-hidden="true" tabindex="-1"></a>so that no unit is treated or not treated with certainty. This is also</span>
+<span id="cb27-147"><a href="#cb27-147" aria-hidden="true" tabindex="-1"></a>called the *overlap* or *common support* assumption.</span>
+<span id="cb27-148"><a href="#cb27-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-149"><a href="#cb27-149" aria-hidden="true" tabindex="-1"></a>In sum, unconfoundedness imposes that the treatment is assigned to each $i$</span>
+<span id="cb27-150"><a href="#cb27-150" aria-hidden="true" tabindex="-1"></a>independently of the characteristics and potential outcomes of the other units,</span>
+<span id="cb27-151"><a href="#cb27-151" aria-hidden="true" tabindex="-1"></a>as well as the potential outcomes of $i$ itself. Violations of the former imply,</span>
+<span id="cb27-152"><a href="#cb27-152" aria-hidden="true" tabindex="-1"></a>among other things, network/spillover effects, while violations</span>
+<span id="cb27-153"><a href="#cb27-153" aria-hidden="true" tabindex="-1"></a>of the latter imply selection into treatment.</span>
+<span id="cb27-154"><a href="#cb27-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-155"><a href="#cb27-155" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interactive Regression Model</span></span>
+<span id="cb27-156"><a href="#cb27-156" aria-hidden="true" tabindex="-1"></a>@chernozhukov2018double applies the general DML theory to four different models, two</span>
+<span id="cb27-157"><a href="#cb27-157" aria-hidden="true" tabindex="-1"></a>of which use instrumental variables. Both of the remaining two models can be</span>
+<span id="cb27-158"><a href="#cb27-158" aria-hidden="true" tabindex="-1"></a>used in the present application: the Partially Linear Regression Model (PLR)</span>
+<span id="cb27-159"><a href="#cb27-159" aria-hidden="true" tabindex="-1"></a>and the Interactive Regression Model (IRM).</span>
+<span id="cb27-160"><a href="#cb27-160" aria-hidden="true" tabindex="-1"></a>I focus on the IRM as (i) it subsumes PLR as a special case, and (ii) it</span>
+<span id="cb27-161"><a href="#cb27-161" aria-hidden="true" tabindex="-1"></a>implies estimating a propensity score, which is useful to help unpacking</span>
+<span id="cb27-162"><a href="#cb27-162" aria-hidden="true" tabindex="-1"></a>and interpreting the results. The only advantage of PLR and IRM is efficiency</span>
+<span id="cb27-163"><a href="#cb27-163" aria-hidden="true" tabindex="-1"></a>and this is not a concern in the present application.</span>
+<span id="cb27-164"><a href="#cb27-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-165"><a href="#cb27-165" aria-hidden="true" tabindex="-1"></a>The Interactive Regression Model allows to estimate average treatment</span>
+<span id="cb27-166"><a href="#cb27-166" aria-hidden="true" tabindex="-1"></a>effects allowing for fully heterogeneous treatment effects, given a binary</span>
+<span id="cb27-167"><a href="#cb27-167" aria-hidden="true" tabindex="-1"></a>treatment variable. Fully heterogeneous means that each of the two</span>
+<span id="cb27-168"><a href="#cb27-168" aria-hidden="true" tabindex="-1"></a>response curves—the potential outcomes as a function of $\mathbf{X}$—is </span>
+<span id="cb27-169"><a href="#cb27-169" aria-hidden="true" tabindex="-1"></a>allowed to be a different nonparametric function.</span>
+<span id="cb27-170"><a href="#cb27-170" aria-hidden="true" tabindex="-1"></a>Vectors $\mathbf{Y}$ and $\mathbf{D}$ are modelled such that</span>
+<span id="cb27-171"><a href="#cb27-171" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-172"><a href="#cb27-172" aria-hidden="true" tabindex="-1"></a>\mathbf{Y} = g_0(\mathbf{D}, \mathbf{X}) + \mathbf{U}, \quad \mathbb{E}(\mathbf{U} \mid \mathbf{X}, \mathbf{D}) = \mathbf{0},</span>
+<span id="cb27-173"><a href="#cb27-173" aria-hidden="true" tabindex="-1"></a>$$ {#eq-dml_y}</span>
+<span id="cb27-174"><a href="#cb27-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-175"><a href="#cb27-175" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-176"><a href="#cb27-176" aria-hidden="true" tabindex="-1"></a>\mathbf{D} = m_0(\mathbf{X}) + \mathbf{V}, \quad \mathbb{E}(\mathbf{V} \mid \mathbf{X}) = \mathbf{0}.</span>
+<span id="cb27-177"><a href="#cb27-177" aria-hidden="true" tabindex="-1"></a>$$ {#eq-dml_d}</span>
+<span id="cb27-178"><a href="#cb27-178" aria-hidden="true" tabindex="-1"></a>This model allows me to estimate not only the ATE, here written as:</span>
+<span id="cb27-179"><a href="#cb27-179" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-180"><a href="#cb27-180" aria-hidden="true" tabindex="-1"></a>    \tau_{ATE}=\mathbb{E}\left<span class="co">[</span><span class="ot">g_0(\mathbf{1}, \mathbf{X})-g_0(\mathbf{0}, \mathbf{X})\right</span><span class="co">]</span></span>
+<span id="cb27-181"><a href="#cb27-181" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-182"><a href="#cb27-182" aria-hidden="true" tabindex="-1"></a>but also the ATT:</span>
+<span id="cb27-183"><a href="#cb27-183" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-184"><a href="#cb27-184" aria-hidden="true" tabindex="-1"></a>    \tau_{ATT}=\mathbb{E}\left<span class="co">[</span><span class="ot">g_0(\mathbf{1}, \mathbf{X}) - g_0(\mathbf{0}, \mathbf{X}) \mid \mathbf{D}=\mathbf{1}\right</span><span class="co">]</span> .</span>
+<span id="cb27-185"><a href="#cb27-185" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-186"><a href="#cb27-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-187"><a href="#cb27-187" aria-hidden="true" tabindex="-1"></a>Variables $\mathbf{X}$ are allowed to affect both the outcome $\mathbf{Y}$ and</span>
+<span id="cb27-188"><a href="#cb27-188" aria-hidden="true" tabindex="-1"></a>the treatment $\mathbf{D}$, each via a different function—</span>
+<span id="cb27-189"><a href="#cb27-189" aria-hidden="true" tabindex="-1"></a>$m_0(\mathbf{X})$ and $g_0(\mathbf{X})$, respectively.</span>
+<span id="cb27-190"><a href="#cb27-190" aria-hidden="true" tabindex="-1"></a>In particular, $m_0(\mathbf{X})$ is the propensity score and as such, its</span>
+<span id="cb27-191"><a href="#cb27-191" aria-hidden="true" tabindex="-1"></a>estimate can be inspected and used to test assumptions such as overlap.</span>
+<span id="cb27-192"><a href="#cb27-192" aria-hidden="true" tabindex="-1"></a>This can help dissipate the black-box-type concerns typical of ML applications.</span>
+<span id="cb27-193"><a href="#cb27-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-194"><a href="#cb27-194" aria-hidden="true" tabindex="-1"></a>Moreover, both $m_0(\mathbf{X})$ and $g_0(\mathbf{X})$ are unknown</span>
+<span id="cb27-195"><a href="#cb27-195" aria-hidden="true" tabindex="-1"></a>and likely to be highly non-linear in this application, where the decision</span>
+<span id="cb27-196"><a href="#cb27-196" aria-hidden="true" tabindex="-1"></a>to assign a unit to treatment is made via a mix of sharp rules, loose</span>
+<span id="cb27-197"><a href="#cb27-197" aria-hidden="true" tabindex="-1"></a>principles and discretion. Hence, the benefits of estimating them</span>
+<span id="cb27-198"><a href="#cb27-198" aria-hidden="true" tabindex="-1"></a>flexibly using ML methods—here random forests @athey2019—are</span>
+<span id="cb27-199"><a href="#cb27-199" aria-hidden="true" tabindex="-1"></a>potentially large.</span>
+<span id="cb27-200"><a href="#cb27-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-201"><a href="#cb27-201" aria-hidden="true" tabindex="-1"></a>Another useful property of DML is double robustness, which states that</span>
+<span id="cb27-202"><a href="#cb27-202" aria-hidden="true" tabindex="-1"></a>the estimator is consistent for $\tau_{ATE}$ and $\tau_{ATT}$ as</span>
+<span id="cb27-203"><a href="#cb27-203" aria-hidden="true" tabindex="-1"></a>long as either the outcome model (@eq-dml_y) or the treatment model</span>
+<span id="cb27-204"><a href="#cb27-204" aria-hidden="true" tabindex="-1"></a>(@eq-dml_d) are correctly specified.</span>
+<span id="cb27-205"><a href="#cb27-205" aria-hidden="true" tabindex="-1"></a>In the present application, the emphasis is put on the correct</span>
+<span id="cb27-206"><a href="#cb27-206" aria-hidden="true" tabindex="-1"></a>specification of the treatment model,</span>
+<span id="cb27-207"><a href="#cb27-207" aria-hidden="true" tabindex="-1"></a>as all the variables used to assign treatment are observed and included</span>
+<span id="cb27-208"><a href="#cb27-208" aria-hidden="true" tabindex="-1"></a>(see the <span class="co">[</span><span class="ot">Identification</span><span class="co">](#identification)</span> Section).</span>
+<span id="cb27-209"><a href="#cb27-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-210"><a href="#cb27-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Forests</span></span>
+<span id="cb27-211"><a href="#cb27-211" aria-hidden="true" tabindex="-1"></a>This section briefly introduces random forests and regression trees, on which</span>
+<span id="cb27-212"><a href="#cb27-212" aria-hidden="true" tabindex="-1"></a>random forests are based. They are introduced as DML requires choosing</span>
+<span id="cb27-213"><a href="#cb27-213" aria-hidden="true" tabindex="-1"></a>an ML method and I use random forests in the present application.</span>
+<span id="cb27-214"><a href="#cb27-214" aria-hidden="true" tabindex="-1"></a>For an econometrics textbook introduction, see @hansen2022</span>
+<span id="cb27-215"><a href="#cb27-215" aria-hidden="true" tabindex="-1"></a>(which I follow closely), while for a more general-audience introduction,</span>
+<span id="cb27-216"><a href="#cb27-216" aria-hidden="true" tabindex="-1"></a>see @krzywinski2017.</span>
+<span id="cb27-217"><a href="#cb27-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-218"><a href="#cb27-218" aria-hidden="true" tabindex="-1"></a>A regression tree is a nonparametric regression that relies on many step</span>
+<span id="cb27-219"><a href="#cb27-219" aria-hidden="true" tabindex="-1"></a>functions</span>
+<span id="cb27-220"><a href="#cb27-220" aria-hidden="true" tabindex="-1"></a>to approximate an unknown conditional expectation function.</span>
+<span id="cb27-221"><a href="#cb27-221" aria-hidden="true" tabindex="-1"></a>More formally, regression trees aim at estimating</span>
+<span id="cb27-222"><a href="#cb27-222" aria-hidden="true" tabindex="-1"></a>$m(x)=\mathbb{E}<span class="co">[</span><span class="ot">y_i \mid \mathbf{X_k}=x</span><span class="co">]</span>$ for each  scalar $y_i \in \mathbf{Y}$</span>
+<span id="cb27-223"><a href="#cb27-223" aria-hidden="true" tabindex="-1"></a>and vector $\mathbf{X_k} \in \mathbf{X}$, the $N \times K$ matrix of covariates.</span>
+<span id="cb27-224"><a href="#cb27-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-225"><a href="#cb27-225" aria-hidden="true" tabindex="-1"></a>The first step is to ``grow the tree''. This involves sequentially</span>
+<span id="cb27-226"><a href="#cb27-226" aria-hidden="true" tabindex="-1"></a>partitioning, or splitting, the sample into increasingly small subsamples,</span>
+<span id="cb27-227"><a href="#cb27-227" aria-hidden="true" tabindex="-1"></a>or *branches*.</span>
+<span id="cb27-228"><a href="#cb27-228" aria-hidden="true" tabindex="-1"></a>The sample is split sequentially and at least once per each covariate</span>
+<span id="cb27-229"><a href="#cb27-229" aria-hidden="true" tabindex="-1"></a>$\mathbf{X_k}$. At each iteration, the algorithm selects a covariate and</span>
+<span id="cb27-230"><a href="#cb27-230" aria-hidden="true" tabindex="-1"></a>estimates a threshold for that covariate, which will determine how the sample is</span>
+<span id="cb27-231"><a href="#cb27-231" aria-hidden="true" tabindex="-1"></a>split. The algorithm's goal is to generate subsamples that</span>
+<span id="cb27-232"><a href="#cb27-232" aria-hidden="true" tabindex="-1"></a>are maximally homogeneous in $\mathbf{Y}$ and heterogeneous across each other.</span>
+<span id="cb27-233"><a href="#cb27-233" aria-hidden="true" tabindex="-1"></a>In an example where $\mathbf{Y}$ is a categorical variable with three values,</span>
+<span id="cb27-234"><a href="#cb27-234" aria-hidden="true" tabindex="-1"></a>each subsample is generated so to included as many observation as possible of a</span>
+<span id="cb27-235"><a href="#cb27-235" aria-hidden="true" tabindex="-1"></a>given category while including as little observations as possible of</span>
+<span id="cb27-236"><a href="#cb27-236" aria-hidden="true" tabindex="-1"></a>the other categories.</span>
+<span id="cb27-237"><a href="#cb27-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-238"><a href="#cb27-238" aria-hidden="true" tabindex="-1"></a>More formally,</span>
+<span id="cb27-239"><a href="#cb27-239" aria-hidden="true" tabindex="-1"></a>the splits are determined by estimating the following model using non-linear</span>
+<span id="cb27-240"><a href="#cb27-240" aria-hidden="true" tabindex="-1"></a>least squares:</span>
+<span id="cb27-241"><a href="#cb27-241" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-242"><a href="#cb27-242" aria-hidden="true" tabindex="-1"></a>    \begin{aligned}</span>
+<span id="cb27-243"><a href="#cb27-243" aria-hidden="true" tabindex="-1"></a>        \mathbf{Y}                             &amp; =\mu_1 \mathbf{1}\left<span class="sc">\{</span>\mathbf{X}_k \leq \gamma\right<span class="sc">\}</span>+\mu_2 \mathbf{1}\left<span class="sc">\{</span>\mathbf{X}_k&gt;\gamma\right<span class="sc">\}</span>+\mathbf{e} <span class="sc">\\</span></span>
+<span id="cb27-244"><a href="#cb27-244" aria-hidden="true" tabindex="-1"></a>        \mathbb{E}<span class="co">[</span><span class="ot">\mathbf{e} \mid \mathbf{X}</span><span class="co">]</span> &amp; =0</span>
+<span id="cb27-245"><a href="#cb27-245" aria-hidden="true" tabindex="-1"></a>    \end{aligned}</span>
+<span id="cb27-246"><a href="#cb27-246" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb27-247"><a href="#cb27-247" aria-hidden="true" tabindex="-1"></a>where covariate index $k$ and parameter $\gamma$ are free parameters—the </span>
+<span id="cb27-248"><a href="#cb27-248" aria-hidden="true" tabindex="-1"></a>latter setting the threshold of the covariate at which the split occurs.</span>
+<span id="cb27-249"><a href="#cb27-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-250"><a href="#cb27-250" aria-hidden="true" tabindex="-1"></a>This initial procedure leads to a large tree with small estimation bias and</span>
+<span id="cb27-251"><a href="#cb27-251" aria-hidden="true" tabindex="-1"></a>high overfitting. Overfitting is then addressed by the second step, the</span>
+<span id="cb27-252"><a href="#cb27-252" aria-hidden="true" tabindex="-1"></a>*pruning* step, where the number of subsamples is reduced based on</span>
+<span id="cb27-253"><a href="#cb27-253" aria-hidden="true" tabindex="-1"></a>an information criterion.</span>
+<span id="cb27-254"><a href="#cb27-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-255"><a href="#cb27-255" aria-hidden="true" tabindex="-1"></a>Regression trees are not very good at approximating smooth functions and are</span>
+<span id="cb27-256"><a href="#cb27-256" aria-hidden="true" tabindex="-1"></a>sensitive to small changes in the data. These issues are addressed</span>
+<span id="cb27-257"><a href="#cb27-257" aria-hidden="true" tabindex="-1"></a>by random forests, which have the further advantage of performing better</span>
+<span id="cb27-258"><a href="#cb27-258" aria-hidden="true" tabindex="-1"></a>out-of-sample.</span>
+<span id="cb27-259"><a href="#cb27-259" aria-hidden="true" tabindex="-1"></a>Random forests, introduced by @breiman2001,</span>
+<span id="cb27-260"><a href="#cb27-260" aria-hidden="true" tabindex="-1"></a>work by model averaging, or *ensembling*, many different</span>
+<span id="cb27-261"><a href="#cb27-261" aria-hidden="true" tabindex="-1"></a>regression trees. Such trees are constructed by using random subsamples</span>
+<span id="cb27-262"><a href="#cb27-262" aria-hidden="true" tabindex="-1"></a>of the data and of the covariates—a form of bootstrapping.</span>
+<span id="cb27-263"><a href="#cb27-263" aria-hidden="true" tabindex="-1"></a>The use of random subset of covariates is warranted because it</span>
+<span id="cb27-264"><a href="#cb27-264" aria-hidden="true" tabindex="-1"></a>removes the correlation between the bootstrapped regression trees, thus</span>
+<span id="cb27-265"><a href="#cb27-265" aria-hidden="true" tabindex="-1"></a>decreasing the variance of the bootstrapped conditional mean, $m(x)$.</span>
+<span id="cb27-266"><a href="#cb27-266" aria-hidden="true" tabindex="-1"></a>Notice that both regression trees and random forests, like most ML methods,</span>
+<span id="cb27-267"><a href="#cb27-267" aria-hidden="true" tabindex="-1"></a>aim at predicting rather than estimating. The insight of DML is that</span>
+<span id="cb27-268"><a href="#cb27-268" aria-hidden="true" tabindex="-1"></a>by using such prediction algorithms once on the outcome model and once on the</span>
+<span id="cb27-269"><a href="#cb27-269" aria-hidden="true" tabindex="-1"></a>treatment model we can consistently estimate treatment effects.</span>
+<span id="cb27-270"><a href="#cb27-270" aria-hidden="true" tabindex="-1"></a>An important role is also played by (i) a procedure called</span>
+<span id="cb27-271"><a href="#cb27-271" aria-hidden="true" tabindex="-1"></a>*cross-fitting* and (ii) the use of</span>
+<span id="cb27-272"><a href="#cb27-272" aria-hidden="true" tabindex="-1"></a>Neyman-orthogonal moments, the combination of which removes the</span>
+<span id="cb27-273"><a href="#cb27-273" aria-hidden="true" tabindex="-1"></a>regularisation bias and overfitting that otherwise make ML estimators unhelpful</span>
+<span id="cb27-274"><a href="#cb27-274" aria-hidden="true" tabindex="-1"></a>in estimation settings.</span>
+<span id="cb27-275"><a href="#cb27-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-276"><a href="#cb27-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-277"><a href="#cb27-277" aria-hidden="true" tabindex="-1"></a><span class="fu">## Identification</span></span>
+<span id="cb27-278"><a href="#cb27-278" aria-hidden="true" tabindex="-1"></a>While comparing randomised control trials and observational studies,</span>
+<span id="cb27-279"><a href="#cb27-279" aria-hidden="true" tabindex="-1"></a>@rosenbaum1983 note: ``<span class="co">[</span><span class="ot">...</span><span class="co">]</span> in a randomized trial,</span>
+<span id="cb27-280"><a href="#cb27-280" aria-hidden="true" tabindex="-1"></a>x <span class="co">[</span><span class="ot">in $e(x)$</span><span class="co">]</span> is known to include all covariates that</span>
+<span id="cb27-281"><a href="#cb27-281" aria-hidden="true" tabindex="-1"></a>are both used to assign treatments and possibly related to the [potential</span>
+<span id="cb27-282"><a href="#cb27-282" aria-hidden="true" tabindex="-1"></a>        outcomes]. This condition is usually not known to hold in a</span>
+<span id="cb27-283"><a href="#cb27-283" aria-hidden="true" tabindex="-1"></a>nonrandomized experiment <span class="co">[</span><span class="ot">i.e. observational studies</span><span class="co">]</span>''.</span>
+<span id="cb27-284"><a href="#cb27-284" aria-hidden="true" tabindex="-1"></a>The other difference that they point out is that</span>
+<span id="cb27-285"><a href="#cb27-285" aria-hidden="true" tabindex="-1"></a>in RCTs the propensity is a known function while in observational studies it</span>
+<span id="cb27-286"><a href="#cb27-286" aria-hidden="true" tabindex="-1"></a>needs to be estimated.</span>
+<span id="cb27-287"><a href="#cb27-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-288"><a href="#cb27-288" aria-hidden="true" tabindex="-1"></a>However, thanks to rich administrative data and a DML approach, I am able to</span>
+<span id="cb27-289"><a href="#cb27-289" aria-hidden="true" tabindex="-1"></a>credibly fill the gap between RCTs and observational studies. On the</span>
+<span id="cb27-290"><a href="#cb27-290" aria-hidden="true" tabindex="-1"></a>one hand, my dataset includes all the variables used to determine assignment to</span>
+<span id="cb27-291"><a href="#cb27-291" aria-hidden="true" tabindex="-1"></a>treatment (and which likely affects outcomes too).</span>
+<span id="cb27-292"><a href="#cb27-292" aria-hidden="true" tabindex="-1"></a>They codify all the information an applicant has to write down</span>
+<span id="cb27-293"><a href="#cb27-293" aria-hidden="true" tabindex="-1"></a>in the Legal Aid application form. On the other hand, the Random Forests</span>
+<span id="cb27-294"><a href="#cb27-294" aria-hidden="true" tabindex="-1"></a>algorithm allows me to flexibly estimate the propensity score without</span>
+<span id="cb27-295"><a href="#cb27-295" aria-hidden="true" tabindex="-1"></a>imposing strong functional form assumptions. The result is likely to be a</span>
+<span id="cb27-296"><a href="#cb27-296" aria-hidden="true" tabindex="-1"></a>good approximation of the true propensity score.</span>
+<span id="cb27-297"><a href="#cb27-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-298"><a href="#cb27-298" aria-hidden="true" tabindex="-1"></a>In other words, studies that rely on propensity score to achieve identification</span>
+<span id="cb27-299"><a href="#cb27-299" aria-hidden="true" tabindex="-1"></a>are vulnerable to omitted variable bias (OVB). This can be either due</span>
+<span id="cb27-300"><a href="#cb27-300" aria-hidden="true" tabindex="-1"></a>to the confounding effect of (i) variables that affect both outcome and</span>
+<span id="cb27-301"><a href="#cb27-301" aria-hidden="true" tabindex="-1"></a>treatment but are not included in the regression(s), and (ii) functional-form</span>
+<span id="cb27-302"><a href="#cb27-302" aria-hidden="true" tabindex="-1"></a>misspecification of $m_0(\mathbf{X})$ and $g_0(\mathbf{X})$.</span>
+<span id="cb27-303"><a href="#cb27-303" aria-hidden="true" tabindex="-1"></a>Point (i) is addressed by the rich dataset, as explained above, while point (ii)</span>
+<span id="cb27-304"><a href="#cb27-304" aria-hidden="true" tabindex="-1"></a>is addressed via the use of random forests—which allow to estimate</span>
+<span id="cb27-305"><a href="#cb27-305" aria-hidden="true" tabindex="-1"></a>functions far more complex than the standard linear additive models.</span>
+<span id="cb27-306"><a href="#cb27-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-307"><a href="#cb27-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-308"><a href="#cb27-308" aria-hidden="true" tabindex="-1"></a><span class="fu">## Implementation with `DoubleML`</span></span>
+<span id="cb27-309"><a href="#cb27-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-312"><a href="#cb27-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-313"><a href="#cb27-313" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ch9-setup</span></span>
+<span id="cb27-314"><a href="#cb27-314" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb27-315"><a href="#cb27-315" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb27-316"><a href="#cb27-316" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb27-317"><a href="#cb27-317" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (pkg <span class="cf">in</span> <span class="fu">c</span>(<span class="st">"DoubleML"</span>, <span class="st">"mlr3"</span>, <span class="st">"mlr3learners"</span>, <span class="st">"ranger"</span>)) {</span>
+<span id="cb27-318"><a href="#cb27-318" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(pkg, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb27-319"><a href="#cb27-319" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(pkg, <span class="at">repos =</span> <span class="st">"https://cloud.r-project.org"</span>, <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-320"><a href="#cb27-320" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb27-321"><a href="#cb27-321" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb27-322"><a href="#cb27-322" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-323"><a href="#cb27-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-324"><a href="#cb27-324" aria-hidden="true" tabindex="-1"></a>The <span class="in">`DoubleML`</span> R package <span class="co">[</span><span class="ot">@bach2024doubleml</span><span class="co">]</span> provides the official implementation of the DML framework introduced by @chernozhukov2018double. Built on the <span class="in">`mlr3`</span> ecosystem, it supports a range of causal models---including the Interactive Regression Model (IRM), the Partially Linear Regression Model (PLR), and their instrumental-variable counterparts---while allowing the user to plug in any machine learning method available in <span class="in">`mlr3learners`</span>. For a comprehensive applied guide to DML and related methods, see @chernozhukov2024applied.</span>
+<span id="cb27-325"><a href="#cb27-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-326"><a href="#cb27-326" aria-hidden="true" tabindex="-1"></a>Before demonstrating the full DML approach, it is useful to see the propensity score at work in a simpler setting. The following code simulates data with selection on observables and estimates the ATE using inverse probability weighting (IPW)---the most direct use of the propensity score for causal inference.</span>
+<span id="cb27-327"><a href="#cb27-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-330"><a href="#cb27-330" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-331"><a href="#cb27-331" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ipw-demo</span></span>
+<span id="cb27-332"><a href="#cb27-332" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb27-333"><a href="#cb27-333" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb27-334"><a href="#cb27-334" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb27-335"><a href="#cb27-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-336"><a href="#cb27-336" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Simple IPW estimator on simulated data ---</span></span>
+<span id="cb27-337"><a href="#cb27-337" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb27-338"><a href="#cb27-338" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb27-339"><a href="#cb27-339" aria-hidden="true" tabindex="-1"></a>X1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb27-340"><a href="#cb27-340" aria-hidden="true" tabindex="-1"></a>X2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb27-341"><a href="#cb27-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-342"><a href="#cb27-342" aria-hidden="true" tabindex="-1"></a><span class="co"># Treatment assignment depends on X1 and X2 (selection on observables)</span></span>
+<span id="cb27-343"><a href="#cb27-343" aria-hidden="true" tabindex="-1"></a>p_true <span class="ot">&lt;-</span> <span class="fu">plogis</span>(<span class="fl">0.8</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> X2)</span>
+<span id="cb27-344"><a href="#cb27-344" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, p_true)</span>
+<span id="cb27-345"><a href="#cb27-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-346"><a href="#cb27-346" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential outcomes: true ATE = 2</span></span>
+<span id="cb27-347"><a href="#cb27-347" aria-hidden="true" tabindex="-1"></a>Y0 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span> <span class="sc">*</span> X1 <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> X2 <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb27-348"><a href="#cb27-348" aria-hidden="true" tabindex="-1"></a>Y1 <span class="ot">&lt;-</span> Y0 <span class="sc">+</span> <span class="dv">2</span></span>
+<span id="cb27-349"><a href="#cb27-349" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(D <span class="sc">==</span> <span class="dv">1</span>, Y1, Y0)</span>
+<span id="cb27-350"><a href="#cb27-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-351"><a href="#cb27-351" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimate propensity score with logistic regression</span></span>
+<span id="cb27-352"><a href="#cb27-352" aria-hidden="true" tabindex="-1"></a>ps_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(D <span class="sc">~</span> X1 <span class="sc">+</span> X2, <span class="at">family =</span> binomial)</span>
+<span id="cb27-353"><a href="#cb27-353" aria-hidden="true" tabindex="-1"></a>e_hat <span class="ot">&lt;-</span> <span class="fu">fitted</span>(ps_model)</span>
+<span id="cb27-354"><a href="#cb27-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-355"><a href="#cb27-355" aria-hidden="true" tabindex="-1"></a><span class="co"># Horvitz-Thompson IPW estimator for the ATE</span></span>
+<span id="cb27-356"><a href="#cb27-356" aria-hidden="true" tabindex="-1"></a>tau_ipw <span class="ot">&lt;-</span> <span class="fu">mean</span>(D <span class="sc">*</span> Y <span class="sc">/</span> e_hat) <span class="sc">-</span> <span class="fu">mean</span>((<span class="dv">1</span> <span class="sc">-</span> D) <span class="sc">*</span> Y <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> e_hat))</span>
+<span id="cb27-357"><a href="#cb27-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-358"><a href="#cb27-358" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"--- Inverse Probability Weighting (IPW) ---</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-359"><a href="#cb27-359" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"True ATE:      %.2f</span><span class="sc">\n</span><span class="st">"</span>, <span class="dv">2</span>))</span>
+<span id="cb27-360"><a href="#cb27-360" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Estimated ATE: %.2f</span><span class="sc">\n</span><span class="st">"</span>, tau_ipw))</span>
+<span id="cb27-361"><a href="#cb27-361" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Sample size:   %d  (treated: %d, control: %d)</span><span class="sc">\n</span><span class="st">"</span>, n, <span class="fu">sum</span>(D), <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">-</span> D)))</span>
+<span id="cb27-362"><a href="#cb27-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-363"><a href="#cb27-363" aria-hidden="true" tabindex="-1"></a><span class="co"># Overlap check: propensity score distribution</span></span>
+<span id="cb27-364"><a href="#cb27-364" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Propensity score summary by treatment group:</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb27-365"><a href="#cb27-365" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Treated:  "</span>)</span>
+<span id="cb27-366"><a href="#cb27-366" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"min=%.3f  median=%.3f  max=%.3f</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb27-367"><a href="#cb27-367" aria-hidden="true" tabindex="-1"></a>            <span class="fu">min</span>(e_hat[D <span class="sc">==</span> <span class="dv">1</span>]), <span class="fu">median</span>(e_hat[D <span class="sc">==</span> <span class="dv">1</span>]), <span class="fu">max</span>(e_hat[D <span class="sc">==</span> <span class="dv">1</span>])))</span>
+<span id="cb27-368"><a href="#cb27-368" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"  Control:  "</span>)</span>
+<span id="cb27-369"><a href="#cb27-369" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"min=%.3f  median=%.3f  max=%.3f</span><span class="sc">\n</span><span class="st">"</span>,</span>
+<span id="cb27-370"><a href="#cb27-370" aria-hidden="true" tabindex="-1"></a>            <span class="fu">min</span>(e_hat[D <span class="sc">==</span> <span class="dv">0</span>]), <span class="fu">median</span>(e_hat[D <span class="sc">==</span> <span class="dv">0</span>]), <span class="fu">max</span>(e_hat[D <span class="sc">==</span> <span class="dv">0</span>])))</span>
+<span id="cb27-371"><a href="#cb27-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-372"><a href="#cb27-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-373"><a href="#cb27-373" aria-hidden="true" tabindex="-1"></a>The IPW estimator re-weights observations so that treated and control groups are comparable in terms of covariates. The propensity score summaries confirm overlap---both groups span a similar range of estimated treatment probabilities, which is a necessary condition for valid inference under unconfoundedness.</span>
+<span id="cb27-374"><a href="#cb27-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-375"><a href="#cb27-375" aria-hidden="true" tabindex="-1"></a>The code below illustrates how to estimate an IRM using <span class="in">`DoubleML`</span> with random forests as the underlying learner. The example uses simulated data where treatment assignment depends on covariates through a logistic function, mimicking the kind of selection-on-observables setting discussed in the sections above.</span>
+<span id="cb27-376"><a href="#cb27-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-379"><a href="#cb27-379" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-380"><a href="#cb27-380" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: doubleml-irm</span></span>
+<span id="cb27-381"><a href="#cb27-381" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb27-382"><a href="#cb27-382" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb27-383"><a href="#cb27-383" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb27-384"><a href="#cb27-384" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DoubleML)</span>
+<span id="cb27-385"><a href="#cb27-385" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb27-386"><a href="#cb27-386" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span>
+<span id="cb27-387"><a href="#cb27-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-388"><a href="#cb27-388" aria-hidden="true" tabindex="-1"></a><span class="co"># Example: Interactive Regression Model</span></span>
+<span id="cb27-389"><a href="#cb27-389" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate data</span></span>
+<span id="cb27-390"><a href="#cb27-390" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb27-391"><a href="#cb27-391" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb27-392"><a href="#cb27-392" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> <span class="dv">5</span>), <span class="at">ncol =</span> <span class="dv">5</span>)</span>
+<span id="cb27-393"><a href="#cb27-393" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fu">plogis</span>(X[,<span class="dv">1</span>] <span class="sc">+</span> X[,<span class="dv">2</span>]))</span>
+<span id="cb27-394"><a href="#cb27-394" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> D <span class="sc">+</span> X[,<span class="dv">1</span>] <span class="sc">+</span> X[,<span class="dv">2</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb27-395"><a href="#cb27-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-396"><a href="#cb27-396" aria-hidden="true" tabindex="-1"></a><span class="co"># Create DoubleML data object</span></span>
+<span id="cb27-397"><a href="#cb27-397" aria-hidden="true" tabindex="-1"></a>dml_data <span class="ot">&lt;-</span> DoubleMLData<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb27-398"><a href="#cb27-398" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> Y, <span class="at">D =</span> D, X),</span>
+<span id="cb27-399"><a href="#cb27-399" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_col =</span> <span class="st">"Y"</span>, <span class="at">d_cols =</span> <span class="st">"D"</span></span>
+<span id="cb27-400"><a href="#cb27-400" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-401"><a href="#cb27-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-402"><a href="#cb27-402" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit IRM with random forest</span></span>
+<span id="cb27-403"><a href="#cb27-403" aria-hidden="true" tabindex="-1"></a>ml_g <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb27-404"><a href="#cb27-404" aria-hidden="true" tabindex="-1"></a>ml_m <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"classif.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb27-405"><a href="#cb27-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-406"><a href="#cb27-406" aria-hidden="true" tabindex="-1"></a>dml_irm <span class="ot">&lt;-</span> DoubleMLIRM<span class="sc">$</span><span class="fu">new</span>(dml_data, ml_g, ml_m)</span>
+<span id="cb27-407"><a href="#cb27-407" aria-hidden="true" tabindex="-1"></a>dml_irm<span class="sc">$</span><span class="fu">fit</span>()</span>
+<span id="cb27-408"><a href="#cb27-408" aria-hidden="true" tabindex="-1"></a>dml_irm<span class="sc">$</span><span class="fu">summary</span>()</span>
+<span id="cb27-409"><a href="#cb27-409" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-410"><a href="#cb27-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-411"><a href="#cb27-411" aria-hidden="true" tabindex="-1"></a>In this example, <span class="in">`ml_g`</span> is the learner for the outcome nuisance function $g_0(\mathbf{D}, \mathbf{X})$ and <span class="in">`ml_m`</span> is the learner for the propensity score $m_0(\mathbf{X})$. The <span class="in">`DoubleMLIRM`</span> object handles cross-fitting and Neyman-orthogonal score construction automatically. The <span class="in">`summary()`</span> method reports the estimated ATE along with standard errors and confidence intervals that are valid under the conditions discussed in @chernozhukov2018double.</span>
+<span id="cb27-412"><a href="#cb27-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-413"><a href="#cb27-413" aria-hidden="true" tabindex="-1"></a>To estimate the ATT instead, one can set the <span class="in">`score`</span> argument:</span>
+<span id="cb27-414"><a href="#cb27-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-417"><a href="#cb27-417" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb27-418"><a href="#cb27-418" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: doubleml-irm-att</span></span>
+<span id="cb27-419"><a href="#cb27-419" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb27-420"><a href="#cb27-420" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb27-421"><a href="#cb27-421" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb27-422"><a href="#cb27-422" aria-hidden="true" tabindex="-1"></a>dml_irm_att <span class="ot">&lt;-</span> DoubleMLIRM<span class="sc">$</span><span class="fu">new</span>(dml_data, ml_g, ml_m, <span class="at">score =</span> <span class="st">"ATTE"</span>)</span>
+<span id="cb27-423"><a href="#cb27-423" aria-hidden="true" tabindex="-1"></a>dml_irm_att<span class="sc">$</span><span class="fu">fit</span>()</span>
+<span id="cb27-424"><a href="#cb27-424" aria-hidden="true" tabindex="-1"></a>dml_irm_att<span class="sc">$</span><span class="fu">summary</span>()</span>
+<span id="cb27-425"><a href="#cb27-425" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb27-426"><a href="#cb27-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-427"><a href="#cb27-427" aria-hidden="true" tabindex="-1"></a>For heterogeneous treatment effects, the <span class="in">`grf`</span> package <span class="co">[</span><span class="ot">@athey2019grf</span><span class="co">]</span> provides causal forests that can be used to estimate conditional average treatment effects (CATE). The two approaches are complementary: <span class="in">`DoubleML`</span> targets well-defined summary parameters (ATE, ATT) with valid inference, while <span class="in">`grf`</span> explores treatment effect heterogeneity across the covariate space.</span>
+<span id="cb27-428"><a href="#cb27-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-429"><a href="#cb27-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-430"><a href="#cb27-430" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb27-431"><a href="#cb27-431" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb27-432"><a href="#cb27-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-433"><a href="#cb27-433" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@chernozhukov2018double --- The foundational DML paper, covering theory, cross-fitting, and Neyman-orthogonal scores.</span>
+<span id="cb27-434"><a href="#cb27-434" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@chernozhukov2024applied --- *Applied Causal Inference Powered by ML and AI*, a recent textbook-length guide to DML and related methods with worked examples.</span>
+<span id="cb27-435"><a href="#cb27-435" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@bach2024doubleml --- Documentation and vignettes for the <span class="in">`DoubleML`</span> R package.</span>
+<span id="cb27-436"><a href="#cb27-436" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@athey2019grf --- The <span class="in">`grf`</span> package for causal forests, heterogeneous treatment effects, and policy learning.</span>
+<span id="cb27-437"><a href="#cb27-437" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@rosenbaum1983 --- The original formulation of unconfoundedness and the propensity score.</span>
+<span id="cb27-438"><a href="#cb27-438" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@imbens2015 --- Textbook treatment of causal inference under unconfoundedness.</span>
+<span id="cb27-439"><a href="#cb27-439" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; A Preamble – Applied Econometrics Reading Group Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-sampling-design.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6c5314280c86e53d2a1a2ca4c5fd5b4a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-experimental-ideal.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Econometrics Reading Group Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-experimental-ideal.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-sampling-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-dags.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">DAG</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sensitivity Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-instrumental-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Instrumental Variable</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-synthetic-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Synthetic Control Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regression Discontinuity Designs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-did-event-studies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Difference in Differences and Event Study</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-propensity-dml-application.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-dml-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-experimental-ideal" id="toc-the-experimental-ideal" class="nav-link active" data-scroll-target="#the-experimental-ideal"><span class="header-section-number">2</span> The Experimental Ideal</a>
+  <ul class="collapse">
+  <li><a href="#the-selection-problem" id="toc-the-selection-problem" class="nav-link" data-scroll-target="#the-selection-problem"><span class="header-section-number">2.1</span> The Selection Problem</a></li>
+  <li><a href="#sec-hette" id="toc-sec-hette" class="nav-link" data-scroll-target="#sec-hette"><span class="header-section-number">2.2</span> Heterogeneous Treatment Effects (Cunningham, 2021)</a></li>
+  <li><a href="#a-word-on-samples-and-populations-imbens-wooldridge-2009-jel-gelman-hill-vehtari-2020" id="toc-a-word-on-samples-and-populations-imbens-wooldridge-2009-jel-gelman-hill-vehtari-2020" class="nav-link" data-scroll-target="#a-word-on-samples-and-populations-imbens-wooldridge-2009-jel-gelman-hill-vehtari-2020"><span class="header-section-number">2.3</span> A Word on Samples and Populations (Imbens &amp; Wooldridge, 2009 JEL; Gelman, Hill &amp; Vehtari, 2020)</a></li>
+  <li><a href="#random-assignment-solves-the-selection-problem-chernozhukov-2017-imbens-rubin-2015" id="toc-random-assignment-solves-the-selection-problem-chernozhukov-2017-imbens-rubin-2015" class="nav-link" data-scroll-target="#random-assignment-solves-the-selection-problem-chernozhukov-2017-imbens-rubin-2015"><span class="header-section-number">2.4</span> Random Assignment Solves the Selection Problem (Chernozhukov, 2017; Imbens &amp; Rubin, 2015)</a></li>
+  <li><a href="#regression-analysis-of-experiments" id="toc-regression-analysis-of-experiments" class="nav-link" data-scroll-target="#regression-analysis-of-experiments"><span class="header-section-number">2.5</span> Regression Analysis of Experiments</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Where Estimation Meets Identification</strong></p>
+<p>Following <span class="citation" data-cites="hull_notes">Hull (<a href="#ref-hull_notes" role="doc-biblioref">2022</a>)</span>, it is useful to distinguish three objects that are related but conceptually distinct.</p>
+<ul>
+<li><p><strong>Parameters</strong> are features of the model we use to describe how the data are generated—for example, a structural elasticity, an average treatment effect, or a conditional expectation function. They define the <em>target</em> of an empirical analysis: the quantity we ultimately want to learn about.</p></li>
+<li><p><strong>Estimands</strong> are functionals of the population data distribution—for example, a difference in population means or a ratio of population regression coefficients. Linking a parameter to an estimand requires assumptions; this step is called <em>identification</em>.</p></li>
+<li><p><strong>Estimators</strong> are functionals of the observed sample—for example, a difference in sample means or a ratio of OLS coefficients. Because the sample is random, every estimator is a random variable with its own sampling distribution. Using knowledge of that distribution to draw conclusions about the estimand (and, through identification, the parameter) is <em>statistical inference</em>.</p></li>
+</ul>
+<p>The relationship among the three can be summarised as:</p>
+<p><span class="math display">\[
+\underset{\text{(from theory)}}{\text{Parameters}}
+\xleftarrow{\text{Identification}}
+\underset{\text{(from the population)}}{\text{Estimands}}
+\xleftarrow{\text{Statistical Inference}}
+\underset{\text{(from the sample)}}{\text{Estimators}}
+\]</span></p>
+<p><strong>Two Words on Design-Based vs Model-Based Inference (thoughts from Card’s slides and Nobel lecture; more on next meeting)</strong></p>
+<p>A primary goal in economic research is to draw causal inferences. What role do models play in this process?</p>
+<ol type="1">
+<li><p>one view (e.g., Heckman, 2008): causality is <strong>model-based</strong>: causality only exists within the framework of a theory that says ‘x causes <span class="math inline">\(y\)</span>’</p></li>
+<li><p>an opposing view (e.g., Holland): causality is <strong>design-based</strong>: a claim of causality requires that you can design a manipulation in which ’ <span class="math inline">\(x\)</span> causes <span class="math inline">\(y\)</span> ’</p></li>
+</ol>
+<p>Notice that if (2) is the only way to causality, then astronomy is in trouble as we cannot make causal claims about the movements of planets (we cannot manipulate them).</p>
+<p>Let’s re-formulate these points using the vocabulary we just introduced. What drives the identification of our target causal parameters? Is it (1), the careful modelling of the data generating process (DGP)? where by models we include statistical models and economic (and otherwise) models.</p>
+<p>Or is it (2), the empirical setup of our data analysis? This setup can be an experiment, where the physical environment is controlled to allow the researcher to manipulate one variable while <em>keeping everything else constant</em>. It can also be a quasi-experiment, also called natural experiment, where historical circumstances happen to create a situation that can be used to approximate an experiment; a situation where the assignment to treatment is as-good-as random.</p>
+<p>People are tribal and so we see either approach being used to the exclusion of the other. Nonetheless, it is easy to see how they are—almost by necessity—complementary. Nothing is better than assigning treatment at random to establish causality. Yet, both experimental but especially observational studies need/benefit from careful modelling. Solid statistical modelling allows to stumble at the inference stage. Careful economic modelling helps generalising a study’s result and identifying potential mechanisms at play (beyond the simple ‘x causes y’). A general point is that the more structural we impose on the data, the more we can mine the information embedded in the data. The quality of that information will then depend on the veracity of our assumptions. Nothing prevents us from making weak claims <em>and</em> strong claims, and let the reader judge which to trust.</p>
+<section id="the-experimental-ideal" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The Experimental Ideal</h1>
+<section id="the-selection-problem" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="the-selection-problem"><span class="header-section-number">2.1</span> The Selection Problem</h2>
+<p>Given a treatment <span class="math inline">\(D_i \in \{0,1\}\)</span>, for any individual there are two potential outcomes (e.g.&nbsp;body temperature after hospitalisation):</p>
+<p><span class="math display">\[\text { Potential outcome }=\left\{\begin{array}{ll} \mathrm{Y}_{1 i} &amp; \text { if } \mathrm{D}_{i}=1 \\ \mathrm{Y}_{0 i} &amp; \text { if } \mathrm{D}_{i}=0 \end{array} .\right.\]</span></p>
+<p>The observed outcome, <span class="math inline">\(\mathrm{Y}_{i}\)</span>, can be written in terms of potential outcomes as</p>
+<p><span class="math display">\[\mathrm{Y}_{i}= \begin{cases}\mathrm{Y}_{1 i} &amp; \text { if } \mathrm{D}_{i}=1 \\ \mathrm{Y}_{0 i} &amp; \text { if } \mathrm{D}_{i}=0\end{cases}\]</span></p>
+<p>which can be also written as determined according to the switching equation</p>
+<p><span class="math display">\[Y_{i}=D_{i} Y_{1i}+\left(1-D_{i}\right) Y_{0i}\]</span></p>
+<p>Once the experiment (either literal experiment or natural experiment) is run, for each individual (or unit) we will observe only one potential outcome, while the other one will be <em>missing</em>.</p>
+<hr>
+<section id="causal-parameters-detour" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="causal-parameters-detour">Causal Parameters detour</h4>
+<p>Let us introduce some frequently targeted causal parameters.</p>
+</section>
+<section id="unit-specific-treatment-effects" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="unit-specific-treatment-effects">Unit-specific treatment effects</h4>
+<p><span class="math display">\[\delta_i = Y_{1i} - Y_{0i}\]</span></p>
+<p>The fact that we only observe one makes these parameters unobservable (we can sometime estimate it, though!).</p>
+</section>
+<section id="average-treatment-effect-ate" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="average-treatment-effect-ate">Average Treatment Effect (ATE)</h4>
+<p><span class="math display">\[
+\begin{aligned}
+A T E &amp;=E\left[\delta_{i}\right] \\
+&amp;=E\left[Y_{1i}-Y_{0i}\right] \\
+&amp;=E\left[Y_{1i}\right]-E\left[Y_{0i}\right] \\
+&amp;=\frac{1}{N} \sum_{i=1}^{N}\left(Y_{1i}-Y_{0i}\right)
+\end{aligned}
+\]</span></p>
+<p>Notice that you can also calculate this for a subpopulation, e.g.&nbsp;the treatment effect on people &gt;50 years old, or on treated/untreated people (see below).</p>
+</section>
+<section id="average-treatment-effect-of-the-treated-att" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="average-treatment-effect-of-the-treated-att">Average Treatment Effect of the Treated (ATT)</h4>
+<p><span class="math display">\[
+\begin{aligned}
+A T T &amp;=E\left[\delta_{i} \mid D_{i}=1\right] \\
+&amp;=E\left[Y_{1i}-Y_{0i} \mid D_{i}=1\right] \\
+&amp;=E\left[Y_{1i} \mid D_{i}=1\right]-E\left[Y_{0i} \mid D_{i}=1\right] \\
+&amp;=\frac{1}{N_{T}} \sum_{i: D_{i}=1}\left(Y_{1i}-Y_{0i}\right)
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(N_{T}\)</span> is the number of units exposed to the active treatment. NB: I could have used conditional notation in the last line of the equation.</p>
+</section>
+<section id="average-treatment-effect-of-the-untreated-atu" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="average-treatment-effect-of-the-untreated-atu">Average Treatment Effect of the Untreated (ATU)</h4>
+<p><span class="math display">\[
+\begin{aligned}
+A T U &amp;=E\left[\delta_{i} \mid D_{i}=0\right] \\
+&amp;=E\left[Y_{1i}-Y_{0i} \mid D_{i}=0\right] \\
+&amp;=E\left[Y_{1i} \mid D_{i}=0\right]-E\left[Y_{0i} \mid D_{i}=0\right] \\
+&amp;=\frac{1}{N_{C}} \sum_{i: D_{i}=0}\left(Y_{1i}-Y_{0i}\right)
+\end{aligned}
+\]</span></p>
+<p>where <span class="math inline">\(N_{C}\)</span> is the number of units not exposed (i.e.&nbsp;the <em>control</em> units) to the active treatment.</p>
+</section>
+<section id="ate-as-a-convex-combination-of-att-and-atu" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="ate-as-a-convex-combination-of-att-and-atu">ATE as a convex combination of ATT and ATU</h4>
+<p><span class="math display">\[ ATE=\pi ATT+(1-\pi) ATU \]</span></p>
+<p>where <span class="math inline">\(0&lt;\pi&lt;1\)</span> is the share of treated individuals and <span class="math inline">\(1-\pi\)</span> is the share of untreated individuals.</p>
+</section>
+<section id="question" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="question"><em>Question</em></h4>
+<p>If the participants of the program are those most likely to benefit from it, how would ATE, ATT and ATU rank, in descending order? e.g.&nbsp;ATE &gt; ATU &gt; ATT</p>
+<hr>
+</section>
+<section id="selection-bias" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="selection-bias">Selection Bias</h4>
+<p>Consider the (naive) observed difference in average between people who got treated and people who did not:</p>
+<p><span class="math display">\[E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right]\]</span> <span class="math display">\[=\{E[D_{i} Y_{1i}+\left(1-D_{i}\right) Y_{0i} | D_i = 1]\} - \{E[D_{i} Y_{1i}+\left(1-D_{i}\right) Y_{0i} | D_i = 0]\}\]</span> <span class="math display">\[= E[Y_{1i} | D_{i}=1] - \{E[Y_{0i} | D_{i}=0]\}\]</span> <span class="math display">\[=E[Y_{1i} | D_{i}=1] - E[Y_{0i} | D_{i}=1] + E[Y_{0i} | D_{i}=1] - E[Y_{0i} | D_{i}=0]\]</span> &lt;notice how the 2nd and 3rd terms can be introduced as they sum up to 0&gt;</p>
+<p>Adding a couple of labels to the above equation, we get: <span class="math display">\[\begin{aligned} \underbrace{E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right]}_{\text {Observed difference in average health }}=&amp; \underbrace{E\left[\mathrm{Y}_{1 i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]}_{\text {Average treatment effect on the treated, ATT }} \\ &amp;+\underbrace{E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]}_{\text {Selection bias }} . \end{aligned}\]</span>If people coming to the emergency room are on average much much sicker than those who don’t, even if their treatment is helpful the selection bias will lead to negative naive observed difference.</p>
+<p>This result, however, does not hold in presence of heterogeneous treatment effects, as shown in Cunningham (2021). In addition to this, Słoczynski (2022) shows that the estimand <span class="math inline">\(\tau\)</span> in regression equation <span class="math inline">\(y=\alpha+\tau d+X \beta+u\)</span> estimates a convex combination of ATT and ATU which is equal to the ATE only if the treated and untreated groups have the same size (the same number of members).</p>
+</section>
+</section>
+<section id="sec-hette" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-hette"><span class="header-section-number">2.2</span> Heterogeneous Treatment Effects (Cunningham, 2021)</h2>
+<section id="decomposition-of-observed-difference-difference-in-means-with-heterogeneous-t.e.s-cunningham-2021" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="decomposition-of-observed-difference-difference-in-means-with-heterogeneous-t.e.s-cunningham-2021">Decomposition of Observed Difference Difference in Means with Heterogeneous T.E.s (Cunningham, 2021)</h4>
+<p><span class="math display">\[
+\begin{aligned}
+A T E &amp;=\pi A T T+(1-\pi) A T U \\
+&amp;=\pi E\left[Y_{1} \mid D=1\right]-\pi E\left[Y_{0} \mid D=1\right] \\
+&amp;+(1-\pi) E\left[Y_{1} \mid D=0\right]-(1-\pi) E\left[Y_{0} \mid D=0\right] \\
+&amp;=\left\{\pi E\left[Y_{1} \mid D=1\right]+(1-\pi) E\left[Y_{1} \mid D=0\right]\right\} \\
+&amp;-\left\{\pi E\left[Y_{0} \mid D=1\right]+(1-\pi) E\left[Y_{0} \mid D=0\right]\right\}
+\end{aligned}
+\]</span></p>
+<p>To make the proof slimmer, define: <span class="math display">\[
+\begin{aligned}
+E\left[Y_{1} \mid D=1\right] &amp;=a \\
+E\left[Y_{1} \mid D=0\right] &amp;=b \\
+E\left[Y_{0} \mid D=1\right] &amp;=c \\
+E\left[Y_{0} \mid D=0\right] &amp;=d \\
+A T E &amp;=e
+\end{aligned}
+\]</span></p>
+<p>Replacing the equation terms with the letters, we get: <span class="math display">\[
+\begin{aligned}
+e &amp;=\{\pi a+(1-\pi) b\}-\{\pi c+(1-\pi) d\} \\
+e &amp;=\pi a+b-\pi b-\pi c-d+\pi d \\
+e &amp;=\pi a+b-\pi b-\pi c-d+\pi d+(\mathbf{a}-\mathbf{a})+(\mathbf{c}-\mathbf{c})+(\mathbf{d}-\mathbf{d}) \\
+0 &amp;=e-\pi a-b+\pi b+\pi c+d-\pi d-\mathbf{a}+\mathbf{a}-\mathbf{c}+\mathbf{c}-\mathbf{d}+\mathbf{d} \\
+\mathbf{a}-\mathbf{d} &amp;=e-\pi a-b+\pi b+\pi c+d-\pi d+\mathbf{a}-\mathbf{c}+\mathbf{c}-\mathbf{d} \\
+\mathbf{a}-\mathbf{d} &amp;=e+(\mathbf{c}-\mathbf{d})+\mathbf{a}-\pi a-b+\pi b-\mathbf{c}+\pi c+d-\pi d \\
+\mathbf{a}-\mathbf{d} &amp;=e+(\mathbf{c}-\mathbf{d})+(1-\pi) a-(1-\pi) b+(1-\pi) d-(1-\pi) c \\
+\mathbf{a}-\mathbf{d} &amp;=e+(\mathbf{c}-\mathbf{d})+(1-\pi)(a-c)-(1-\pi)(b-d)
+\end{aligned}
+\]</span></p>
+<p>Now, substituting our definitions, we get the following: <span class="math display">\[
+\begin{aligned}
+E\left[Y_{1} \mid D=1\right]-E\left[Y_{0} \mid D=0\right] &amp;=A T E \\
+&amp;+\left(E\left[Y_{0} \mid D=1\right]-E\left[Y_{0} \mid D=0\right]\right) \\
+&amp;+(1-\pi)(A T T-A T U)
+\end{aligned}
+\]</span></p>
+<p>Wrapping up, this is what we got: <span class="math display">\[
+\begin{aligned}
+\underbrace{\frac{1}{N_{T}} \sum_{i=1}^{n}\left(y_{i} \mid d_{i}=1\right)-\frac{1}{N_{C}} \sum_{i=1}^{n}\left(y_{i} \mid d_{i}=0\right)}_{\text {Simple Difference in Outcomes }}&amp;=\underbrace{E\left[Y_{1}\right]-E\left[Y_{0}\right]}_{\text {Average Treatment Effect }}\\
+&amp;+\underbrace{E\left[Y_{0} \mid D=1\right]-E\left[Y_{0} \mid D=0\right]}_{\text {Selection bias }}\\
+&amp;+\underbrace{(1-\pi)(A T T-A T U)}_{\text {Heterogeneous treatment effect bias }}
+\end{aligned}
+\]</span></p>
+</section>
+<section id="a-final-note-on-heterogeneity" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="a-final-note-on-heterogeneity">A Final Note on Heterogeneity</h4>
+<p>One last thing before we move on. Let’s define one last (for the moment) causal parameter, the Conditional Average Treatment Effects (CATE):</p>
+<p><span class="math display">\[{\text {CATE }}=\frac{1}{N} \sum_{i=1}^{N} E\left[Y_{1i}-Y_{0i} \mid X_{i}\right]\]</span></p>
+<p>When we estimate treatment effects using regression models that include covariates, we estimate the CATE. Notice that if the effects are homogeneous across individuals, the CATE will be identical to the ATE.</p>
+<p>Moreover, in presence of strong heterogeneity, the CATE will lead to more precise estimates (due to the use of covariates) than the ATE.</p>
+<p>Nonetheless, because today we are focusing on experiments with random sampling, we should not worry about this.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Modern CATE Estimation and Evaluation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recent work has developed principled ways to estimate and evaluate CATEs. The <code>grf</code> R package (Generalized Random Forests; Athey, Tibshirani &amp; Wager, 2019) provides forest-based CATE estimation via <code>causal_forest()</code>. Once CATEs are estimated, the question becomes how to evaluate whether the estimated heterogeneity is real and useful. Yadlowsky et al.&nbsp;(2025) propose the Rank-Weighted Average Treatment Effect (RATE), a metric that assesses how well an estimated CATE function prioritises individuals who benefit most from treatment. The <code>grf</code> package implements RATE via the <code>rank_average_treatment_effect()</code> function, making it straightforward to test whether detected heterogeneity is meaningful.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="a-word-on-samples-and-populations-imbens-wooldridge-2009-jel-gelman-hill-vehtari-2020" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="a-word-on-samples-and-populations-imbens-wooldridge-2009-jel-gelman-hill-vehtari-2020"><span class="header-section-number">2.3</span> A Word on Samples and Populations (Imbens &amp; Wooldridge, 2009 JEL; Gelman, Hill &amp; Vehtari, 2020)</h2>
+<p>In applied work, we have enough troubles producing credible estimates using the samples at hand that we do not talk much about how our estimates generalise to our population of interest, nor about what our population of interest actually is!</p>
+<p>Then there are people like Gelman (guru on the exotic topic of post-stratification), Wooldridge and Imbens that care to highlight that <em>unless our sample is random</em>, as in experiments, population ATE (PATE) and sample ATE (SATE) will differ. To bridge the gap we would need post-stratification techniques, which are aimed at correctly extrapolating/generalising our sample results. I am ignorant on this topic and we might cover it in the future.</p>
+</section>
+<section id="random-assignment-solves-the-selection-problem-chernozhukov-2017-imbens-rubin-2015" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="random-assignment-solves-the-selection-problem-chernozhukov-2017-imbens-rubin-2015"><span class="header-section-number">2.4</span> Random Assignment Solves the Selection Problem (Chernozhukov, 2017; Imbens &amp; Rubin, 2015)</h2>
+<section id="dawids-independence-link" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="dawids-independence-link">Dawid’s Independence <a href="https://statmodeling.stat.columbia.edu/2009/07/07/philip_dawids_t/">(link)</a></h4>
+<p><span class="math inline">\(A {\perp\kern-5pt\perp} B | C\)</span> denotes that A is independent of B given C, or, equivalently, that p(a | b, c) does not depend on the value b of B (for given a,c). Note that this makes sense even if B is a parameter variable rather than a random variable. We can handle such “extended conditional independence” (ECI) properties using exactly the same algebraic rules as for regular probabilistic conditional independence (CI). And, if desired, we can use graphical representations (which explicitly include parameter variables along with random variables) to represent and manipulate ECI properties, exactly as for CI.</p>
+</section>
+<section id="random-assignment" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="random-assignment">Random Assignment</h4>
+<p>As we saw above with the emergency room example, we could say that in an observational setting assignment to treatment (or <em>treatment assignment mechanism</em>) is a function of the potential outcomes, <span class="math inline">\(D_i(Y_{0i}, Y_{1i})\)</span>. In our example, people who are—absent treatment—sicker, are more likely to go to the emergency room than those who are—absent treatment—healthier, i.e.&nbsp;<span class="math inline">\(E [Y_{0i} | D_i = 1] &gt; E [Y_{0i} | D_i = 0]\)</span>, where <span class="math inline">\(Y\)</span> is a variable measuring how sick one is. This is only one of the possible ways in which treatment assignment can depend on potential outcomes.</p>
+</section>
+<section id="imbens-rubins-take" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="imbens-rubins-take">Imbens &amp; Rubin’s take</h4>
+<p>Luckily, random assignment implies that assignment is independent of the potential outcomes, i.e. <span class="math display">\[
+\operatorname{Pr}\left(D_{i}=1 \mid Y_{0i}, Y_{1i}\right)=\operatorname{Pr}\left(D_{i}=1\right)
+\]</span> or in Dawid’s (1979) ” <span class="math inline">\({\perp\kern-5pt\perp}\)</span> ” independence notation, <span class="math display">\[
+D_{i} {\perp\kern-5pt\perp} \left(Y_{0i}, Y_{1i}\right) .
+\]</span></p>
+<p>This assumption has several names: ignorability, exogeneity, independence, unconfoundedness. Add the word “conditional” before the above terms and you get a more general version of this assumption, which conditions on covariates other than the treatment variable: <span class="math display">\[
+D_{i} {\perp\kern-5pt\perp} \left(Y_{0i}, Y_{1i}\right) | X_i.
+\]</span></p>
+</section>
+<section id="angrist-pischkes-take" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="angrist-pischkes-take">Angrist &amp; Pischke’s take</h4>
+<p>Random assignment of <span class="math inline">\(\mathrm{D}_{i}\)</span> solves the selection problem because random assignment makes <span class="math inline">\(\mathrm{D}_{i}\)</span> independent of potential outcomes. To see this, note that</p>
+<p><span class="math display">\[
+\begin{aligned}
+E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right] &amp;=\underbrace{E\left[\mathrm{Y}_{1 i} \mid \mathrm{D}_{i}=1\right]}_{\text{i's obs'd treated if were treated}}-\underbrace{E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]}_{\text{i's obs'd untreated if were untreated}} \\
+&amp;=\underbrace{E\left[\mathrm{Y}_{1 i} \mid \mathrm{D}_{i}=1\right]}_{\text{i's obs'd treated if were treated}} - \underbrace{E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]}_{\text{i's obs'd treated if were untreated}} = ATT \\
+&amp;=E\left[\mathrm{Y}_{1 i}-\mathrm{Y}_{0 i}\right] = ATE.
+\end{aligned}
+\]</span> where the independence of <span class="math inline">\(\mathrm{Y}_{0 i}\)</span> and <span class="math inline">\(\mathrm{D}_{i}\)</span> allows us to swap <span class="math inline">\(E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]\)</span> for <span class="math inline">\(E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]\)</span> in the second line and to get to the third line too. Notice that, assuming homogeneous effects, we could have gone via the ATU too, but it would have been less intuitive.</p>
+<p>The effect of randomly assigned hospitalization on the hospitalized (ATT) is the same as the effect of hospitalization on a randomly chosen patient (ATE). The main thing, however, is that random assignment of <span class="math inline">\(\mathrm{D}_{i}\)</span> eliminates selection bias, leaving us with just the ATE.</p>
+</section>
+<section id="chernozhukovs-take-more-general" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="chernozhukovs-take-more-general">Chernozhukov’s take (more general)</h4>
+<p><strong>Assumption 1 (Random Assignment/Exogeneity)</strong>. Suppose that the treatment status is randomly assigned, namely <span class="math inline">\(D\)</span> is statistically independent of the potential outcomes <span class="math inline">\(\left(Y_{d,i}\right)_{d \in\{0,1\}}\)</span>, which is denoted as</p>
+<p><span class="math display">\[
+D_{i} {\perp\kern-5pt\perp} \left(Y_{0i}, Y_{1i}\right),
+\]</span></p>
+<p>and <span class="math inline">\(0&lt;\mathrm{P}(D_{i}=1)&lt;1\)</span>.</p>
+<div id="thm-random" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 2.1 (Randomization Removes Bias)</strong></span> Under Assumption 1, <span class="math display">\[
+\mathrm{E}[Y_{i} \mid D_{i}=d_{i}]=\mathrm{E}\left[Y_{d, i} \mid D_{i}=d_{i}\right]=\mathrm{E}\left[Y_{d, i}\right], \text { for } d_{i} \in\{0,1\} \text {. }
+\]</span> Hence <span class="math display">\[
+\mathrm{E} [Y_{1i}] - \mathrm{E} [Y_{0i}] = ATE
+\]</span></p>
+</div>
+<p>Please note that the theorem is self-contained, since the proof is contained in the statement.</p>
+</section>
+<section id="the-power-of-random-assignment" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="the-power-of-random-assignment">The Power of Random Assignment</h4>
+<p>For didactic purposes, assume you have God-like powers and can see both counterfactuals at the same time. Now find all possible permutations of the assignment vector (make it length = 10, of which 5 treated and 5 controls). If you then calculate all the possible differences between the treated and untreated, you can see that their mean value is equal to the true ATE.</p>
+<p>At a basic level, this simulation reminds us that any estimator is a random variable and that even with God-like powers it returns the true value only on average. The interesting thing here is that the uncertainty is not generated by sampling (sampling error), but by the randomisation process.</p>
+<p>To check where my claims are true, we can calculate the true ATE and compare with the naive differences.</p>
+<p>Fun fact: The number of distinct values of the assignment vector with <span class="math inline">\(N_{\mathrm{t}}\)</span> units out of <span class="math inline">\(N\)</span> assigned to the active treatment is</p>
+<p><span class="math display">\[
+\left(\begin{array}{l}
+N \\
+N_{\mathrm{t}}
+\end{array}\right)=\frac{N !}{N_{\mathrm{t}} ! \cdot\left(N-N_{\mathrm{t}}\right) !}, \quad \text { with } J !=J(J-1) \ldots 1 .
+\]</span></p>
+<p>which, in our case where <span class="math inline">\(N = 10\)</span> and <span class="math inline">\(N_t = 5\)</span>, implies that we have 252 possible permutations of the assignment vector.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("fitdistrplus")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)    <span class="co">#fit distributions to data</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential Outcomes</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The only variable is the treatment, so we need to find all possible </span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># realizations of the treatment variable. The idea is to create all </span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># possible combinations of a dummy variable of length=10, and select </span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># the combinations with 5 ones and 5 zeroes (equal treatment and control group).</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>alld <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="fu">rep</span>(<span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="dv">10</span>))  <span class="co"># all combinations of 10 dummy variable</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>ind5 <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">rowMeans</span>(alld) <span class="sc">==</span> <span class="fl">0.5</span>)  <span class="co"># the combinations with 5 "1"</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>alld5 <span class="ot">&lt;-</span> alld[ind5, ]  <span class="co"># 252 selected combinations</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># For each selected combination, calculated the ATE using the Neyman estimator</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ATEs <span class="ot">&lt;-</span> <span class="fu">apply</span>(alld5, <span class="dv">1</span>, <span class="cf">function</span>(d) <span class="fu">mean</span>(d <span class="sc">*</span> y1 <span class="sc">/</span> <span class="fl">0.5</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> d) <span class="sc">*</span> y0 <span class="sc">/</span> <span class="fl">0.5</span>))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ATEs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-experimental-ideal_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a normal distribution to the 252 ATEs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>fitnorm <span class="ot">&lt;-</span> fitdistrplus<span class="sc">::</span><span class="fu">fitdist</span>(ATEs, <span class="st">"norm"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitnorm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-experimental-ideal_files/figure-html/unnamed-chunk-1-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and print the true ATE</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>true_ate <span class="ot">=</span> <span class="fu">mean</span>(y1) <span class="sc">-</span> <span class="fu">mean</span>(y0)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The true (unobservable) ATE is:"</span>, <span class="fu">mean</span>(true_ate)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The true (unobservable) ATE is: 0.6"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the estimated ATE</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The estimated ATE is:"</span>, <span class="fu">mean</span>(ATEs)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "The estimated ATE is: 0.6"</code></pre>
+</div>
+</div>
+<p>The modern way to compute the Neyman difference-in-means estimator (with appropriate standard errors) is via the <code>estimatr</code> package, which provides design-based inference out of the box:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("estimatr")</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the same potential outcomes as above</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick one realisation of the treatment assignment</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>d_i <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed outcomes via the switching equation</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>y_i <span class="ot">&lt;-</span> d_i <span class="sc">*</span> y1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> d_i) <span class="sc">*</span> y0</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the difference in means with design-based SEs</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>dim_result <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">difference_in_means</span>(y_i <span class="sc">~</span> d_i)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dim_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$coefficients
+    Estimate Std. Error   t value  Pr(&gt;|t|)  CI Lower CI Upper       DF
+d_i      0.6   1.886796 0.3179994 0.7592061 -3.806653 5.006653 7.457691
+
+$design
+[1] "Standard"</code></pre>
+</div>
+</div>
+</section>
+<section id="stable-unit-of-treatment-assumption-sutva-imbens-and-rubin-2015" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="stable-unit-of-treatment-assumption-sutva-imbens-and-rubin-2015">Stable Unit of Treatment Assumption (SUTVA) (Imbens and Rubin, 2015)</h4>
+<p>The SUTVA establishes that the potential outcomes of unit <span class="math inline">\(i\)</span> only depend on the treatment status of that unit and that there are no treatment levels that have not been taken into account. In the words of Imbens and Rubin,</p>
+<div id="def-sutva" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 2.1 (SUTVA)</strong></span> The potential outcomes for any unit do not vary with the treatments assigned to other units, and, for each unit, there are no different forms or versions of each treatment level, which lead to different potential outcomes.</p>
+</div>
+<p>Hence, (i) for any given units, its potential outcomes are not affected by the treatment status of other units (no spillovers, no general equilibrium effects), and (ii), for instance, in a study on the efficacy of aspirin against headaches using a binary treatment variable, there are not more and less effective aspirin tablets. This would generate more treatment levels (and corresponding potential outcomes) that we would be accounting for using a binary variable.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Randomization Inference When SUTVA Fails
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>SUTVA is a strong assumption, and in many settings—such as classrooms, networks, or markets—interference (spillovers) between units is plausible. Basse et al.&nbsp;(2024) show that Fisher-style randomization tests can be extended to settings where SUTVA is violated by allowing potential outcomes to depend on the full treatment assignment vector, not just a unit’s own treatment. This means that even in the presence of peer effects or interference, exact p-values remain valid if the sharp null hypothesis is reformulated appropriately and the test statistic accounts for the dependence structure.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="unbiasedness-of-the-neyman-estimator-imbens-rubin-2015" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="unbiasedness-of-the-neyman-estimator-imbens-rubin-2015">Unbiasedness of the Neyman Estimator (Imbens &amp; Rubin, 2015)</h4>
+<p>If <span class="math inline">\(N\)</span> is the number of units, <span class="math inline">\(N_t\)</span> of treated units and <span class="math inline">\(N_c\)</span> of control units, <span class="math display">\[
+\begin{aligned}
+\hat{\tau}^{\text{dif}} &amp;= \frac{1}{N_t} \sum_{i:D_i = 1} Y_i - \frac{1}{N_c} \sum_{i:D_i = 0} Y_i \\
+\\
+&amp;= \frac{1}{N_t} \sum_{i = 1}^{N} (D_i) Y_i - \frac{1}{N_c} \sum_{i = 1}^{N} (1 - D_i) Y_i \hspace{1cm} \text{, making notation explicit}\\
+\\
+&amp;= \frac{1}{N_t} \sum_{i = 1}^{N} D_i Y_{1i} - \frac{1}{N_c} \sum_{i = 1}^{N} (1 - D_i) Y_{0i} \hspace{1cm} \text{, since} \ Y_i=Y_{0i} \ \text{if} \ D_i=0 \ \text{and} \ Y_i=Y_{1i} \ \text{if} D_i=1 \\
+\\
+&amp;= \sum_{i=1}^{N} \frac{D_i Y_{1i}}{N_t} - \sum_{i=1}^{N} \frac{(1-D_i) Y_{0i}}{N_c}  \hspace{1cm} \text{, rearranging}\\
+\\
+&amp;= \frac{1}{N}\sum_{i=1}^{N} \left( \frac{D_i Y_{1i}}{\frac{N_t}{N}} -  \frac{(1-D_i) Y_{0i}}{\frac{N_c}{N}} \right)  \hspace{1cm} \text{, multiplying everything by} \ \frac{N}{N}\\
+\end{aligned}
+\]</span></p>
+<p>Given it’s a randomised experiment, <span class="math display">\[
+Pr(D_i = 1| Y_{0i}, Y_{1i}) = E[D_i |  Y_{0i}, Y_{1i}] = \frac{N_t}{N}
+\]</span></p>
+<p>Now, noting that <span class="math inline">\(D_i\)</span> is the only stochastic element of <span class="math inline">\(\hat{\tau}^{\text{dif}}\)</span>, we finish the proof, showing it is an unbiased estimator of the ATE: <span class="math display">\[
+\begin{aligned}
+E[\hat{\tau}^{\text{dif}} | Y_{0i}, Y_{1i}] &amp;= \frac{1}{N}\sum_{i=1}^{N} \left( \frac{E[D_i] Y_{1i}}{\frac{N_t}{N}} -  \frac{E[1-D_i] Y_{0i}}{\frac{N_c}{N}} \right) \\
+\\
+E[\hat{\tau}^{\text{dif}} | Y_{0i}, Y_{1i}] &amp;= \frac{1}{N}\sum_{i=1}^{N} \left( \frac{\frac{N_t}{N} Y_{1i}}{\frac{N_t}{N}} -  \frac{\frac{N_c}{N} Y_{0i}}{\frac{N_c}{N}} \right)  \hspace{1cm} \text{, plugging in expected values of the dummies}\\
+\\
+&amp;=\frac{1}{N}\sum_{i=1}^{N} (Y_{1i} - Y_{0i})  \hspace{1cm} \text{, cancelling out the proportions}\\
+\end{aligned}
+\]</span> Which is our target estimand, ATE, thus ending the proof.</p>
+</section>
+<section id="exact-p-values-great-for-rcts-and-population-based-studies" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="exact-p-values-great-for-rcts-and-population-based-studies">Exact p-values: great for RCTs and population-based studies</h4>
+<p>Exact p-values allow us to test the sharp null hypothesis leveraging randomisation uncertainty. This makes them a valid alternative to the more familiar type of p-values in experimental and population-wide settings—as in the latter there is no sampling uncertainty.</p>
+<p>We note with Imbens and Rubin (2005):</p>
+<blockquote class="blockquote">
+<p>Fisher’s null hypothesis of no effect of the treatment versus control whatsoever is distinct from the possibly more practical question of whether the typical (e.g., average) treatment effect across all units is zero. The latter is a weaker hypothesis, because the average treatment effect may be zero even when for some units the treatment effect is positive, as long as for some others the effect is negative.</p>
+</blockquote>
+<p>To compute an exact p-value we need (i) a hypothesis and (ii) a test statistic.</p>
+<p>As anticipated, we choose the sharp null hypothesis, which is defined as:</p>
+<p><span class="math display">\[
+H_{0}: \quad Y_{0i}=Y_{1i} \quad \forall i=1, \ldots, N
+\]</span></p>
+<p>The test statistic we choose is the Neyman estimator</p>
+<p><span class="math display">\[
+\hat{\tau}^{\text{dif}} = \frac{1}{N_t} \sum_{i:D_i = 1} Y_i - \frac{1}{N_c} \sum_{i:D_i = 0} Y_i
+\]</span></p>
+<p>The p-value (which we call ‘exact’) for this hypothesis is defined as:</p>
+<p><span class="math display">\[
+p=\operatorname{pr}\left(\left|\hat{\tau}^{\text{dif}}\left(\tilde{D}_i, Y_i, X_i\right)\right| \geq\left|\hat{\tau}^{\text{dif}}\left({D}_i, Y_i, X_i\right)\right|\right)
+\]</span></p>
+<p>It answers the question: what is the probability, over the distribution of the statistic <span class="math inline">\(\hat{\tau}^{\text{dif}}\)</span> (induced by randomisation) that <span class="math inline">\(\hat{\tau}^{\text{dif}}\)</span> is greater than the actually observed <span class="math inline">\(\hat{\tau}^{\text{dif}}\)</span>, in absolute value?</p>
+<p>In other words,</p>
+<blockquote class="blockquote">
+<p>An observed value that is “very unlikely,” given the null hypothesis and the induced distribution for the test statistic, will be taken as evidence against the null hypothesis in what is, essentially, a stochastic version of the mathematician’s “proof by contradiction.” How unusual the observed value is under the null hypothesis will be measured by the probability that a value as extreme or more extreme (in practice, as large or larger) would have been observed - the significance level or p-value. Hence, the FEP approach</p>
+</blockquote>
+<p>A little note on the simulation below: by calculating the same statistics for different permutations of <span class="math inline">\(D_i\)</span>, we are implicitly imputing <span class="math inline">\(Y_{i}=Y_{1i}\)</span> when the <span class="math inline">\(D_i=0\)</span> and <span class="math inline">\(Y_{i}=Y_{0i}\)</span> when the <span class="math inline">\(D_i=1\)</span>. Convince yourself of this. We are, in other words, creating a hypothetical distribution of the statistic consistent with the sharp null of no effects for anyone and then checking whether our observed statistic falls into one of the two tails.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("perm")</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(perm)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential Outcomes</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual treatment variable</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>d_i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define observed outcomes using the switching equation</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>y_i <span class="ot">&lt;-</span> d_i <span class="sc">*</span> y1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> d_i) <span class="sc">*</span> y0</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y_i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1]  7  5  5  7  4  1 10  6  7  8</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Put into a new dataset</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(d_i, y_i)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create (and transpose) matrix of all permutations of the treatment assignment vector (8 units of which 4 treated)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>d_perms <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">chooseMatrix</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#or using the "ri" package</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#d_perms &lt;- genperms(d_i,blockvar=NULL, clustvar=NULL)</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge permutations into dataset</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>dataset1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(d_perms, dataset)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual treatment effect</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>tau_hat <span class="ot">&lt;-</span> </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(dataset1[dataset1<span class="sc">$</span>d_i<span class="sc">==</span><span class="dv">1</span>,<span class="st">"y_i"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(dataset1[dataset1<span class="sc">$</span>d_i<span class="sc">==</span><span class="dv">0</span>,<span class="st">"y_i"</span>])</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tau_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -0.8</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create empty list to store all the possible treatment effects</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>diff_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">'list'</span>, <span class="at">length=</span><span class="dv">252</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate all possible treatment effects and store them in the list</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">252</span>) {</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  diff_list[i] <span class="ot">&lt;-</span> <span class="fu">abs</span>(</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(dataset1[dataset1[[i]]<span class="sc">==</span><span class="dv">1</span>,<span class="st">"y_i"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(dataset1[dataset1[[i]]<span class="sc">==</span><span class="dv">0</span>,<span class="st">"y_i"</span>])</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn the list into a vector</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>diff_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(diff_list)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="co">#print(diff_vec)</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Indicator variable equal to 1 if the absolute diff of a fake effect is higher </span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="co"># than the real observed effect</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>p_val<span class="ot">&lt;-</span><span class="fu">ifelse</span>(diff_vec<span class="sc">&gt;=</span><span class="fu">abs</span>(tau_hat), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># The mean of the binary variable p_val gives us the proportion of differences</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="co"># that were higher than the observed one, i.e. the probability,</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(p_val))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.7222222</code></pre>
+</div>
+</div>
+<p>The <code>ri2</code> package provides a modern, concise interface for conducting the same randomization inference procedure. It automates the permutation of the assignment vector and the computation of exact p-values:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ri2")</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ri2)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the same data as above</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>d_i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>y_i <span class="ot">&lt;-</span> d_i <span class="sc">*</span> y1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> d_i) <span class="sc">*</span> y0</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> y_i, <span class="at">Z =</span> d_i)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare the randomization procedure: complete random assignment of 5 out of 10</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>declaration <span class="ot">&lt;-</span> randomizr<span class="sc">::</span><span class="fu">declare_ra</span>(<span class="at">N =</span> <span class="dv">10</span>, <span class="at">m =</span> <span class="dv">5</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Conduct randomization inference using ri2</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>ri_out <span class="ot">&lt;-</span> ri2<span class="sc">::</span><span class="fu">conduct_ri</span>(</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Y <span class="sc">~</span> Z,</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">declaration =</span> declaration,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">sharp_hypothesis =</span> <span class="dv">0</span>,</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ri_out)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  term estimate two_tailed_p_value
+1    Z     -0.8          0.7222222</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ri_out)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="01-experimental-ideal_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="regression-analysis-of-experiments" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="regression-analysis-of-experiments"><span class="header-section-number">2.5</span> Regression Analysis of Experiments</h2>
+<p>There isn’t much to add to these last two pages of MHE Ch.2. Let’s just go through them <strong>(it’s a copy-paste)</strong>.</p>
+<p>Suppose (for now) that the treatment effect is the same for everyone, say <span class="math inline">\(\mathrm{Y}_{1 i}-\mathrm{Y}_{0 i}=\rho\)</span>, a constant. With constant treatment effects, we can rewrite <span class="math inline">\(\mathrm{Y_i} = \mathrm{Y}_{0 i}+\left(\mathrm{Y}_{1 i}-\mathrm{Y}_{0 i}\right) \mathrm{D}_{i}\)</span> in the form</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fig/simpreg.png" class="img-fluid figure-img" width="1014"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>where <span class="math inline">\(\eta_{i}\)</span> is the random part of <span class="math inline">\(\mathrm{Y}_{0 i}\)</span>.</p>
+<p>Evaluating the conditional expectation of this equation with treatment status switched off and on gives <span class="math display">\[
+\begin{aligned}
+&amp;E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right]=\alpha+\rho+E\left[\eta_{i} \mid \mathrm{D}_{i}=1\right] \\
+&amp;E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right]=\alpha+E\left[\eta_{i} \mid \mathrm{D}_{i}=0\right]
+\end{aligned}
+\]</span> so that <span class="math display">\[
+\begin{aligned}
+&amp;E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right]=\underbrace{\rho}_{\text {Treatment effect }}+\underbrace{E\left[\eta_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\eta_{i} \mid \mathrm{D}_{i}=0\right]}_{\text {Selection bias }} .
+\end{aligned}
+\]</span> selection bias which is zero under (successful) randomisation.</p>
+<p>Thus, selection bias amounts to correlation between the regression error term, <span class="math inline">\(\eta_{i}\)</span>, and the regressor, <span class="math inline">\(\mathrm{D}_{i}\)</span>. Since <span class="math display">\[
+E\left[\eta_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\eta_{i} \mid \mathrm{D}_{i}=0\right]=E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]
+\]</span> this correlation reflects the difference in (no-treatment) potential outcomes between those who get treated and those who don’t.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Further Reading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Textbooks.</strong> Two excellent recent textbooks provide comprehensive treatments of the topics in this chapter. Ding (2024), <em>A First Course in Causal Inference</em>, offers a modern, rigorous introduction to the potential outcomes framework, randomization inference, and regression adjustment in experiments. Wager (2024), <em>Causal Inference: A Statistical Learning Approach</em>, complements this with a machine-learning-informed perspective on treatment effect estimation.</p>
+<p><strong>Design-based inference.</strong> The design-based (randomization-based) framework presented here—where uncertainty derives from treatment assignment rather than sampling—has been extended to observational settings by Rambachan &amp; Roth (2025), “Design-Based Uncertainty for Quasi-Experiments,” who show how to construct valid confidence intervals under design-based assumptions even in difference-in-differences and regression discontinuity designs.</p>
+<p><strong>R packages.</strong> The <code>estimatr</code> package provides fast, design-based estimators with robust standard errors. The <code>randomizr</code> and <code>ri2</code> packages streamline the declaration of randomization schemes and the computation of exact p-values, respectively. The <code>hettreatreg</code> package implements diagnostics for heterogeneous treatment effect bias in OLS (related to the Cunningham 2021 decomposition above). The <code>grf</code> package provides forest-based CATE estimation and evaluation tools.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-hull_notes" class="csl-entry" role="listitem">
+Hull, Peter. 2022. <span>“Econometrics Lecture Notes.”</span>
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="About">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">About</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-sampling-design.html" class="pagination-link" aria-label="Sampling-based and Design-based Uncertainty">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb18" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># A Preamble</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>**Where Estimation Meets Identification**</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>Following @hull_notes, it is useful to distinguish three objects that are related but conceptually distinct.</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Parameters** are features of the model we use to describe how the data are generated---for example, a structural elasticity, an average treatment effect, or a conditional expectation function. They define the *target* of an empirical analysis: the quantity we ultimately want to learn about.</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Estimands** are functionals of the population data distribution---for example, a difference in population means or a ratio of population regression coefficients. Linking a parameter to an estimand requires assumptions; this step is called *identification*.</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Estimators** are functionals of the observed sample---for example, a difference in sample means or a ratio of OLS coefficients. Because the sample is random, every estimator is a random variable with its own sampling distribution. Using knowledge of that distribution to draw conclusions about the estimand (and, through identification, the parameter) is *statistical inference*.</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>The relationship among the three can be summarised as:</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>\underset{\text{(from theory)}}{\text{Parameters}}</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>\xleftarrow{\text{Identification}}</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>\underset{\text{(from the population)}}{\text{Estimands}}</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>\xleftarrow{\text{Statistical Inference}}</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>\underset{\text{(from the sample)}}{\text{Estimators}}</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>**Two Words on Design-Based vs Model-Based Inference (thoughts from Card's slides and Nobel lecture; more on next meeting)**</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>A primary goal in economic research is to draw causal inferences. What role do models play in this process?</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>one view (e.g., Heckman, 2008): causality is **model-based**: causality only exists within the framework of a theory that says 'x causes $y$ '</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>an opposing view (e.g., Holland): causality is **design-based**: a claim of causality requires that you can design a manipulation in which ' $x$ causes $y$ '</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>Notice that if (2) is the only way to causality, then astronomy is in trouble as we cannot make causal claims about the movements of planets (we cannot manipulate them).</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>Let's re-formulate these points using the vocabulary we just introduced. What drives the identification of our target causal parameters? Is it (1), the careful modelling of the data generating process (DGP)? where by models we include statistical models and economic (and otherwise) models.</span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>Or is it (2), the empirical setup of our data analysis? This setup can be an experiment, where the physical environment is controlled to allow the researcher to manipulate one variable while *keeping everything else constant*. It can also be a quasi-experiment, also called natural experiment, where historical circumstances happen to create a situation that can be used to approximate an experiment; a situation where the assignment to treatment is as-good-as random.</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>People are tribal and so we see either approach being used to the exclusion of the other. Nonetheless, it is easy to see how they are---almost by necessity---complementary. Nothing is better than assigning treatment at random to establish causality. Yet, both experimental but especially observational studies need/benefit from careful modelling. Solid statistical modelling allows to stumble at the inference stage. Careful economic modelling helps generalising a study's result and identifying potential mechanisms at play (beyond the simple 'x causes y'). A general point is that the more structural we impose on the data, the more we can mine the information embedded in the data. The quality of that information will then depend on the veracity of our assumptions. Nothing prevents us from making weak claims *and* strong claims, and let the reader judge which to trust.</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a><span class="fu"># The Experimental Ideal</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Selection Problem</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>Given a treatment $D_i \in <span class="sc">\{</span>0,1<span class="sc">\}</span>$, for any individual there are two potential outcomes (e.g. body temperature after hospitalisation):</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>$$\text { Potential outcome }=\left<span class="sc">\{</span>\begin{array}{ll} \mathrm{Y}_{1 i} &amp; \text { if } \mathrm{D}_{i}=1 \\ \mathrm{Y}_{0 i} &amp; \text { if } \mathrm{D}_{i}=0 \end{array} .\right.$$</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>The observed outcome, $\mathrm{Y}_{i}$, can be written in terms of potential outcomes as</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>$$\mathrm{Y}_{i}= \begin{cases}\mathrm{Y}_{1 i} &amp; \text { if } \mathrm{D}_{i}=1 \\ \mathrm{Y}_{0 i} &amp; \text { if } \mathrm{D}_{i}=0\end{cases}$$</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>which can be also written as determined according to the switching equation</span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>$$Y_{i}=D_{i} Y_{1i}+\left(1-D_{i}\right) Y_{0i}$$</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>Once the experiment (either literal experiment or natural experiment) is run, for each individual (or unit) we will observe only one potential outcome, while the other one will be *missing*. </span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>----</span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Causal Parameters detour {-}</span></span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>Let us introduce some frequently targeted causal parameters.</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Unit-specific treatment effects {-}</span></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>$$\delta_i = Y_{1i} - Y_{0i}$$</span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>The fact that we only observe one makes these parameters unobservable (we can sometime estimate it, though!).</span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Average Treatment Effect (ATE) {-}</span></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>A T E &amp;=E\left<span class="co">[</span><span class="ot">\delta_{i}\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">Y_{1i}-Y_{0i}\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">Y_{1i}\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">Y_{0i}\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>&amp;=\frac{1}{N} \sum_{i=1}^{N}\left(Y_{1i}-Y_{0i}\right)</span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>Notice that you can also calculate this for a subpopulation, e.g. the treatment effect on people &gt;50 years old, or on treated/untreated people (see below).</span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Average Treatment Effect of the Treated (ATT) {-}</span></span>
+<span id="cb18-83"><a href="#cb18-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-84"><a href="#cb18-84" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-85"><a href="#cb18-85" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-86"><a href="#cb18-86" aria-hidden="true" tabindex="-1"></a>A T T &amp;=E\left<span class="co">[</span><span class="ot">\delta_{i} \mid D_{i}=1\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-87"><a href="#cb18-87" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">Y_{1i}-Y_{0i} \mid D_{i}=1\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-88"><a href="#cb18-88" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">Y_{1i} \mid D_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">Y_{0i} \mid D_{i}=1\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-89"><a href="#cb18-89" aria-hidden="true" tabindex="-1"></a>&amp;=\frac{1}{N_{T}} \sum_{i: D_{i}=1}\left(Y_{1i}-Y_{0i}\right)</span>
+<span id="cb18-90"><a href="#cb18-90" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-91"><a href="#cb18-91" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-92"><a href="#cb18-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-93"><a href="#cb18-93" aria-hidden="true" tabindex="-1"></a>where $N_{T}$ is the number of units exposed to the active treatment. NB: I could have used conditional notation in the last line of the equation.</span>
+<span id="cb18-94"><a href="#cb18-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-95"><a href="#cb18-95" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Average Treatment Effect of the Untreated (ATU) {-}</span></span>
+<span id="cb18-96"><a href="#cb18-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-97"><a href="#cb18-97" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-98"><a href="#cb18-98" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-99"><a href="#cb18-99" aria-hidden="true" tabindex="-1"></a>A T U &amp;=E\left<span class="co">[</span><span class="ot">\delta_{i} \mid D_{i}=0\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-100"><a href="#cb18-100" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">Y_{1i}-Y_{0i} \mid D_{i}=0\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-101"><a href="#cb18-101" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">Y_{1i} \mid D_{i}=0\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">Y_{0i} \mid D_{i}=0\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-102"><a href="#cb18-102" aria-hidden="true" tabindex="-1"></a>&amp;=\frac{1}{N_{C}} \sum_{i: D_{i}=0}\left(Y_{1i}-Y_{0i}\right)</span>
+<span id="cb18-103"><a href="#cb18-103" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-104"><a href="#cb18-104" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-105"><a href="#cb18-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-106"><a href="#cb18-106" aria-hidden="true" tabindex="-1"></a>where $N_{C}$ is the number of units not exposed (i.e. the *control* units) to the active treatment.</span>
+<span id="cb18-107"><a href="#cb18-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-108"><a href="#cb18-108" aria-hidden="true" tabindex="-1"></a><span class="fu">#### ATE as a convex combination of ATT and ATU {-}</span></span>
+<span id="cb18-109"><a href="#cb18-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-110"><a href="#cb18-110" aria-hidden="true" tabindex="-1"></a>$$ ATE=\pi ATT+(1-\pi) ATU $$</span>
+<span id="cb18-111"><a href="#cb18-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-112"><a href="#cb18-112" aria-hidden="true" tabindex="-1"></a>where $0&lt;\pi&lt;1$ is the share of treated individuals and $1-\pi$ is the share of untreated individuals. </span>
+<span id="cb18-113"><a href="#cb18-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-114"><a href="#cb18-114" aria-hidden="true" tabindex="-1"></a><span class="fu">#### *Question* {-}</span></span>
+<span id="cb18-115"><a href="#cb18-115" aria-hidden="true" tabindex="-1"></a>If the participants of the program are those most likely to benefit from it, how would ATE, ATT and ATU rank, in descending order? e.g. ATE &gt; ATU &gt; ATT</span>
+<span id="cb18-116"><a href="#cb18-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-117"><a href="#cb18-117" aria-hidden="true" tabindex="-1"></a>----</span>
+<span id="cb18-118"><a href="#cb18-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-119"><a href="#cb18-119" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Selection Bias {-}</span></span>
+<span id="cb18-120"><a href="#cb18-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-121"><a href="#cb18-121" aria-hidden="true" tabindex="-1"></a>Consider the (naive) observed difference in average between people who got treated and people who did not:</span>
+<span id="cb18-122"><a href="#cb18-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-123"><a href="#cb18-123" aria-hidden="true" tabindex="-1"></a>$$E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span>$$</span>
+<span id="cb18-124"><a href="#cb18-124" aria-hidden="true" tabindex="-1"></a>$$=<span class="sc">\{</span>E<span class="co">[</span><span class="ot">D_{i} Y_{1i}+\left(1-D_{i}\right) Y_{0i} | D_i = 1</span><span class="co">]</span><span class="sc">\}</span> - <span class="sc">\{</span>E<span class="co">[</span><span class="ot">D_{i} Y_{1i}+\left(1-D_{i}\right) Y_{0i} | D_i = 0</span><span class="co">]</span><span class="sc">\}</span>$$</span>
+<span id="cb18-125"><a href="#cb18-125" aria-hidden="true" tabindex="-1"></a>$$= E<span class="co">[</span><span class="ot">Y_{1i} | D_{i}=1</span><span class="co">]</span> - <span class="sc">\{</span>E<span class="co">[</span><span class="ot">Y_{0i} | D_{i}=0</span><span class="co">]</span><span class="sc">\}</span>$$</span>
+<span id="cb18-126"><a href="#cb18-126" aria-hidden="true" tabindex="-1"></a>$$=E<span class="co">[</span><span class="ot">Y_{1i} | D_{i}=1</span><span class="co">]</span> - E<span class="co">[</span><span class="ot">Y_{0i} | D_{i}=1</span><span class="co">]</span> + E<span class="co">[</span><span class="ot">Y_{0i} | D_{i}=1</span><span class="co">]</span> - E<span class="co">[</span><span class="ot">Y_{0i} | D_{i}=0</span><span class="co">]</span>$$</span>
+<span id="cb18-127"><a href="#cb18-127" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">notice</span><span class="ot"> how the </span><span class="er">2nd</span><span class="ot"> and </span><span class="er">3rd</span><span class="ot"> terms can be introduced as they sum up to </span><span class="er">0</span><span class="dt">&gt;</span></span>
+<span id="cb18-128"><a href="#cb18-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-129"><a href="#cb18-129" aria-hidden="true" tabindex="-1"></a>Adding a couple of labels to the above equation, we get:</span>
+<span id="cb18-130"><a href="#cb18-130" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned} \underbrace{E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span>}_{\text {Observed difference in average health }}=&amp; \underbrace{E\left[\mathrm{Y}_{1 i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]}_{\text {Average treatment effect on the treated, ATT }} \\ &amp;+\underbrace{E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]-E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]}_{\text {Selection bias }} . \end{aligned}$$If people coming to the emergency room are on average much much sicker than those who don’t, even if their treatment is helpful the selection bias will lead to negative naive observed difference.</span>
+<span id="cb18-131"><a href="#cb18-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-132"><a href="#cb18-132" aria-hidden="true" tabindex="-1"></a>This result, however, does not hold in presence of heterogeneous treatment effects, as shown in Cunningham (2021). In addition to this, Słoczynski (2022) shows that the estimand $\tau$ in regression equation $y=\alpha+\tau d+X \beta+u$ estimates a convex combination of ATT and ATU which is equal to the ATE only if the treated and untreated groups have the same size (the same number of members).</span>
+<span id="cb18-133"><a href="#cb18-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-134"><a href="#cb18-134" aria-hidden="true" tabindex="-1"></a><span class="fu">## Heterogeneous Treatment Effects (Cunningham, 2021) {#sec-hette}</span></span>
+<span id="cb18-135"><a href="#cb18-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-136"><a href="#cb18-136" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Decomposition of Observed Difference Difference in Means with Heterogeneous T.E.s (Cunningham, 2021) {-}</span></span>
+<span id="cb18-137"><a href="#cb18-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-138"><a href="#cb18-138" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-139"><a href="#cb18-139" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-140"><a href="#cb18-140" aria-hidden="true" tabindex="-1"></a>A T E &amp;=\pi A T T+(1-\pi) A T U <span class="sc">\\</span></span>
+<span id="cb18-141"><a href="#cb18-141" aria-hidden="true" tabindex="-1"></a>&amp;=\pi E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=1\right</span><span class="co">]</span>-\pi E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=1\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-142"><a href="#cb18-142" aria-hidden="true" tabindex="-1"></a>&amp;+(1-\pi) E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=0\right</span><span class="co">]</span>-(1-\pi) E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=0\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-143"><a href="#cb18-143" aria-hidden="true" tabindex="-1"></a>&amp;=\left<span class="sc">\{</span>\pi E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=1\right</span><span class="co">]</span>+(1-\pi) E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=0\right</span><span class="co">]</span>\right<span class="sc">\}</span> <span class="sc">\\</span></span>
+<span id="cb18-144"><a href="#cb18-144" aria-hidden="true" tabindex="-1"></a>&amp;-\left<span class="sc">\{</span>\pi E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=1\right</span><span class="co">]</span>+(1-\pi) E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=0\right</span><span class="co">]</span>\right<span class="sc">\}</span></span>
+<span id="cb18-145"><a href="#cb18-145" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-146"><a href="#cb18-146" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-147"><a href="#cb18-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-148"><a href="#cb18-148" aria-hidden="true" tabindex="-1"></a>To make the proof slimmer, define:</span>
+<span id="cb18-149"><a href="#cb18-149" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-150"><a href="#cb18-150" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-151"><a href="#cb18-151" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=1\right</span><span class="co">]</span> &amp;=a <span class="sc">\\</span></span>
+<span id="cb18-152"><a href="#cb18-152" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=0\right</span><span class="co">]</span> &amp;=b <span class="sc">\\</span></span>
+<span id="cb18-153"><a href="#cb18-153" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=1\right</span><span class="co">]</span> &amp;=c <span class="sc">\\</span></span>
+<span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=0\right</span><span class="co">]</span> &amp;=d <span class="sc">\\</span></span>
+<span id="cb18-155"><a href="#cb18-155" aria-hidden="true" tabindex="-1"></a>A T E &amp;=e</span>
+<span id="cb18-156"><a href="#cb18-156" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-157"><a href="#cb18-157" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-158"><a href="#cb18-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-159"><a href="#cb18-159" aria-hidden="true" tabindex="-1"></a>Replacing the equation terms with the letters, we get:</span>
+<span id="cb18-160"><a href="#cb18-160" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-161"><a href="#cb18-161" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-162"><a href="#cb18-162" aria-hidden="true" tabindex="-1"></a>e &amp;=<span class="sc">\{</span>\pi a+(1-\pi) b<span class="sc">\}</span>-<span class="sc">\{</span>\pi c+(1-\pi) d<span class="sc">\}</span> <span class="sc">\\</span></span>
+<span id="cb18-163"><a href="#cb18-163" aria-hidden="true" tabindex="-1"></a>e &amp;=\pi a+b-\pi b-\pi c-d+\pi d <span class="sc">\\</span></span>
+<span id="cb18-164"><a href="#cb18-164" aria-hidden="true" tabindex="-1"></a>e &amp;=\pi a+b-\pi b-\pi c-d+\pi d+(\mathbf{a}-\mathbf{a})+(\mathbf{c}-\mathbf{c})+(\mathbf{d}-\mathbf{d}) <span class="sc">\\</span></span>
+<span id="cb18-165"><a href="#cb18-165" aria-hidden="true" tabindex="-1"></a>0 &amp;=e-\pi a-b+\pi b+\pi c+d-\pi d-\mathbf{a}+\mathbf{a}-\mathbf{c}+\mathbf{c}-\mathbf{d}+\mathbf{d} <span class="sc">\\</span></span>
+<span id="cb18-166"><a href="#cb18-166" aria-hidden="true" tabindex="-1"></a>\mathbf{a}-\mathbf{d} &amp;=e-\pi a-b+\pi b+\pi c+d-\pi d+\mathbf{a}-\mathbf{c}+\mathbf{c}-\mathbf{d} <span class="sc">\\</span></span>
+<span id="cb18-167"><a href="#cb18-167" aria-hidden="true" tabindex="-1"></a>\mathbf{a}-\mathbf{d} &amp;=e+(\mathbf{c}-\mathbf{d})+\mathbf{a}-\pi a-b+\pi b-\mathbf{c}+\pi c+d-\pi d <span class="sc">\\</span></span>
+<span id="cb18-168"><a href="#cb18-168" aria-hidden="true" tabindex="-1"></a>\mathbf{a}-\mathbf{d} &amp;=e+(\mathbf{c}-\mathbf{d})+(1-\pi) a-(1-\pi) b+(1-\pi) d-(1-\pi) c <span class="sc">\\</span></span>
+<span id="cb18-169"><a href="#cb18-169" aria-hidden="true" tabindex="-1"></a>\mathbf{a}-\mathbf{d} &amp;=e+(\mathbf{c}-\mathbf{d})+(1-\pi)(a-c)-(1-\pi)(b-d)</span>
+<span id="cb18-170"><a href="#cb18-170" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-171"><a href="#cb18-171" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-172"><a href="#cb18-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-173"><a href="#cb18-173" aria-hidden="true" tabindex="-1"></a>Now, substituting our definitions, we get the following:</span>
+<span id="cb18-174"><a href="#cb18-174" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-175"><a href="#cb18-175" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-176"><a href="#cb18-176" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">Y_{1} \mid D=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=0\right</span><span class="co">]</span> &amp;=A T E <span class="sc">\\</span></span>
+<span id="cb18-177"><a href="#cb18-177" aria-hidden="true" tabindex="-1"></a>&amp;+\left(E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=0\right</span><span class="co">]</span>\right) <span class="sc">\\</span></span>
+<span id="cb18-178"><a href="#cb18-178" aria-hidden="true" tabindex="-1"></a>&amp;+(1-\pi)(A T T-A T U)</span>
+<span id="cb18-179"><a href="#cb18-179" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-180"><a href="#cb18-180" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-181"><a href="#cb18-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-182"><a href="#cb18-182" aria-hidden="true" tabindex="-1"></a>Wrapping up, this is what we got:</span>
+<span id="cb18-183"><a href="#cb18-183" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-184"><a href="#cb18-184" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-185"><a href="#cb18-185" aria-hidden="true" tabindex="-1"></a>\underbrace{\frac{1}{N_{T}} \sum_{i=1}^{n}\left(y_{i} \mid d_{i}=1\right)-\frac{1}{N_{C}} \sum_{i=1}^{n}\left(y_{i} \mid d_{i}=0\right)}_{\text {Simple Difference in Outcomes }}&amp;=\underbrace{E\left[Y_{1}\right]-E\left[Y_{0}\right]}_{\text {Average Treatment Effect }}<span class="sc">\\</span></span>
+<span id="cb18-186"><a href="#cb18-186" aria-hidden="true" tabindex="-1"></a>&amp;+\underbrace{E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">Y_{0} \mid D=0\right</span><span class="co">]</span>}_{\text {Selection bias }}<span class="sc">\\</span></span>
+<span id="cb18-187"><a href="#cb18-187" aria-hidden="true" tabindex="-1"></a>&amp;+\underbrace{(1-\pi)(A T T-A T U)}_{\text {Heterogeneous treatment effect bias }}</span>
+<span id="cb18-188"><a href="#cb18-188" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-189"><a href="#cb18-189" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-190"><a href="#cb18-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-191"><a href="#cb18-191" aria-hidden="true" tabindex="-1"></a><span class="fu">#### A Final Note on Heterogeneity {-}</span></span>
+<span id="cb18-192"><a href="#cb18-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-193"><a href="#cb18-193" aria-hidden="true" tabindex="-1"></a>One last thing before we move on. Let's define one last (for the moment) causal parameter, the Conditional Average Treatment Effects (CATE):</span>
+<span id="cb18-194"><a href="#cb18-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-195"><a href="#cb18-195" aria-hidden="true" tabindex="-1"></a>$${\text {CATE }}=\frac{1}{N} \sum_{i=1}^{N} E\left<span class="co">[</span><span class="ot">Y_{1i}-Y_{0i} \mid X_{i}\right</span><span class="co">]</span>$$</span>
+<span id="cb18-196"><a href="#cb18-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-197"><a href="#cb18-197" aria-hidden="true" tabindex="-1"></a>When we estimate treatment effects using regression models that include covariates, we estimate the CATE. Notice that if the effects are homogeneous across individuals, the CATE will be identical to the ATE. </span>
+<span id="cb18-198"><a href="#cb18-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-199"><a href="#cb18-199" aria-hidden="true" tabindex="-1"></a>Moreover, in presence of strong heterogeneity, the CATE will lead to more precise estimates (due to the use of covariates) than the ATE.</span>
+<span id="cb18-200"><a href="#cb18-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-201"><a href="#cb18-201" aria-hidden="true" tabindex="-1"></a>Nonetheless, because today we are focusing on experiments with random sampling, we should not worry about this.</span>
+<span id="cb18-202"><a href="#cb18-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-203"><a href="#cb18-203" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb18-204"><a href="#cb18-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## Modern CATE Estimation and Evaluation</span></span>
+<span id="cb18-205"><a href="#cb18-205" aria-hidden="true" tabindex="-1"></a>Recent work has developed principled ways to estimate and evaluate CATEs. The <span class="in">`grf`</span> R package (Generalized Random Forests; Athey, Tibshirani &amp; Wager, 2019) provides forest-based CATE estimation via <span class="in">`causal_forest()`</span>. Once CATEs are estimated, the question becomes how to evaluate whether the estimated heterogeneity is real and useful. Yadlowsky et al. (2025) propose the Rank-Weighted Average Treatment Effect (RATE), a metric that assesses how well an estimated CATE function prioritises individuals who benefit most from treatment. The <span class="in">`grf`</span> package implements RATE via the <span class="in">`rank_average_treatment_effect()`</span> function, making it straightforward to test whether detected heterogeneity is meaningful.</span>
+<span id="cb18-206"><a href="#cb18-206" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb18-207"><a href="#cb18-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-208"><a href="#cb18-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## A Word on Samples and Populations (Imbens &amp; Wooldridge, 2009 JEL; Gelman, Hill &amp; Vehtari, 2020)</span></span>
+<span id="cb18-209"><a href="#cb18-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-210"><a href="#cb18-210" aria-hidden="true" tabindex="-1"></a>In applied work, we have enough troubles producing credible estimates using the samples at hand that we do not talk much about how our estimates generalise to our population of interest, nor about what our population of interest actually is!</span>
+<span id="cb18-211"><a href="#cb18-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-212"><a href="#cb18-212" aria-hidden="true" tabindex="-1"></a>Then there are people like Gelman (guru on the exotic topic of post-stratification), Wooldridge and Imbens that care to highlight that *unless our sample is random*, as in experiments, population ATE (PATE) and sample ATE (SATE) will differ. To bridge the gap we would need post-stratification techniques, which are aimed at correctly extrapolating/generalising our sample results. I am ignorant on this topic and we might cover it in the future.</span>
+<span id="cb18-213"><a href="#cb18-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a><span class="fu">## Random Assignment Solves the Selection Problem (Chernozhukov, 2017; Imbens &amp; Rubin, 2015)</span></span>
+<span id="cb18-215"><a href="#cb18-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-216"><a href="#cb18-216" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Dawid's Independence [(link)](https://statmodeling.stat.columbia.edu/2009/07/07/philip_dawids_t/) {-}</span></span>
+<span id="cb18-217"><a href="#cb18-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-218"><a href="#cb18-218" aria-hidden="true" tabindex="-1"></a>$A {\perp\kern-5pt\perp} B | C$ denotes that A is independent of B given C, or, equivalently, that p(a | b, c) does not depend on the value b of B (for given a,c). Note that this makes sense even if B is a parameter variable rather than a random variable. We can handle such “extended conditional independence” (ECI) properties using exactly the same algebraic rules as for regular probabilistic conditional independence (CI). And, if desired, we can use graphical representations (which explicitly include parameter variables along with random variables) to represent and manipulate ECI properties, exactly as for CI.</span>
+<span id="cb18-219"><a href="#cb18-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-220"><a href="#cb18-220" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Random Assignment {-}</span></span>
+<span id="cb18-221"><a href="#cb18-221" aria-hidden="true" tabindex="-1"></a>As we saw above with the emergency room example, we could say that in an observational setting assignment to treatment (or *treatment assignment mechanism*) is a function of the potential outcomes, $D_i(Y_{0i}, Y_{1i})$.</span>
+<span id="cb18-222"><a href="#cb18-222" aria-hidden="true" tabindex="-1"></a>In our example, people who are---absent treatment---sicker, are more likely to go to the emergency room than those who are---absent treatment---healthier, i.e. $E <span class="co">[</span><span class="ot">Y_{0i} | D_i = 1</span><span class="co">]</span> &gt; E <span class="co">[</span><span class="ot">Y_{0i} | D_i = 0</span><span class="co">]</span>$, where $Y$ is a variable measuring how sick one is. This is only one of the possible ways in which treatment assignment can depend on potential outcomes.</span>
+<span id="cb18-223"><a href="#cb18-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-224"><a href="#cb18-224" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Imbens &amp; Rubin's take {-}</span></span>
+<span id="cb18-225"><a href="#cb18-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-226"><a href="#cb18-226" aria-hidden="true" tabindex="-1"></a>Luckily, random assignment implies that assignment is independent of the potential outcomes, i.e.</span>
+<span id="cb18-227"><a href="#cb18-227" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-228"><a href="#cb18-228" aria-hidden="true" tabindex="-1"></a>\operatorname{Pr}\left(D_{i}=1 \mid Y_{0i}, Y_{1i}\right)=\operatorname{Pr}\left(D_{i}=1\right)</span>
+<span id="cb18-229"><a href="#cb18-229" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-230"><a href="#cb18-230" aria-hidden="true" tabindex="-1"></a>or in Dawid's (1979) " ${\perp\kern-5pt\perp}$ " independence notation,</span>
+<span id="cb18-231"><a href="#cb18-231" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-232"><a href="#cb18-232" aria-hidden="true" tabindex="-1"></a>D_{i} {\perp\kern-5pt\perp} \left(Y_{0i}, Y_{1i}\right) .</span>
+<span id="cb18-233"><a href="#cb18-233" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-234"><a href="#cb18-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-235"><a href="#cb18-235" aria-hidden="true" tabindex="-1"></a>This assumption has several names: ignorability, exogeneity, independence, unconfoundedness. Add the word "conditional" before the above terms and you get a more general version of this assumption, which conditions on covariates other than the treatment variable:</span>
+<span id="cb18-236"><a href="#cb18-236" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-237"><a href="#cb18-237" aria-hidden="true" tabindex="-1"></a>D_{i} {\perp\kern-5pt\perp} \left(Y_{0i}, Y_{1i}\right) | X_i.</span>
+<span id="cb18-238"><a href="#cb18-238" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-239"><a href="#cb18-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-240"><a href="#cb18-240" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Angrist &amp; Pischke's take {-}</span></span>
+<span id="cb18-241"><a href="#cb18-241" aria-hidden="true" tabindex="-1"></a>Random assignment of $\mathrm{D}_{i}$ solves the selection problem because random assignment makes $\mathrm{D}_{i}$ independent of potential outcomes. To see this, note that</span>
+<span id="cb18-242"><a href="#cb18-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-243"><a href="#cb18-243" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-244"><a href="#cb18-244" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-245"><a href="#cb18-245" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span> &amp;=\underbrace{E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{1 i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>}_{\text{i's obs'd treated if were treated}}-\underbrace{E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]}_{\text{i's obs'd untreated if were untreated}} <span class="sc">\\</span></span>
+<span id="cb18-246"><a href="#cb18-246" aria-hidden="true" tabindex="-1"></a>&amp;=\underbrace{E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{1 i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>}_{\text{i's obs'd treated if were treated}} - \underbrace{E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]}_{\text{i's obs'd treated if were untreated}} = ATT <span class="sc">\\</span></span>
+<span id="cb18-247"><a href="#cb18-247" aria-hidden="true" tabindex="-1"></a>&amp;=E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{1 i}-\mathrm{Y}_{0 i}\right</span><span class="co">]</span> = ATE.</span>
+<span id="cb18-248"><a href="#cb18-248" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-249"><a href="#cb18-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-250"><a href="#cb18-250" aria-hidden="true" tabindex="-1"></a>where the independence of $\mathrm{Y}_{0 i}$ and $\mathrm{D}_{i}$ allows us to swap $E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right]$ for $E\left[\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right]$ in the second line and to get to the third line too. Notice that, assuming homogeneous effects, we could have gone via the ATU too, but it would have been less intuitive.</span>
+<span id="cb18-251"><a href="#cb18-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-252"><a href="#cb18-252" aria-hidden="true" tabindex="-1"></a>The effect of randomly assigned hospitalization on the hospitalized (ATT) is the same as the effect of hospitalization on a randomly chosen patient (ATE). The main thing, however, is that random assignment of $\mathrm{D}_{i}$ eliminates selection bias, leaving us with just the ATE.</span>
+<span id="cb18-253"><a href="#cb18-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-254"><a href="#cb18-254" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Chernozhukov's take (more general) {-}</span></span>
+<span id="cb18-255"><a href="#cb18-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-256"><a href="#cb18-256" aria-hidden="true" tabindex="-1"></a>**Assumption 1 (Random Assignment/Exogeneity)**. Suppose that the treatment status is randomly assigned, namely $D$ is statistically independent of the potential outcomes $\left(Y_{d,i}\right)_{d \in<span class="sc">\{</span>0,1<span class="sc">\}</span>}$, which is denoted as</span>
+<span id="cb18-257"><a href="#cb18-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-258"><a href="#cb18-258" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-259"><a href="#cb18-259" aria-hidden="true" tabindex="-1"></a>D_{i} {\perp\kern-5pt\perp} \left(Y_{0i}, Y_{1i}\right),</span>
+<span id="cb18-260"><a href="#cb18-260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-261"><a href="#cb18-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-262"><a href="#cb18-262" aria-hidden="true" tabindex="-1"></a>and $0&lt;\mathrm{P}(D_{i}=1)&lt;1$.</span>
+<span id="cb18-263"><a href="#cb18-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-264"><a href="#cb18-264" aria-hidden="true" tabindex="-1"></a>::: {#thm-random}</span>
+<span id="cb18-265"><a href="#cb18-265" aria-hidden="true" tabindex="-1"></a><span class="fu">## Randomization Removes Bias</span></span>
+<span id="cb18-266"><a href="#cb18-266" aria-hidden="true" tabindex="-1"></a>Under Assumption 1,</span>
+<span id="cb18-267"><a href="#cb18-267" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-268"><a href="#cb18-268" aria-hidden="true" tabindex="-1"></a>\mathrm{E}<span class="co">[</span><span class="ot">Y_{i} \mid D_{i}=d_{i}</span><span class="co">]</span>=\mathrm{E}\left<span class="co">[</span><span class="ot">Y_{d, i} \mid D_{i}=d_{i}\right</span><span class="co">]</span>=\mathrm{E}\left<span class="co">[</span><span class="ot">Y_{d, i}\right</span><span class="co">]</span>, \text { for } d_{i} \in<span class="sc">\{</span>0,1<span class="sc">\}</span> \text {. }</span>
+<span id="cb18-269"><a href="#cb18-269" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-270"><a href="#cb18-270" aria-hidden="true" tabindex="-1"></a>Hence</span>
+<span id="cb18-271"><a href="#cb18-271" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-272"><a href="#cb18-272" aria-hidden="true" tabindex="-1"></a>\mathrm{E} <span class="co">[</span><span class="ot">Y_{1i}</span><span class="co">]</span> - \mathrm{E} <span class="co">[</span><span class="ot">Y_{0i}</span><span class="co">]</span> = ATE</span>
+<span id="cb18-273"><a href="#cb18-273" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-274"><a href="#cb18-274" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb18-275"><a href="#cb18-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-276"><a href="#cb18-276" aria-hidden="true" tabindex="-1"></a>Please note that the theorem is self-contained, since the proof is contained in the statement.</span>
+<span id="cb18-277"><a href="#cb18-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-278"><a href="#cb18-278" aria-hidden="true" tabindex="-1"></a><span class="fu">#### The Power of Random Assignment {-}</span></span>
+<span id="cb18-279"><a href="#cb18-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-280"><a href="#cb18-280" aria-hidden="true" tabindex="-1"></a>For didactic purposes, assume you have God-like powers and can see both counterfactuals at the same time. Now find all possible permutations of the assignment vector (make it length = 10, of which 5 treated and 5 controls). If you then calculate all the possible differences between the treated and untreated, you can see that their mean value is equal to the true ATE.</span>
+<span id="cb18-281"><a href="#cb18-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-282"><a href="#cb18-282" aria-hidden="true" tabindex="-1"></a>At a basic level, this simulation reminds us that any estimator is a random variable and that even with God-like powers it returns the true value only on average. The interesting thing here is that the uncertainty is not generated by sampling (sampling error), but by the randomisation process. </span>
+<span id="cb18-283"><a href="#cb18-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-284"><a href="#cb18-284" aria-hidden="true" tabindex="-1"></a>To check where my claims are true, we can calculate the true ATE and compare with the naive differences.</span>
+<span id="cb18-285"><a href="#cb18-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-286"><a href="#cb18-286" aria-hidden="true" tabindex="-1"></a>Fun fact: The number of distinct values of the assignment vector with $N_{\mathrm{t}}$ units out of $N$ assigned to the active treatment is</span>
+<span id="cb18-287"><a href="#cb18-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-288"><a href="#cb18-288" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-289"><a href="#cb18-289" aria-hidden="true" tabindex="-1"></a>\left(\begin{array}{l}</span>
+<span id="cb18-290"><a href="#cb18-290" aria-hidden="true" tabindex="-1"></a>N <span class="sc">\\</span></span>
+<span id="cb18-291"><a href="#cb18-291" aria-hidden="true" tabindex="-1"></a>N_{\mathrm{t}}</span>
+<span id="cb18-292"><a href="#cb18-292" aria-hidden="true" tabindex="-1"></a>\end{array}\right)=\frac{N !}{N_{\mathrm{t}} ! \cdot\left(N-N_{\mathrm{t}}\right) !}, \quad \text { with } J !=J(J-1) \ldots 1 .</span>
+<span id="cb18-293"><a href="#cb18-293" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-294"><a href="#cb18-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-295"><a href="#cb18-295" aria-hidden="true" tabindex="-1"></a>which, in our case where $N = 10$ and $N_t = 5$, implies that we have 252 possible permutations of the assignment vector.</span>
+<span id="cb18-296"><a href="#cb18-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-299"><a href="#cb18-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-300"><a href="#cb18-300" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb18-301"><a href="#cb18-301" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb18-302"><a href="#cb18-302" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb18-303"><a href="#cb18-303" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("fitdistrplus")</span></span>
+<span id="cb18-304"><a href="#cb18-304" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)    <span class="co">#fit distributions to data</span></span>
+<span id="cb18-305"><a href="#cb18-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-306"><a href="#cb18-306" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential Outcomes</span></span>
+<span id="cb18-307"><a href="#cb18-307" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb18-308"><a href="#cb18-308" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb18-309"><a href="#cb18-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a><span class="co"># The only variable is the treatment, so we need to find all possible </span></span>
+<span id="cb18-311"><a href="#cb18-311" aria-hidden="true" tabindex="-1"></a><span class="co"># realizations of the treatment variable. The idea is to create all </span></span>
+<span id="cb18-312"><a href="#cb18-312" aria-hidden="true" tabindex="-1"></a><span class="co"># possible combinations of a dummy variable of length=10, and select </span></span>
+<span id="cb18-313"><a href="#cb18-313" aria-hidden="true" tabindex="-1"></a><span class="co"># the combinations with 5 ones and 5 zeroes (equal treatment and control group).</span></span>
+<span id="cb18-314"><a href="#cb18-314" aria-hidden="true" tabindex="-1"></a>alld <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="fu">rep</span>(<span class="fu">list</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>), <span class="dv">10</span>))  <span class="co"># all combinations of 10 dummy variable</span></span>
+<span id="cb18-315"><a href="#cb18-315" aria-hidden="true" tabindex="-1"></a>ind5 <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">rowMeans</span>(alld) <span class="sc">==</span> <span class="fl">0.5</span>)  <span class="co"># the combinations with 5 "1"</span></span>
+<span id="cb18-316"><a href="#cb18-316" aria-hidden="true" tabindex="-1"></a>alld5 <span class="ot">&lt;-</span> alld[ind5, ]  <span class="co"># 252 selected combinations</span></span>
+<span id="cb18-317"><a href="#cb18-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-318"><a href="#cb18-318" aria-hidden="true" tabindex="-1"></a><span class="co"># For each selected combination, calculated the ATE using the Neyman estimator</span></span>
+<span id="cb18-319"><a href="#cb18-319" aria-hidden="true" tabindex="-1"></a>ATEs <span class="ot">&lt;-</span> <span class="fu">apply</span>(alld5, <span class="dv">1</span>, <span class="cf">function</span>(d) <span class="fu">mean</span>(d <span class="sc">*</span> y1 <span class="sc">/</span> <span class="fl">0.5</span> <span class="sc">-</span> (<span class="dv">1</span> <span class="sc">-</span> d) <span class="sc">*</span> y0 <span class="sc">/</span> <span class="fl">0.5</span>))</span>
+<span id="cb18-320"><a href="#cb18-320" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(ATEs)</span>
+<span id="cb18-321"><a href="#cb18-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-322"><a href="#cb18-322" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a normal distribution to the 252 ATEs</span></span>
+<span id="cb18-323"><a href="#cb18-323" aria-hidden="true" tabindex="-1"></a>fitnorm <span class="ot">&lt;-</span> fitdistrplus<span class="sc">::</span><span class="fu">fitdist</span>(ATEs, <span class="st">"norm"</span>)</span>
+<span id="cb18-324"><a href="#cb18-324" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitnorm)</span>
+<span id="cb18-325"><a href="#cb18-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-326"><a href="#cb18-326" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate and print the true ATE</span></span>
+<span id="cb18-327"><a href="#cb18-327" aria-hidden="true" tabindex="-1"></a>true_ate <span class="ot">=</span> <span class="fu">mean</span>(y1) <span class="sc">-</span> <span class="fu">mean</span>(y0)</span>
+<span id="cb18-328"><a href="#cb18-328" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The true (unobservable) ATE is:"</span>, <span class="fu">mean</span>(true_ate)))</span>
+<span id="cb18-329"><a href="#cb18-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-330"><a href="#cb18-330" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the estimated ATE</span></span>
+<span id="cb18-331"><a href="#cb18-331" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"The estimated ATE is:"</span>, <span class="fu">mean</span>(ATEs)))</span>
+<span id="cb18-332"><a href="#cb18-332" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-333"><a href="#cb18-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-334"><a href="#cb18-334" aria-hidden="true" tabindex="-1"></a>The modern way to compute the Neyman difference-in-means estimator (with appropriate standard errors) is via the <span class="in">`estimatr`</span> package, which provides design-based inference out of the box:</span>
+<span id="cb18-335"><a href="#cb18-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-338"><a href="#cb18-338" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-339"><a href="#cb18-339" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb18-340"><a href="#cb18-340" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb18-341"><a href="#cb18-341" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb18-342"><a href="#cb18-342" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("estimatr")</span></span>
+<span id="cb18-343"><a href="#cb18-343" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span>
+<span id="cb18-344"><a href="#cb18-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-345"><a href="#cb18-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the same potential outcomes as above</span></span>
+<span id="cb18-346"><a href="#cb18-346" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb18-347"><a href="#cb18-347" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb18-348"><a href="#cb18-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-349"><a href="#cb18-349" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick one realisation of the treatment assignment</span></span>
+<span id="cb18-350"><a href="#cb18-350" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb18-351"><a href="#cb18-351" aria-hidden="true" tabindex="-1"></a>d_i <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">5</span>), <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)))</span>
+<span id="cb18-352"><a href="#cb18-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-353"><a href="#cb18-353" aria-hidden="true" tabindex="-1"></a><span class="co"># Observed outcomes via the switching equation</span></span>
+<span id="cb18-354"><a href="#cb18-354" aria-hidden="true" tabindex="-1"></a>y_i <span class="ot">&lt;-</span> d_i <span class="sc">*</span> y1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> d_i) <span class="sc">*</span> y0</span>
+<span id="cb18-355"><a href="#cb18-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-356"><a href="#cb18-356" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the difference in means with design-based SEs</span></span>
+<span id="cb18-357"><a href="#cb18-357" aria-hidden="true" tabindex="-1"></a>dim_result <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">difference_in_means</span>(y_i <span class="sc">~</span> d_i)</span>
+<span id="cb18-358"><a href="#cb18-358" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dim_result)</span>
+<span id="cb18-359"><a href="#cb18-359" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-360"><a href="#cb18-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-361"><a href="#cb18-361" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Stable Unit of Treatment Assumption (SUTVA) (Imbens and Rubin, 2015) {-}</span></span>
+<span id="cb18-362"><a href="#cb18-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-363"><a href="#cb18-363" aria-hidden="true" tabindex="-1"></a>The SUTVA establishes that the potential outcomes of unit $i$ only depend on the treatment status of that unit and that there are no treatment levels that have not been taken into account. In the words of Imbens and Rubin,</span>
+<span id="cb18-364"><a href="#cb18-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-365"><a href="#cb18-365" aria-hidden="true" tabindex="-1"></a>::: {#def-sutva}</span>
+<span id="cb18-366"><a href="#cb18-366" aria-hidden="true" tabindex="-1"></a><span class="fu">## SUTVA</span></span>
+<span id="cb18-367"><a href="#cb18-367" aria-hidden="true" tabindex="-1"></a>The potential outcomes for any unit do not vary with the treatments assigned to other units, and, for each unit, there are no different forms or versions of each treatment level, which lead to different potential outcomes.</span>
+<span id="cb18-368"><a href="#cb18-368" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb18-369"><a href="#cb18-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-370"><a href="#cb18-370" aria-hidden="true" tabindex="-1"></a>Hence, (i) for any given units, its potential outcomes are not affected by the treatment status of other units (no spillovers, no general equilibrium effects), and (ii), for instance, in a study on the efficacy of aspirin against headaches using a binary treatment variable, there are not more and less effective aspirin tablets. This would generate more treatment levels (and corresponding potential outcomes) that we would be accounting for using a binary variable.</span>
+<span id="cb18-371"><a href="#cb18-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-372"><a href="#cb18-372" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb18-373"><a href="#cb18-373" aria-hidden="true" tabindex="-1"></a><span class="fu">## Randomization Inference When SUTVA Fails</span></span>
+<span id="cb18-374"><a href="#cb18-374" aria-hidden="true" tabindex="-1"></a>SUTVA is a strong assumption, and in many settings---such as classrooms, networks, or markets---interference (spillovers) between units is plausible. Basse et al. (2024) show that Fisher-style randomization tests can be extended to settings where SUTVA is violated by allowing potential outcomes to depend on the full treatment assignment vector, not just a unit's own treatment. This means that even in the presence of peer effects or interference, exact p-values remain valid if the sharp null hypothesis is reformulated appropriately and the test statistic accounts for the dependence structure.</span>
+<span id="cb18-375"><a href="#cb18-375" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb18-376"><a href="#cb18-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-377"><a href="#cb18-377" aria-hidden="true" tabindex="-1"></a>----</span>
+<span id="cb18-378"><a href="#cb18-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-379"><a href="#cb18-379" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Unbiasedness of the Neyman Estimator (Imbens &amp; Rubin, 2015) {-}</span></span>
+<span id="cb18-380"><a href="#cb18-380" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-381"><a href="#cb18-381" aria-hidden="true" tabindex="-1"></a>If $N$ is the number of units, $N_t$ of treated units and $N_c$ of control units,</span>
+<span id="cb18-382"><a href="#cb18-382" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-383"><a href="#cb18-383" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-384"><a href="#cb18-384" aria-hidden="true" tabindex="-1"></a>\hat{\tau}^{\text{dif}} &amp;= \frac{1}{N_t} \sum_{i:D_i = 1} Y_i - \frac{1}{N_c} \sum_{i:D_i = 0} Y_i <span class="sc">\\</span></span>
+<span id="cb18-385"><a href="#cb18-385" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb18-386"><a href="#cb18-386" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{N_t} \sum_{i = 1}^{N} (D_i) Y_i - \frac{1}{N_c} \sum_{i = 1}^{N} (1 - D_i) Y_i \hspace{1cm} \text{, making notation explicit}<span class="sc">\\</span></span>
+<span id="cb18-387"><a href="#cb18-387" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb18-388"><a href="#cb18-388" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{N_t} \sum_{i = 1}^{N} D_i Y_{1i} - \frac{1}{N_c} \sum_{i = 1}^{N} (1 - D_i) Y_{0i} \hspace{1cm} \text{, since} \ Y_i=Y_{0i} \ \text{if} \ D_i=0 \ \text{and} \ Y_i=Y_{1i} \ \text{if} D_i=1 <span class="sc">\\</span></span>
+<span id="cb18-389"><a href="#cb18-389" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb18-390"><a href="#cb18-390" aria-hidden="true" tabindex="-1"></a>&amp;= \sum_{i=1}^{N} \frac{D_i Y_{1i}}{N_t} - \sum_{i=1}^{N} \frac{(1-D_i) Y_{0i}}{N_c}  \hspace{1cm} \text{, rearranging}<span class="sc">\\</span></span>
+<span id="cb18-391"><a href="#cb18-391" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb18-392"><a href="#cb18-392" aria-hidden="true" tabindex="-1"></a>&amp;= \frac{1}{N}\sum_{i=1}^{N} \left( \frac{D_i Y_{1i}}{\frac{N_t}{N}} -  \frac{(1-D_i) Y_{0i}}{\frac{N_c}{N}} \right)  \hspace{1cm} \text{, multiplying everything by} \ \frac{N}{N}<span class="sc">\\</span></span>
+<span id="cb18-393"><a href="#cb18-393" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-394"><a href="#cb18-394" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-395"><a href="#cb18-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-396"><a href="#cb18-396" aria-hidden="true" tabindex="-1"></a>Given it's a randomised experiment,</span>
+<span id="cb18-397"><a href="#cb18-397" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-398"><a href="#cb18-398" aria-hidden="true" tabindex="-1"></a>Pr(D_i = 1| Y_{0i}, Y_{1i}) = E<span class="co">[</span><span class="ot">D_i |  Y_{0i}, Y_{1i}</span><span class="co">]</span> = \frac{N_t}{N}</span>
+<span id="cb18-399"><a href="#cb18-399" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-400"><a href="#cb18-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-401"><a href="#cb18-401" aria-hidden="true" tabindex="-1"></a>Now, noting that $D_i$ is the only stochastic element of $\hat{\tau}^{\text{dif}}$, we finish the proof, showing it is an unbiased estimator of the ATE:</span>
+<span id="cb18-402"><a href="#cb18-402" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-403"><a href="#cb18-403" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-404"><a href="#cb18-404" aria-hidden="true" tabindex="-1"></a>E<span class="co">[</span><span class="ot">\hat{\tau}^{\text{dif}} | Y_{0i}, Y_{1i}</span><span class="co">]</span> &amp;= \frac{1}{N}\sum_{i=1}^{N} \left( \frac{E<span class="co">[</span><span class="ot">D_i</span><span class="co">]</span> Y_{1i}}{\frac{N_t}{N}} -  \frac{E<span class="co">[</span><span class="ot">1-D_i</span><span class="co">]</span> Y_{0i}}{\frac{N_c}{N}} \right) <span class="sc">\\</span></span>
+<span id="cb18-405"><a href="#cb18-405" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb18-406"><a href="#cb18-406" aria-hidden="true" tabindex="-1"></a>E<span class="co">[</span><span class="ot">\hat{\tau}^{\text{dif}} | Y_{0i}, Y_{1i}</span><span class="co">]</span> &amp;= \frac{1}{N}\sum_{i=1}^{N} \left( \frac{\frac{N_t}{N} Y_{1i}}{\frac{N_t}{N}} -  \frac{\frac{N_c}{N} Y_{0i}}{\frac{N_c}{N}} \right)  \hspace{1cm} \text{, plugging in expected values of the dummies}<span class="sc">\\</span></span>
+<span id="cb18-407"><a href="#cb18-407" aria-hidden="true" tabindex="-1"></a><span class="sc">\\</span></span>
+<span id="cb18-408"><a href="#cb18-408" aria-hidden="true" tabindex="-1"></a>&amp;=\frac{1}{N}\sum_{i=1}^{N} (Y_{1i} - Y_{0i})  \hspace{1cm} \text{, cancelling out the proportions}<span class="sc">\\</span></span>
+<span id="cb18-409"><a href="#cb18-409" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-410"><a href="#cb18-410" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-411"><a href="#cb18-411" aria-hidden="true" tabindex="-1"></a>Which is our target estimand, ATE, thus ending the proof.</span>
+<span id="cb18-412"><a href="#cb18-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-413"><a href="#cb18-413" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Exact p-values: great for RCTs and population-based studies {-}</span></span>
+<span id="cb18-414"><a href="#cb18-414" aria-hidden="true" tabindex="-1"></a>Exact p-values allow us to test the sharp null hypothesis leveraging randomisation uncertainty. This makes them a valid alternative to the more familiar type of p-values in experimental and population-wide settings---as in the latter there is no sampling uncertainty.</span>
+<span id="cb18-415"><a href="#cb18-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-416"><a href="#cb18-416" aria-hidden="true" tabindex="-1"></a>We note with Imbens and Rubin (2005):</span>
+<span id="cb18-417"><a href="#cb18-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-418"><a href="#cb18-418" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Fisher's null hypothesis of no effect of the treatment versus control whatsoever is distinct from the possibly more practical question of whether the typical (e.g., average) treatment effect across all units is zero. The latter is a weaker hypothesis, because the average treatment effect may be zero even when for some units the treatment effect is positive, as long as for some others the effect is negative.</span></span>
+<span id="cb18-419"><a href="#cb18-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-420"><a href="#cb18-420" aria-hidden="true" tabindex="-1"></a>To compute an exact p-value we need (i) a hypothesis and (ii) a test statistic.</span>
+<span id="cb18-421"><a href="#cb18-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-422"><a href="#cb18-422" aria-hidden="true" tabindex="-1"></a>As anticipated, we choose the sharp null hypothesis, which is defined as:</span>
+<span id="cb18-423"><a href="#cb18-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-424"><a href="#cb18-424" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-425"><a href="#cb18-425" aria-hidden="true" tabindex="-1"></a>H_{0}: \quad Y_{0i}=Y_{1i} \quad \forall i=1, \ldots, N</span>
+<span id="cb18-426"><a href="#cb18-426" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-427"><a href="#cb18-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-428"><a href="#cb18-428" aria-hidden="true" tabindex="-1"></a>The test statistic we choose is the Neyman estimator</span>
+<span id="cb18-429"><a href="#cb18-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-430"><a href="#cb18-430" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-431"><a href="#cb18-431" aria-hidden="true" tabindex="-1"></a>\hat{\tau}^{\text{dif}} = \frac{1}{N_t} \sum_{i:D_i = 1} Y_i - \frac{1}{N_c} \sum_{i:D_i = 0} Y_i</span>
+<span id="cb18-432"><a href="#cb18-432" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-433"><a href="#cb18-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-434"><a href="#cb18-434" aria-hidden="true" tabindex="-1"></a>The p-value (which we call 'exact') for this hypothesis is defined as:</span>
+<span id="cb18-435"><a href="#cb18-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-436"><a href="#cb18-436" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-437"><a href="#cb18-437" aria-hidden="true" tabindex="-1"></a>p=\operatorname{pr}\left(\left|\hat{\tau}^{\text{dif}}\left(\tilde{D}_i, Y_i, X_i\right)\right| \geq\left|\hat{\tau}^{\text{dif}}\left({D}_i, Y_i, X_i\right)\right|\right)</span>
+<span id="cb18-438"><a href="#cb18-438" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-439"><a href="#cb18-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-440"><a href="#cb18-440" aria-hidden="true" tabindex="-1"></a>It answers the question: what is the probability, over the distribution of the statistic $\hat{\tau}^{\text{dif}}$ (induced by randomisation) that $\hat{\tau}^{\text{dif}}$ is greater than the actually observed $\hat{\tau}^{\text{dif}}$, in absolute value?</span>
+<span id="cb18-441"><a href="#cb18-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-442"><a href="#cb18-442" aria-hidden="true" tabindex="-1"></a>In other words,</span>
+<span id="cb18-443"><a href="#cb18-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-444"><a href="#cb18-444" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; An observed value that is "very unlikely," given the null hypothesis and the induced distribution for the test statistic, will be taken as evidence against the null hypothesis in what is, essentially, a stochastic version of the mathematician's "proof by contradiction." How unusual the observed value is under the null hypothesis will be measured by the probability that a value as extreme or more extreme (in practice, as large or larger) would have been observed - the significance level or p-value. Hence, the FEP approach</span></span>
+<span id="cb18-445"><a href="#cb18-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-446"><a href="#cb18-446" aria-hidden="true" tabindex="-1"></a>A little note on the simulation below: by calculating the same statistics for different permutations of $D_i$, we are implicitly imputing $Y_{i}=Y_{1i}$ when the $D_i=0$ and $Y_{i}=Y_{0i}$ when the $D_i=1$. Convince yourself of this. We are, in other words, creating a hypothetical distribution of the statistic consistent with the sharp null of no effects for anyone and then checking whether our observed statistic falls into one of the two tails.</span>
+<span id="cb18-447"><a href="#cb18-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-450"><a href="#cb18-450" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-451"><a href="#cb18-451" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb18-452"><a href="#cb18-452" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb18-453"><a href="#cb18-453" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb18-454"><a href="#cb18-454" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("perm")</span></span>
+<span id="cb18-455"><a href="#cb18-455" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(perm)</span>
+<span id="cb18-456"><a href="#cb18-456" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-457"><a href="#cb18-457" aria-hidden="true" tabindex="-1"></a><span class="co"># Potential Outcomes</span></span>
+<span id="cb18-458"><a href="#cb18-458" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb18-459"><a href="#cb18-459" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb18-460"><a href="#cb18-460" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual treatment variable</span></span>
+<span id="cb18-461"><a href="#cb18-461" aria-hidden="true" tabindex="-1"></a>d_i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb18-462"><a href="#cb18-462" aria-hidden="true" tabindex="-1"></a><span class="co"># Define observed outcomes using the switching equation</span></span>
+<span id="cb18-463"><a href="#cb18-463" aria-hidden="true" tabindex="-1"></a>y_i <span class="ot">&lt;-</span> d_i <span class="sc">*</span> y1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> d_i) <span class="sc">*</span> y0</span>
+<span id="cb18-464"><a href="#cb18-464" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y_i)</span>
+<span id="cb18-465"><a href="#cb18-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-466"><a href="#cb18-466" aria-hidden="true" tabindex="-1"></a><span class="co"># Put into a new dataset</span></span>
+<span id="cb18-467"><a href="#cb18-467" aria-hidden="true" tabindex="-1"></a>dataset <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(d_i, y_i)</span>
+<span id="cb18-468"><a href="#cb18-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-469"><a href="#cb18-469" aria-hidden="true" tabindex="-1"></a><span class="co"># Create (and transpose) matrix of all permutations of the treatment assignment vector (8 units of which 4 treated)</span></span>
+<span id="cb18-470"><a href="#cb18-470" aria-hidden="true" tabindex="-1"></a>d_perms <span class="ot">&lt;-</span> <span class="fu">t</span>(<span class="fu">chooseMatrix</span>(<span class="dv">10</span>,<span class="dv">5</span>))</span>
+<span id="cb18-471"><a href="#cb18-471" aria-hidden="true" tabindex="-1"></a><span class="co">#or using the "ri" package</span></span>
+<span id="cb18-472"><a href="#cb18-472" aria-hidden="true" tabindex="-1"></a><span class="co">#d_perms &lt;- genperms(d_i,blockvar=NULL, clustvar=NULL)</span></span>
+<span id="cb18-473"><a href="#cb18-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-474"><a href="#cb18-474" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge permutations into dataset</span></span>
+<span id="cb18-475"><a href="#cb18-475" aria-hidden="true" tabindex="-1"></a>dataset1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(d_perms, dataset)</span>
+<span id="cb18-476"><a href="#cb18-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-477"><a href="#cb18-477" aria-hidden="true" tabindex="-1"></a><span class="co"># Actual treatment effect</span></span>
+<span id="cb18-478"><a href="#cb18-478" aria-hidden="true" tabindex="-1"></a>tau_hat <span class="ot">&lt;-</span> </span>
+<span id="cb18-479"><a href="#cb18-479" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>(dataset1[dataset1<span class="sc">$</span>d_i<span class="sc">==</span><span class="dv">1</span>,<span class="st">"y_i"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(dataset1[dataset1<span class="sc">$</span>d_i<span class="sc">==</span><span class="dv">0</span>,<span class="st">"y_i"</span>])</span>
+<span id="cb18-480"><a href="#cb18-480" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(tau_hat)</span>
+<span id="cb18-481"><a href="#cb18-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-482"><a href="#cb18-482" aria-hidden="true" tabindex="-1"></a><span class="co"># Create empty list to store all the possible treatment effects</span></span>
+<span id="cb18-483"><a href="#cb18-483" aria-hidden="true" tabindex="-1"></a>diff_list <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode=</span><span class="st">'list'</span>, <span class="at">length=</span><span class="dv">252</span>)</span>
+<span id="cb18-484"><a href="#cb18-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-485"><a href="#cb18-485" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate all possible treatment effects and store them in the list</span></span>
+<span id="cb18-486"><a href="#cb18-486" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">252</span>) {</span>
+<span id="cb18-487"><a href="#cb18-487" aria-hidden="true" tabindex="-1"></a>  diff_list[i] <span class="ot">&lt;-</span> <span class="fu">abs</span>(</span>
+<span id="cb18-488"><a href="#cb18-488" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mean</span>(dataset1[dataset1[[i]]<span class="sc">==</span><span class="dv">1</span>,<span class="st">"y_i"</span>]) <span class="sc">-</span> <span class="fu">mean</span>(dataset1[dataset1[[i]]<span class="sc">==</span><span class="dv">0</span>,<span class="st">"y_i"</span>])</span>
+<span id="cb18-489"><a href="#cb18-489" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-490"><a href="#cb18-490" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-491"><a href="#cb18-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-492"><a href="#cb18-492" aria-hidden="true" tabindex="-1"></a><span class="co"># Turn the list into a vector</span></span>
+<span id="cb18-493"><a href="#cb18-493" aria-hidden="true" tabindex="-1"></a>diff_vec <span class="ot">&lt;-</span> <span class="fu">c</span>(diff_list)</span>
+<span id="cb18-494"><a href="#cb18-494" aria-hidden="true" tabindex="-1"></a><span class="co">#print(diff_vec)</span></span>
+<span id="cb18-495"><a href="#cb18-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-496"><a href="#cb18-496" aria-hidden="true" tabindex="-1"></a><span class="co"># Indicator variable equal to 1 if the absolute diff of a fake effect is higher </span></span>
+<span id="cb18-497"><a href="#cb18-497" aria-hidden="true" tabindex="-1"></a><span class="co"># than the real observed effect</span></span>
+<span id="cb18-498"><a href="#cb18-498" aria-hidden="true" tabindex="-1"></a>p_val<span class="ot">&lt;-</span><span class="fu">ifelse</span>(diff_vec<span class="sc">&gt;=</span><span class="fu">abs</span>(tau_hat), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb18-499"><a href="#cb18-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-500"><a href="#cb18-500" aria-hidden="true" tabindex="-1"></a><span class="co"># The mean of the binary variable p_val gives us the proportion of differences</span></span>
+<span id="cb18-501"><a href="#cb18-501" aria-hidden="true" tabindex="-1"></a><span class="co"># that were higher than the observed one, i.e. the probability,</span></span>
+<span id="cb18-502"><a href="#cb18-502" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">mean</span>(p_val))</span>
+<span id="cb18-503"><a href="#cb18-503" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-504"><a href="#cb18-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-505"><a href="#cb18-505" aria-hidden="true" tabindex="-1"></a>The <span class="in">`ri2`</span> package provides a modern, concise interface for conducting the same randomization inference procedure. It automates the permutation of the assignment vector and the computation of exact p-values:</span>
+<span id="cb18-506"><a href="#cb18-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-509"><a href="#cb18-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-510"><a href="#cb18-510" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb18-511"><a href="#cb18-511" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb18-512"><a href="#cb18-512" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb18-513"><a href="#cb18-513" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages("ri2")</span></span>
+<span id="cb18-514"><a href="#cb18-514" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ri2)</span>
+<span id="cb18-515"><a href="#cb18-515" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-516"><a href="#cb18-516" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the same data as above</span></span>
+<span id="cb18-517"><a href="#cb18-517" aria-hidden="true" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">10</span>,<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>)</span>
+<span id="cb18-518"><a href="#cb18-518" aria-hidden="true" tabindex="-1"></a>y0 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">6</span>,<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb18-519"><a href="#cb18-519" aria-hidden="true" tabindex="-1"></a>d_i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb18-520"><a href="#cb18-520" aria-hidden="true" tabindex="-1"></a>y_i <span class="ot">&lt;-</span> d_i <span class="sc">*</span> y1 <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> d_i) <span class="sc">*</span> y0</span>
+<span id="cb18-521"><a href="#cb18-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-522"><a href="#cb18-522" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> y_i, <span class="at">Z =</span> d_i)</span>
+<span id="cb18-523"><a href="#cb18-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-524"><a href="#cb18-524" aria-hidden="true" tabindex="-1"></a><span class="co"># Declare the randomization procedure: complete random assignment of 5 out of 10</span></span>
+<span id="cb18-525"><a href="#cb18-525" aria-hidden="true" tabindex="-1"></a>declaration <span class="ot">&lt;-</span> randomizr<span class="sc">::</span><span class="fu">declare_ra</span>(<span class="at">N =</span> <span class="dv">10</span>, <span class="at">m =</span> <span class="dv">5</span>)</span>
+<span id="cb18-526"><a href="#cb18-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-527"><a href="#cb18-527" aria-hidden="true" tabindex="-1"></a><span class="co"># Conduct randomization inference using ri2</span></span>
+<span id="cb18-528"><a href="#cb18-528" aria-hidden="true" tabindex="-1"></a>ri_out <span class="ot">&lt;-</span> ri2<span class="sc">::</span><span class="fu">conduct_ri</span>(</span>
+<span id="cb18-529"><a href="#cb18-529" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> Y <span class="sc">~</span> Z,</span>
+<span id="cb18-530"><a href="#cb18-530" aria-hidden="true" tabindex="-1"></a>  <span class="at">declaration =</span> declaration,</span>
+<span id="cb18-531"><a href="#cb18-531" aria-hidden="true" tabindex="-1"></a>  <span class="at">sharp_hypothesis =</span> <span class="dv">0</span>,</span>
+<span id="cb18-532"><a href="#cb18-532" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> dat</span>
+<span id="cb18-533"><a href="#cb18-533" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-534"><a href="#cb18-534" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ri_out)</span>
+<span id="cb18-535"><a href="#cb18-535" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ri_out)</span>
+<span id="cb18-536"><a href="#cb18-536" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-537"><a href="#cb18-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-538"><a href="#cb18-538" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regression Analysis of Experiments</span></span>
+<span id="cb18-539"><a href="#cb18-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-540"><a href="#cb18-540" aria-hidden="true" tabindex="-1"></a>There isn't much to add to these last two pages of MHE Ch.2. Let's just go through them **(it's a copy-paste)**.</span>
+<span id="cb18-541"><a href="#cb18-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-542"><a href="#cb18-542" aria-hidden="true" tabindex="-1"></a>Suppose (for now) that the treatment effect is the same for everyone, say $\mathrm{Y}_{1 i}-\mathrm{Y}_{0 i}=\rho$, a constant. With constant treatment effects, we can rewrite $\mathrm{Y_i} = \mathrm{Y}_{0 i}+\left(\mathrm{Y}_{1 i}-\mathrm{Y}_{0 i}\right) \mathrm{D}_{i}$ in the form</span>
+<span id="cb18-543"><a href="#cb18-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-546"><a href="#cb18-546" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb18-547"><a href="#cb18-547" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb18-548"><a href="#cb18-548" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb18-549"><a href="#cb18-549" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'fig/simpreg.png'</span>)</span>
+<span id="cb18-550"><a href="#cb18-550" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb18-551"><a href="#cb18-551" aria-hidden="true" tabindex="-1"></a>where $\eta_{i}$ is the random part of $\mathrm{Y}_{0 i}$. </span>
+<span id="cb18-552"><a href="#cb18-552" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-553"><a href="#cb18-553" aria-hidden="true" tabindex="-1"></a>Evaluating the conditional expectation of this equation with treatment status switched off and on gives</span>
+<span id="cb18-554"><a href="#cb18-554" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-555"><a href="#cb18-555" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-556"><a href="#cb18-556" aria-hidden="true" tabindex="-1"></a>&amp;E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>=\alpha+\rho+E\left<span class="co">[</span><span class="ot">\eta_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb18-557"><a href="#cb18-557" aria-hidden="true" tabindex="-1"></a>&amp;E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span>=\alpha+E\left<span class="co">[</span><span class="ot">\eta_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span></span>
+<span id="cb18-558"><a href="#cb18-558" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-559"><a href="#cb18-559" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-560"><a href="#cb18-560" aria-hidden="true" tabindex="-1"></a>so that</span>
+<span id="cb18-561"><a href="#cb18-561" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-562"><a href="#cb18-562" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb18-563"><a href="#cb18-563" aria-hidden="true" tabindex="-1"></a>&amp;E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span>=\underbrace{\rho}_{\text {Treatment effect }}+\underbrace{E\left[\eta_{i} \mid \mathrm{D}_{i}=1\right]-E\left[\eta_{i} \mid \mathrm{D}_{i}=0\right]}_{\text {Selection bias }} .</span>
+<span id="cb18-564"><a href="#cb18-564" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb18-565"><a href="#cb18-565" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-566"><a href="#cb18-566" aria-hidden="true" tabindex="-1"></a>selection bias which is zero under (successful) randomisation.</span>
+<span id="cb18-567"><a href="#cb18-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-568"><a href="#cb18-568" aria-hidden="true" tabindex="-1"></a>Thus, selection bias amounts to correlation between the regression error term, $\eta_{i}$, and the regressor, $\mathrm{D}_{i}$. Since</span>
+<span id="cb18-569"><a href="#cb18-569" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-570"><a href="#cb18-570" aria-hidden="true" tabindex="-1"></a>E\left<span class="co">[</span><span class="ot">\eta_{i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">\eta_{i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span>=E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=1\right</span><span class="co">]</span>-E\left<span class="co">[</span><span class="ot">\mathrm{Y}_{0 i} \mid \mathrm{D}_{i}=0\right</span><span class="co">]</span></span>
+<span id="cb18-571"><a href="#cb18-571" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb18-572"><a href="#cb18-572" aria-hidden="true" tabindex="-1"></a>this correlation reflects the difference in (no-treatment) potential outcomes between those who get treated and those who don't.</span>
+<span id="cb18-573"><a href="#cb18-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-574"><a href="#cb18-574" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb18-575"><a href="#cb18-575" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb18-576"><a href="#cb18-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-577"><a href="#cb18-577" aria-hidden="true" tabindex="-1"></a>**Textbooks.** Two excellent recent textbooks provide comprehensive treatments of the topics in this chapter. Ding (2024), *A First Course in Causal Inference*, offers a modern, rigorous introduction to the potential outcomes framework, randomization inference, and regression adjustment in experiments. Wager (2024), *Causal Inference: A Statistical Learning Approach*, complements this with a machine-learning-informed perspective on treatment effect estimation.</span>
+<span id="cb18-578"><a href="#cb18-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-579"><a href="#cb18-579" aria-hidden="true" tabindex="-1"></a>**Design-based inference.** The design-based (randomization-based) framework presented here---where uncertainty derives from treatment assignment rather than sampling---has been extended to observational settings by Rambachan &amp; Roth (2025), "Design-Based Uncertainty for Quasi-Experiments," who show how to construct valid confidence intervals under design-based assumptions even in difference-in-differences and regression discontinuity designs.</span>
+<span id="cb18-580"><a href="#cb18-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-581"><a href="#cb18-581" aria-hidden="true" tabindex="-1"></a>**R packages.** The <span class="in">`estimatr`</span> package provides fast, design-based estimators with robust standard errors. The <span class="in">`randomizr`</span> and <span class="in">`ri2`</span> packages streamline the declaration of randomization schemes and the computation of exact p-values, respectively. The <span class="in">`hettreatreg`</span> package implements diagnostics for heterogeneous treatment effect bias in OLS (related to the Cunningham 2021 decomposition above). The <span class="in">`grf`</span> package provides forest-based CATE estimation and evaluation tools.</span>
+<span id="cb18-582"><a href="#cb18-582" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

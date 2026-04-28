@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; Sampling-based and Design-based Uncertainty – Applied Econometrics Reading Group Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-dags.html" rel="next">
+<link href="./01-experimental-ideal.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6c5314280c86e53d2a1a2ca4c5fd5b4a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-sampling-design.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Econometrics Reading Group Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-experimental-ideal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-sampling-design.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-dags.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">DAG</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sensitivity Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-instrumental-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Instrumental Variable</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-synthetic-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Synthetic Control Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regression Discontinuity Designs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-did-event-studies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Difference in Differences and Event Study</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-propensity-dml-application.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-dml-theory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-reg" id="toc-sec-reg" class="nav-link active" data-scroll-target="#sec-reg"><span class="header-section-number">3</span> Regression</a>
+  <ul class="collapse">
+  <li><a href="#best-predictor" id="toc-best-predictor" class="nav-link" data-scroll-target="#best-predictor"><span class="header-section-number">3.1</span> Best Predictor</a></li>
+  <li><a href="#best-linear-predictor" id="toc-best-linear-predictor" class="nav-link" data-scroll-target="#best-linear-predictor"><span class="header-section-number">3.2</span> Best Linear Predictor</a></li>
+  <li><a href="#sec-blp" id="toc-sec-blp" class="nav-link" data-scroll-target="#sec-blp"><span class="header-section-number">3.3</span> Linear CEF Model</a></li>
+  <li><a href="#ols-estimation" id="toc-ols-estimation" class="nav-link" data-scroll-target="#ols-estimation"><span class="header-section-number">3.4</span> OLS Estimation</a></li>
+  <li><a href="#sec-FWL" id="toc-sec-FWL" class="nav-link" data-scroll-target="#sec-FWL"><span class="header-section-number">3.5</span> Partialling Out Regression</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-SDuncertain" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></span></h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This Chapter briefly discusses the paper by <span class="citation" data-cites="abadie2020sampling">Abadie et al. (<a href="#ref-abadie2020sampling" role="doc-biblioref">2020</a>)</span>.</p>
+<blockquote class="blockquote">
+<p>In practice, researchers typically assume that the sample is randomly drawn from a large population of interest and report standard errors that are designed to capture sampling variation. This is common even in applications where it is difficult to articulate what that population of interest is, and how it differs from the sample.</p>
+</blockquote>
+<p>In model-based regression analysis, the sample is often assumed to be generated from a DGP (true model), which implies that the population is infinite. However, there are research questions that deviate from this assumption, for example, analysis based on the data of all 50 states in US. <span class="citation" data-cites="abadie2020sampling">Abadie et al. (<a href="#ref-abadie2020sampling" role="doc-biblioref">2020</a>)</span> investigates the uncertainty in regression estimators when</p>
+<ol type="1">
+<li><p><strong>Population is finite</strong></p></li>
+<li><p>A potential outcome function <span class="math inline">\(Y_i(\cdot)\)</span> that maps a cause <span class="math inline">\(X_i\)</span> into outcomes.</p></li>
+</ol>
+<p>The uncertainty in this problems setting has two sources, sampling and the design of <span class="math inline">\(X_i\)</span>. To better illustrate, let’s consider an experiment with binary treatment <span class="math inline">\(X_i\)</span>. Let <span class="math inline">\(R_i \in \{0, 1\}\)</span> denote whether unit <span class="math inline">\(i\)</span> is included in the sample, <span class="math inline">\(Y_i(1), Y_i(0)\)</span> denote the two potential outcomes. The following tables show the difference between the two source of uncertainties</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fig/Sampling.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="fig/Design.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We need two assumptions for this experimental data. Let <span class="math inline">\(n\)</span> denote the population size, <span class="math inline">\(n_1\)</span> denote the number of treated units in the population and <span class="math inline">\(N\)</span> denote the sample size.</p>
+<p><strong>Assumption (Random Sampling)</strong> <span class="math display">\[
+Pr(R = r) = 1 \bigg/ \begin{pmatrix} n \\ N \end{pmatrix}
+\]</span></p>
+<p><strong>Assumption (Random Assignment)</strong> <span class="math display">\[
+Pr(X = x|R) = 1 \bigg/ \begin{pmatrix} n \\ n_1 \end{pmatrix}
+\]</span></p>
+<p>We focus on the difference-in-sample-means estimator <span class="math display">\[
+\hat\theta = \frac{1}{N_1} \sum_{i = 1}^n R_iX_iY_i -\frac{1}{N_0} \sum_{i = 1}^n R_i(1 - X_i)Y_i
+\]</span></p>
+<p>There are multiple parameters of interest in this setting <span class="math display">\[
+\theta^{\text{descr}} = \frac{1}{n_1}\sum_{i = 1}^nX_iY_i - \frac{1}{n_0}\sum_{i = 1}^n(1 - X_i)Y_i
+\]</span> <span class="math display">\[
+\theta^{\text{causal, sample}} = \frac1N\sum_{i = 1}^n R_i(Y_i(1) - Y_i(0))
+\]</span> <span class="math display">\[
+\theta^{\text{causal}} = \frac{1}{n}\sum_{i = 1}^n (Y_i(1) - Y_i(0))
+\]</span></p>
+<p>The sources of uncertainty in each parameter of interest are reflected in the relationship between <span class="math inline">\(\hat\theta\)</span> and <span class="math inline">\(\theta\)</span>. It is not difficult to show <span class="math display">\[\begin{aligned}
+&amp;\mathbb{E}[\hat\theta|X] = \theta^{\text{descr}} \\
+&amp;\mathbb{E}[\hat\theta|R] = \theta^{\text{causal, sample}} \\
+&amp;\mathbb{E}[\hat\theta] = \theta^{\text{causal}}
+\end{aligned}\]</span> Conditioning on a variable is equivalent to regarding it as fixed. Hence, we see that <span class="math inline">\(\theta^{\text{descr}}\)</span> only accounts for sampling uncertainty because design is fixed; <span class="math inline">\(\theta^{\text{causal, sample}}\)</span> only accounts for design uncertainty; <span class="math inline">\(\theta^{\text{causal}}\)</span> accounts for both.</p>
+<p>The benefit of this setting and difference between the parameters of interest is that, <strong>we are distinguishing internal and external validity!</strong>. The internal and external validity formally tested by deriving the variance of <span class="math inline">\(\hat\theta\)</span> under different uncertainty <span class="math display">\[\begin{aligned}
+&amp;V^{\text{sampling}} = \mathbb{E}[Var(\hat\theta|X)] = \frac{S_1^2}{N_1}\left(1 - \frac{N_1}{n_1}\right) + \frac{S_0^2}{N_0}\left(1 - \frac{N_0}{n_0}\right)\\
+&amp;V^{\text{design}} = \mathbb{E}[Var(\hat\theta|R)] = \frac{S_1^2}{N_1} + \frac{S_0^2}{N_0} - \frac{S_\theta^2}{N_1 + N_0}\\
+&amp;V^{\text{total}} =  Var(\hat\theta) = \frac{S_1^2}{N_1} + \frac{S_0^2}{N_0} - \frac{S_\theta^2}{n_1 + n_0}
+\end{aligned}\]</span> where <span class="math display">\[
+S^2_x = \frac{1}{n - 1}\sum_{i = 1}^n\left(Y_i(x) - \frac1n\sum_{j = 1}^nY_j(x)\right)^2
+\]</span> and <span class="math display">\[
+S_\theta^2 = \frac{1}{n - 1}\sum_{i = 1}^n\left(Y_i(1) - Y_i(0) - \frac1n\sum_{j = 1}^n(Y_j(1) - Y_j(0))\right)
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><p><span class="math inline">\(V^{\text{total}}\)</span> is the variance of Neyman estimator, which is commonly used in experiments.</p></li>
+<li><p>In the infinite population case, <span class="math inline">\(n \rightarrow \infty\)</span>, then <span class="math inline">\(V^{\text{sampling}} = V^{\text{total}} = \frac{S_1^2}{N_1} + \frac{S_0^2}{N_0}\)</span>. In other words, the term that goes to <span class="math inline">\(0\)</span> in <span class="math inline">\(V^{\text{total}}\)</span> and <span class="math inline">\(V^{\text{sampling}}\)</span> is a finite population correction term.</p></li>
+<li><p>Infinite population variance is conservative.</p></li>
+</ol>
+</div>
+</div>
+<p>The above analysis are extended to linear regression in the paper. Consider the model <span class="math display">\[
+Y_i = U_i\theta + Z_i\gamma + \epsilon_i
+\]</span> We can regard <span class="math inline">\(U_i\)</span> as the treatment assignment procedure and do the same analysis to the OLS estimator <span class="math inline">\(\hat\theta\)</span> in observational data. The problem here is the violation of Random Assignment Assumption because in observational data, <span class="math inline">\(U_i\)</span> is very likely to be correlated with <span class="math inline">\(Z_i\)</span>. This problem is solved by using the regression <span class="math display">\[
+Y_i = X_i\theta + Z_i\gamma + \epsilon
+\]</span> where <span class="math inline">\(X_i = U_i - Z_i\Pi\)</span> with <span class="math inline">\(\Pi = \mathbb{E}[Z'Z]^{-1}\mathbb{E}[Z'U]\)</span>. <span class="math inline">\(X_i\)</span> can be estimated by the regression of <span class="math inline">\(U_i\)</span> on <span class="math inline">\(Z_i\)</span> and plugged in the regression on <span class="math inline">\(Y_i\)</span>. The idea is that, after partialling out the effect of <span class="math inline">\(Z_i\)</span>, <span class="math inline">\(X_i\)</span> is as if randomly assigned. We will talk more about this partialling out technique later in Section <a href="#sec-FWL" class="quarto-xref"><span>Section 3.5</span></a></p>
+<section id="sec-reg" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Regression</h1>
+<p>We will review <strong>Regression</strong> on the population level and the sample level. The focus on the Conditional Expectation Function (CEF) and the linear projection model.</p>
+<section id="best-predictor" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="best-predictor"><span class="header-section-number">3.1</span> Best Predictor</h2>
+<p>A central goal of regression analysis is to find the best predictor of an outcome <span class="math inline">\(Y\)</span> given some variables <span class="math inline">\(X\)</span>. We can write any predictor as a function <span class="math inline">\(f(X)\)</span> of <span class="math inline">\(X\)</span>, and then the goal is to find the best function <span class="math inline">\(m(X)\)</span> in the class of <span class="math inline">\(f(X)\)</span>. To start, we have to define what is “best”.</p>
+<p>“Best”: MSE minimizing, namely, <span class="math display">\[
+m(X) = \arg \min_{f(X)} \mathbb{E}[(Y - f(X))^2]
+\]</span></p>
+<div id="thm-BP" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 3.1</strong></span> The best predictor of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span> is <span class="math inline">\(m(X) = \mathbb{E}[Y|X]\)</span>.</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>Let <span class="math inline">\(e = Y - \mathbb{E}[Y|X]\)</span> <span class="math display">\[\begin{aligned}
+\mathbb{E}[(Y - f(X))^2] &amp;= \mathbb{E}[(Y - \mathbb{E}[Y|X] + \mathbb{E}[Y|X] - f(X))^2] \\
+&amp;= \mathbb{E}[e^2 + 2e(\mathbb{E}[Y|X] - f(X)) + (\mathbb{E}[Y|X] - f(X))^2] \\
+&amp;= \mathbb{E}[e^2] + \mathbb{E}[(\mathbb{E}[Y|X] - f(X))^2]
+\end{aligned}\]</span> The third equality follows by <span class="math display">\[\begin{aligned}
+\mathbb{E}[e \cdot b(X)] &amp;= \mathbb{E}\mathbb{E}[(Y - \mathbb{E}[Y|X])b(X)|X] \\
+&amp;= \mathbb{E}[(\mathbb{E}[Y|X] - \mathbb{E}[Y|X])b(X)] \\
+&amp;= 0
+\end{aligned}\]</span> and the MSE is minimized at <span class="math inline">\(m(X) = \mathbb{E}[Y|X]\)</span></p>
+</div>
+<p><a href="#thm-BP" class="quarto-xref">Theorem&nbsp;<span>3.1</span></a> shows the reason why we should focus on CEF <span class="math inline">\(\mathbb{E}[Y|X]\)</span> and build model for <span class="math inline">\(Y\)</span> using CEF. The proof above already shows the condition we need for a CEF model: <span class="math display">\[
+Y = m(X) + e, \quad \mathbb{E}[e|X] = 0
+\]</span> These two equations together implies that <span class="math inline">\(m(X) = \mathbb{E}[Y|X]\)</span>.</p>
+</section>
+<section id="best-linear-predictor" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="best-linear-predictor"><span class="header-section-number">3.2</span> Best Linear Predictor</h2>
+<p>Follow our definition of “best”, we can also define the best linear predictor.</p>
+<div id="def-BLP" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 3.1 (Best Linear Predictor)</strong></span> The best linear predictor of <span class="math inline">\(Y\)</span> given <span class="math inline">\(X\)</span> is <span class="math inline">\(X\beta\)</span> where <span class="math inline">\(\beta\)</span> minimizes <span class="math display">\[
+S(\beta) = \mathbb{E}[(Y - X\beta)^2]
+\]</span> The minimizer <span class="math inline">\(\beta = \arg\min_b S(b)\)</span> is the linear projection coefficient.</p>
+</div>
+<p>Now we try to solve for <span class="math inline">\(\beta\)</span>, and find the assumptions we need during the solving process. First expand <span class="math display">\[
+S(\beta) = \mathbb{E}[Y^2] - 2\beta'\mathbb{E}[X'Y] + \beta'\mathbb{E}[X'X]\beta
+\]</span> The first order condition is <span class="math display">\[
+0 = \frac{\partial}{\partial\beta}S(\beta) = -2\mathbb{E}[X'Y] + 2\mathbb{E}[X'X]\beta
+\]</span> and thus <span class="math inline">\(\beta = \mathbb{E}[X'X]^{-1}\mathbb{E}[X'Y]\)</span> is by definition the linear projection coefficient. <span class="math inline">\(\beta\)</span> is also referred to as a regression coefficient.</p>
+<p>Therefore, the assumptions for the linear projection coefficient to exist need to ensure the existence of every term in <span class="math inline">\(S(\beta)\)</span> and that <span class="math inline">\(\mathbb{E}[X'X]\)</span> is invertible.</p>
+<p><strong>Assumption</strong> (Existence of Linear Projection Coefficient)</p>
+<ol type="1">
+<li><p><span class="math inline">\(\mathbb{E}[Y^2] &lt; \infty\)</span></p></li>
+<li><p><span class="math inline">\(\mathbb{E}\Vert X \Vert^2 &lt; \infty\)</span></p></li>
+<li><p><span class="math inline">\(\mathbb{E}[X'X]\)</span> is positive definite.</p></li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is no linearity assumption required for the existence of linear projection coefficient!</p>
+</div>
+</div>
+<p>By construction, the projection error <span class="math inline">\(\epsilon = Y - X\beta\)</span> where <span class="math inline">\(\beta = \mathbb{E}[X'X]^{-1}\mathbb{E}[X'Y]\)</span> satisfies <span class="math inline">\(\mathbb{E}[X'\epsilon] = 0\)</span>, which is implied by the first order condition. Now, we have a linear projection model: <span class="math display">\[
+Y = X\beta + \epsilon, \quad \beta = \mathbb{E}[X'X]^{-1}\mathbb{E}[X'Y], \quad \mathbb{E}[X'\epsilon] = 0
+\]</span></p>
+</section>
+<section id="sec-blp" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-blp"><span class="header-section-number">3.3</span> Linear CEF Model</h2>
+<p>Estimating the general form of CEF is difficult (not impossible, e.g kernel estimator), because a function can be seen as a parameter with infinite dimension. For practical reasons, we impose linearity assumption on the CEF model, <span class="math display">\[
+Y = X\beta_0 + e, \quad \mathbb{E}[e|X] = 0
+\]</span></p>
+<p><strong>Justification for Linear CEF</strong>:</p>
+<ol type="1">
+<li><p><span class="math inline">\(\beta_0\)</span> is the linear projection coefficient. Notice that <span class="math inline">\(\mathbb{E}[e|X] = 0\)</span> implies <span class="math inline">\(\mathbb{E}[X'e] = 0\)</span>, and solving <span class="math inline">\(\mathbb{E}[X'(Y - X\beta_0)] = 0\)</span> gives <span class="math inline">\(\beta_0 = \mathbb{E}[X'X]^{-1}\mathbb{E}[X'Y]\)</span>. Therefore, if CEF is linear, the CEF coefficient is the linear projection coefficient.</p></li>
+<li><p><span class="math inline">\(\beta_0\)</span> is the best linear predictor. This is implied by point 1.</p></li>
+<li><p>If CEF is not linear, <span class="math inline">\(X\beta_0\)</span> is the best linear approximation of CEF. One can show <span class="math inline">\(\beta_0 = \arg \min_\beta \mathbb{E}[(\mathbb{E}[Y|X] - X\beta)^2]\)</span>. The proof is similar to the proof for <a href="#thm-BP" class="quarto-xref">Theorem&nbsp;<span>3.1</span></a>.</p></li>
+</ol>
+<p><strong>When Linear CEF is the True CEF</strong></p>
+<p>In general, we need to impose linearity assumption for CEF. But there are situations when CEF is inherently linear. For example,</p>
+<ol type="1">
+<li><p>Saturated model: <span class="math inline">\(X_1, ... X_p\)</span> are dummy variables, then the CEF is a linear function of <span class="math inline">\(X_1, ... X_p\)</span> and all cross-products of <span class="math inline">\(X_i\)</span>.</p></li>
+<li><p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are jointly normal. <span class="math inline">\(\mathbb{E}[Y|X] = \mu_Y + \Sigma_{XY}\Sigma_X^{-1}(X - \mu_X)\)</span>.</p></li>
+</ol>
+</section>
+<section id="ols-estimation" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="ols-estimation"><span class="header-section-number">3.4</span> OLS Estimation</h2>
+<p>The OLS estimator is obtain by minimizing the sample analogy of <span class="math inline">\(S(\beta)\)</span>, namely <span class="math display">\[
+\hat\beta = \arg \min_\beta \frac1n \sum_{i = 1}^{n}(Y_i - X_i\beta)^2
+\]</span> and the OLS estimator takes the form <span class="math display">\[
+\hat\beta = (X'X)^{-1}(X'Y)
+\]</span></p>
+<p>The consistency of <span class="math inline">\(\hat\beta\)</span> can be obtained by decomposing using the linear projection model, <span class="math display">\[
+\hat\beta = (X'X)^{-1}(X'(X\beta + \epsilon)) = \beta + (X'X)^{-1}(X'\epsilon)
+\]</span> The probability limit of the second term is <span class="math inline">\(0\)</span> by the property of <span class="math inline">\(\epsilon\)</span>. Therefore, OLS estimator always converges to the linear projection coefficient <span class="math inline">\(\beta\)</span> regardless of linearity assumption. If CEF is assumed to be linear, <span class="math inline">\(\hat\beta\)</span> converges to <span class="math inline">\(\beta_0\)</span> because <span class="math inline">\(\beta_0 = \beta\)</span>.</p>
+<p><strong>Question</strong>: OLS is a special case of GMM. Because the first order condition of the minimizing problem of OLS is <span class="math inline">\(\frac1n \sum_{i = 1}^{n}X_i(Y_i - X_i\hat\beta) = 0\)</span>, which is also a moment condition for GMM. But GMM is only consistent, OLS is unbiased and consistent, why?</p>
+</section>
+<section id="sec-FWL" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-FWL"><span class="header-section-number">3.5</span> Partialling Out Regression</h2>
+<p>(Borrowed from Professor Victor Chernozhukov’s <a href="https://ocw.mit.edu/courses/14-382-econometrics-spring-2017/pages/lecture-notes/">notes</a>)</p>
+<p>In Econometric analysis, it is common to have some parameters of interest out of all regression coefficients. We partition the regressors into two groups <span class="math display">\[
+X = (D, W)
+\]</span> where <span class="math inline">\(D\)</span> is our variable of interest with dimension <span class="math inline">\(p_1\)</span> and <span class="math inline">\(W\)</span> is the covariates with dimension <span class="math inline">\(p_2\)</span>. We consider the linear projection model <span id="eq-model"><span class="math display">\[
+Y = D\tau + W\beta + \epsilon
+\tag{3.1}\]</span></span> The interpretation of <span class="math inline">\(\theta\)</span> is the partial effect of <span class="math inline">\(D\)</span> on <span class="math inline">\(Y\)</span>. In this chapter, we explore the math behind this interpretation.</p>
+<p>Define the partialling-out operator in <strong>population</strong> with respect to <span class="math inline">\(W\)</span> under the assumption of the existence of linear projection coefficient <span class="math display">\[
+\tilde{V} = V - W\gamma_{vw}, \quad \gamma_{vw} = \arg \min_b \mathbb{E}[(V - Wb)^2]
+\]</span> It is easy to verify that this partialling-out operator is a linear operator <span class="math display">\[
+Y = V + U \rightarrow \tilde{Y} = \tilde{V} + \tilde{U}
+\]</span></p>
+<p>We apply this partialling-out operator to model <a href="04-sensitivity.html#eq-model" class="quarto-xref">Equation&nbsp;<span>4.5</span></a> to get <span class="math display">\[
+\tilde{Y} = \tilde{D}\tau + \tilde{W}\beta + \tilde\epsilon
+\]</span> which implies <span id="eq-po"><span class="math display">\[
+\tilde{Y} = \tilde{D}\tau + \epsilon
+\tag{3.2}\]</span></span> because <span class="math inline">\(\tilde{W} = 0\)</span> and <span class="math inline">\(\tilde\epsilon = \epsilon\)</span>, which holds by the property of projection error <span class="math inline">\(\mathbb{E}[\epsilon W]\)</span>.</p>
+<p>For this new linear projection model in <a href="04-sensitivity.html#eq-po" class="quarto-xref">Equation&nbsp;<span>4.6</span></a>, by solving <span class="math inline">\(\mathbb{E}[\tilde{D}'\epsilon] = 0\)</span>, we have <span class="math display">\[
+\tau = \mathbb{E}[\tilde{D}'\tilde{D}]^{-1}\mathbb{E}[\tilde{D}'Y]
+\]</span> This is the “partial effect” of <span class="math inline">\(D\)</span> on <span class="math inline">\(Y\)</span>. This result is also know as the Frisch-Waugh-Lovell theorem.</p>
+<p>Similarly, we can also define the partialling-out operator in <strong>sample</strong> <span class="math display">\[
+\check{V} = V - W\hat\gamma_{vw}, \quad \hat\gamma_{vw} = \arg \min_b  \frac1n \sum_{i = 1}^n(V - Wb)^2
+\]</span> And the estimator of <span class="math inline">\(\tau\)</span> is <span class="math display">\[
+\hat\tau = (\check{D}'\check{D})^{-1}(\check{D}'\check{Y})
+\]</span> which is the sample version of FWL theorem.</p>
+<section id="the-adaptive-property-of-fwlpo" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="the-adaptive-property-of-fwlpo">The Adaptive Property of FWL/PO</h4>
+<p>Chernozhukov’s notes introduce a lemma about the adaptive property of FWL estimator. Here we try to explain the adaptive property from a different angle, the class of plug-in estimators.</p>
+<p>Consider the coefficient <span class="math inline">\(\tau = \mathbb{E}[\tilde{D}'\tilde{D}]^{-1}\mathbb{E}[\tilde{D}'Y]\)</span> an its estimator <span class="math inline">\(\hat\tau = (\check{D}'\check{D})^{-1}(\check{D}'\check{Y})\)</span>, there is another estimator between these two quantities, <span class="math display">\[
+\tilde\tau = (\tilde{D}'\tilde{D})^{-1}(\tilde{D}'\tilde{Y})
+\]</span> The difference between <span class="math inline">\(\tilde\tau\)</span> and <span class="math inline">\(\hat\tau\)</span> is that we use the population version of partialled out variables <span class="math inline">\((\tilde{D}, \tilde{Y})\)</span> instead of the sample version. Note that <span class="math inline">\(\tilde\tau\)</span> is the OLS estimator of <span class="math inline">\(\tau\)</span> but it is an <strong>infeasible</strong> estimator because <span class="math inline">\((\tilde{D}, \tilde{Y})\)</span> are not available.</p>
+<p>On the contrary, <span class="math inline">\(\hat\tau\)</span> is feasible by plugging in <span class="math inline">\((\check{D}, \check{Y})\)</span> as estimators of <span class="math inline">\((\tilde{D}, \tilde{Y})\)</span>. We call <span class="math inline">\(\hat\tau\)</span> a plug-in estimator. We can derive the asymptotics of <span class="math inline">\(\tilde\tau\)</span> as OLS estimator, but the question is, <strong>does <span class="math inline">\(\hat\tau\)</span> have the same asymptotics as <span class="math inline">\(\tilde\tau\)</span>?</strong></p>
+<p>The adaptive property lemma in Chernozhukov’s notes shows that <span class="math inline">\(\hat\tau\)</span> and <span class="math inline">\(\tilde\tau\)</span> are asymptotically equivalent under mild regularity conditions without giving a proof. In our plug-in estimator setting, it is not difficult to verify this lemma by expending <span class="math inline">\(\hat\tau\)</span> twice with mean value theorem.</p>
+</section>
+<section id="robustness-of-fwlpo" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="robustness-of-fwlpo">Robustness of FWL/PO</h4>
+<p>The adaptive property is a robustness property, which means that the first step estimators does not have (local) effect on the second step estimators. <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> utilizes this property and develops the Double Machine Learning (DML) estimator for partially linear models.</p>
+<p>Consider the partially linear model <span id="eq-partiallinear"><span class="math display">\[
+Y = D\tau + g(W) + \epsilon
+\tag{3.3}\]</span></span> where we allow <span class="math inline">\(W\)</span> to be high dimensional or <span class="math inline">\(g(\cdot)\)</span> to be highly nonlinear while <span class="math inline">\(D\)</span> remains low dimensional. OLS does not work for this model. Machine Learning estimators for <span class="math inline">\(\tau\)</span> is not root-n consistent and thus, is difficult to do inference on <span class="math inline">\(\tau\)</span>.</p>
+<p>The solution is to consider a generalization of FWL <span class="math display">\[
+Y - \mathbb{E}[Y|W] = (D - \mathbb{E}[D|W])\tau + \epsilon, \quad \mathbb{E}[(D - \mathbb{E}[D|W])\epsilon] = 0
+\]</span> We can use ML to estimate <span class="math inline">\(\mathbb{E}[Y|W]\)</span> and <span class="math inline">\(\mathbb{E}[D|W]\)</span> in the first step, and obtain OLS estimator <span class="math inline">\(\hat\tau\)</span>. With some extra algorithms to control other sources of bias, <span class="math inline">\(\hat\tau\)</span> is root-n consistent.</p>
+<p>This gives us the advantage of FWL/PO over the original model in <a href="#eq-partiallinear" class="quarto-xref">Equation&nbsp;<span>3.3</span></a>. If we go back to our model in <a href="04-sensitivity.html#eq-model" class="quarto-xref">Equation&nbsp;<span>4.5</span></a>, in the low dimensional <span class="math inline">\(W\)</span> setting, <span class="math inline">\(\gamma_{yw}\)</span> and <span class="math inline">\(\gamma_{dw}\)</span> are estimated by OLS (sample version PO), which guarantees to be root-n consistent. The robustness of FWL means that even if the convergence rate of<span class="math inline">\(\gamma_{yw}\)</span> and <span class="math inline">\(\gamma_{dw}\)</span> lower than root-n, <span class="math inline">\(\hat\tau\)</span> is still root-n consistent.</p>
+</section>
+<section id="contamination-bias-in-linear-regressions-goldsmith2022contamination" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="contamination-bias-in-linear-regressions-goldsmith2022contamination">Contamination Bias in Linear Regressions <span class="citation" data-cites="goldsmith2022contamination">(<a href="#ref-goldsmith2022contamination" role="doc-biblioref">Goldsmith-Pinkham, Hull, and Kolesár 2022</a>)</span></h4>
+<p>We use this paper to illustrate the use of FWL/PO in research. This paper considers linear regression in the presence of</p>
+<ol type="1">
+<li>Multiple treatments with correlation</li>
+<li>Heterogeneous treatment effect</li>
+<li>Covariates <span class="math inline">\(W\)</span></li>
+<li>Propensity scores and treatment effect are functions of <span class="math inline">\(W\)</span></li>
+</ol>
+<p>Point 1 is the key setting. Point 2 and 3 are common in linear regression. Point 4 ensures that the propensity score and the treatment effect are correlated (I think this is a natural setting, but the authors of the paper found an application where heterogeneous treatment effect is uncorrelated with propensity score ). Examples of such setting include stratified RCT, staggered Diff-in-Diff, etc. In fact, the paper is a generalization of the heterogeneous DID problem.</p>
+<p>From Chapter <a href="01-experimental-ideal.html#sec-hette" class="quarto-xref"><span>Section 2.2</span></a>, we know that ATE is a convex combination of the ATT and ATU. But if there are multiple treatments, the ATE identified in linear regression is no longer a convex combination (there are negative weights). We can use FWL/PO to illustrate.</p>
+<p>Consider a simple case: a stratified RCT with treatment <span class="math inline">\(D_i = {0, 1, 2}\)</span>. People may self-select into strata, so controlling for covariates is necessary. With strata, people are randomly assigned to a treatment level, so <span class="math inline">\(D_i\)</span> follows a multinomial distribution with probability <span class="math inline">\((p_0(W), p_1(W), p_2(W))\)</span>. We can use two binary variable <span class="math inline">\(D_i^1\)</span> and <span class="math inline">\(D_i^2\)</span> to represent <span class="math inline">\(D_i\)</span>, then <span class="math inline">\(p_1(W)\)</span> and <span class="math inline">\(p_2(W)\)</span> are propensity scores of <span class="math inline">\(D^1\)</span> and <span class="math inline">\(D^2\)</span> respectively. Note that <span class="math inline">\(D^1\)</span> and <span class="math inline">\(D^2\)</span> are correlated because receiving the first treatment means that you cannot receive the second. To estimate the effect of <span class="math inline">\(D^1\)</span> and <span class="math inline">\(D^2\)</span>, the linear regression many economists would run is <span class="math display">\[
+Y = D^1\tau_1 + D^2\tau_2 + W\beta + \epsilon
+\]</span> By FWL, <span class="math inline">\(\tau_1\)</span> is equivalent to that in the regression <span class="math display">\[
+Y - \mathbb{E}[Y|W, D^2] = \tau_1(D^1 - \mathbb{E}[D^1|W, D^2]) + \epsilon
+\]</span> Notice that <span class="math inline">\(D^1 - \mathbb{E}[D^1|W, D^2]\)</span> is not the CEF error of <span class="math inline">\(D^1\)</span> because by the experimental design, the CEF of <span class="math inline">\(D^1\)</span> is a function of only <span class="math inline">\(W\)</span>. This is the source of “contamination bias”. Another way to see this is that the treatment effect <span class="math inline">\(\tau_1\)</span> of <span class="math inline">\(D^1\)</span> should be independent of <span class="math inline">\(D^2\)</span>, however, it is a function of <span class="math inline">\(D^2\)</span> and <span class="math inline">\(W\)</span> in the linear regression, which means that <span class="math inline">\(\tau_1\)</span> is “contaminated” by the units with <span class="math inline">\(D^2\)</span> treatment.</p>
+<p>The easiest way to avoid contamination bias is by regression adjustment, i.e including all interaction terms between <span class="math inline">\(D^k\)</span> and demeaned <span class="math inline">\(W\)</span>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Connection to the Negative Weights Literature
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The contamination bias problem identified here – where OLS coefficients with multiple treatments can place negative weights on certain subgroup treatment effects – is closely related to the broader “negative weights” literature that has become a major theme in difference-in-differences research. In particular, the staggered DiD setting is a special case of the multiple-treatment framework analyzed by <span class="citation" data-cites="goldsmith2022contamination">Goldsmith-Pinkham, Hull, and Kolesár (<a href="#ref-goldsmith2022contamination" role="doc-biblioref">2022</a>)</span>, where different treatment cohorts act as multiple correlated treatments. See <a href="01-experimental-ideal.html#sec-hette" class="quarto-xref"><span>Section 2.2</span></a> (Chapter 8) for a detailed treatment of heterogeneous treatment effects and the negative weights problem in DiD designs.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Further Reading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong><span class="citation" data-cites="abadie2020sampling">Abadie et al. (<a href="#ref-abadie2020sampling" role="doc-biblioref">2020</a>)</span></strong> – The foundational reference for this chapter. Provides the framework for distinguishing sampling-based from design-based uncertainty and derives finite population corrections for regression estimators.</li>
+<li><strong>MacKinnon, Nielsen, and Webb (2023), “Cluster-Robust Inference: A Guide to Empirical Practice,” <em>Journal of Econometrics</em></strong> – A practical guide for applied researchers on cluster-robust inference, covering when and how to cluster standard errors, with guidance on few-cluster problems and wild bootstrap methods.</li>
+<li><strong>Cattaneo, Feng, and Underwood (2024)</strong> – Recent advances in randomization inference that complement the design-based perspective developed in this chapter.</li>
+<li>For extensions of the FWL/partialling-out framework to high-dimensional and nonparametric settings via Double Machine Learning, see <a href="10-dml-theory.html" class="quarto-xref"><span>Chapter 10</span></a> (Chapter 10).</li>
+</ul>
+</div>
+</div>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-abadie2020sampling" class="csl-entry" role="listitem">
+Abadie, Alberto, Susan Athey, Guido W Imbens, and Jeffrey M Wooldridge. 2020. <span>“Sampling-Based Versus Design-Based Uncertainty in Regression Analysis.”</span> <em>Econometrica</em> 88 (1): 265–96.
+</div>
+<div id="ref-chernozhukov2018double" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Denis Chetverikov, Mert Demirer, Esther Duflo, Christian Hansen, Whitney Newey, and James Robins. 2018. <span>“Double/Debiased Machine Learning for Treatment and Structural Parameters.”</span> Oxford University Press Oxford, UK.
+</div>
+<div id="ref-goldsmith2022contamination" class="csl-entry" role="listitem">
+Goldsmith-Pinkham, Paul, Peter Hull, and Michal Kolesár. 2022. <span>“Contamination Bias in Linear Regressions.”</span> National Bureau of Economic Research.
+</div>
+</div>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-experimental-ideal.html" class="pagination-link" aria-label="A Preamble">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-dags.html" class="pagination-link" aria-label="DAG">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">DAG</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sampling-based and Design-based Uncertainty {#sec-SDuncertain}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>This Chapter briefly discusses the paper by @abadie2020sampling.</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; In practice, researchers typically assume that the sample is randomly drawn from a large population of interest and report standard errors that are designed to capture sampling variation. This is common even in applications where it is difficult to articulate what that population of interest is, and how it differs from the sample.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>In model-based regression analysis, the sample is often assumed to be generated from a DGP (true model), which implies that the population is infinite. However, there are research questions that deviate from this assumption, for example, analysis based on the data of all 50 states in US. @abadie2020sampling investigates the uncertainty in regression estimators when </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Population is finite**</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>A potential outcome function $Y_i(\cdot)$ that maps a cause $X_i$ into outcomes.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>The uncertainty in this problems setting has two sources, sampling and the design of $X_i$. To better illustrate, let's consider an experiment with binary treatment $X_i$. Let $R_i \in <span class="sc">\{</span>0, 1<span class="sc">\}</span>$ denote whether unit $i$ is included in the sample, $Y_i(1), Y_i(0)$ denote the two potential outcomes. The following tables show the difference between the two source of uncertainties</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "100%"</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'fig/Sampling.png'</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "100%"</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'fig/Design.png'</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>We need two assumptions for this experimental data. Let $n$ denote the population size, $n_1$ denote the number of treated units in the population and $N$ denote the sample size.</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>**Assumption (Random Sampling)**</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>Pr(R = r) = 1 \bigg/ \begin{pmatrix} n <span class="sc">\\</span> N \end{pmatrix}</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>**Assumption (Random Assignment)**</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>Pr(X = x|R) = 1 \bigg/ \begin{pmatrix} n <span class="sc">\\</span> n_1 \end{pmatrix}</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>We focus on the difference-in-sample-means estimator</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>\hat\theta = \frac{1}{N_1} \sum_{i = 1}^n R_iX_iY_i -\frac{1}{N_0} \sum_{i = 1}^n R_i(1 - X_i)Y_i</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>There are multiple parameters of interest in this setting</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>\theta^{\text{descr}} = \frac{1}{n_1}\sum_{i = 1}^nX_iY_i - \frac{1}{n_0}\sum_{i = 1}^n(1 - X_i)Y_i</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>\theta^{\text{causal, sample}} = \frac1N\sum_{i = 1}^n R_i(Y_i(1) - Y_i(0))</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>\theta^{\text{causal}} = \frac{1}{n}\sum_{i = 1}^n (Y_i(1) - Y_i(0))</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>The sources of uncertainty in each parameter of interest are reflected in the relationship between $\hat\theta$ and $\theta$. It is not difficult to show</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>&amp;\mathbb{E}<span class="co">[</span><span class="ot">\hat\theta|X</span><span class="co">]</span> = \theta^{\text{descr}} <span class="sc">\\</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>&amp;\mathbb{E}<span class="co">[</span><span class="ot">\hat\theta|R</span><span class="co">]</span> = \theta^{\text{causal, sample}} <span class="sc">\\</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>&amp;\mathbb{E}<span class="co">[</span><span class="ot">\hat\theta</span><span class="co">]</span> = \theta^{\text{causal}}</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>Conditioning on a variable is equivalent to regarding it as fixed. Hence, we see that $\theta^{\text{descr}}$ only accounts for sampling uncertainty because design is fixed; $\theta^{\text{causal, sample}}$ only accounts for design uncertainty; $\theta^{\text{causal}}$ accounts for both.</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>The benefit of this setting and difference between the parameters of interest is that, **we are distinguishing internal and external validity!**. The internal and external validity formally tested by deriving the variance of $\hat\theta$ under different uncertainty</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>&amp;V^{\text{sampling}} = \mathbb{E}<span class="co">[</span><span class="ot">Var(\hat\theta|X)</span><span class="co">]</span> = \frac{S_1^2}{N_1}\left(1 - \frac{N_1}{n_1}\right) + \frac{S_0^2}{N_0}\left(1 - \frac{N_0}{n_0}\right)<span class="sc">\\</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>&amp;V^{\text{design}} = \mathbb{E}<span class="co">[</span><span class="ot">Var(\hat\theta|R)</span><span class="co">]</span> = \frac{S_1^2}{N_1} + \frac{S_0^2}{N_0} - \frac{S_\theta^2}{N_1 + N_0}<span class="sc">\\</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>&amp;V^{\text{total}} =  Var(\hat\theta) = \frac{S_1^2}{N_1} + \frac{S_0^2}{N_0} - \frac{S_\theta^2}{n_1 + n_0}</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>where</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>S^2_x = \frac{1}{n - 1}\sum_{i = 1}^n\left(Y_i(x) - \frac1n\sum_{j = 1}^nY_j(x)\right)^2</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>and</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>S_\theta^2 = \frac{1}{n - 1}\sum_{i = 1}^n\left(Y_i(1) - Y_i(0) - \frac1n\sum_{j = 1}^n(Y_j(1) - Y_j(0))\right)</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$V^{\text{total}}$ is the variance of Neyman estimator, which is commonly used in experiments.</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>In the infinite population case, $n \rightarrow \infty$, then $V^{\text{sampling}} = V^{\text{total}} = \frac{S_1^2}{N_1} + \frac{S_0^2}{N_0}$. In other words, the term that goes to $0$ in $V^{\text{total}}$ and $V^{\text{sampling}}$ is a finite population correction term.</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Infinite population variance is conservative.</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>The above analysis are extended to linear regression in the paper. Consider the model</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>Y_i = U_i\theta + Z_i\gamma + \epsilon_i</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>We can regard $U_i$ as the treatment assignment procedure and do the same analysis to the OLS estimator $\hat\theta$ in observational data. The problem here is the violation of Random Assignment Assumption because in observational data, $U_i$ is very likely to be correlated with $Z_i$. This problem is solved by using the regression </span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>Y_i = X_i\theta + Z_i\gamma + \epsilon</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>where $X_i = U_i - Z_i\Pi$ with $\Pi = \mathbb{E}<span class="co">[</span><span class="ot">Z'Z</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">Z'U</span><span class="co">]</span>$. $X_i$ can be estimated by the regression of $U_i$ on $Z_i$ and plugged in the regression on $Y_i$. The idea is that, after partialling out the effect of $Z_i$, $X_i$ is as if randomly assigned. We will talk more about this partialling out technique later in Section @sec-FWL</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a><span class="fu"># Regression {#sec-reg}</span></span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>We will review **Regression** on the population level and the sample level. The focus on the Conditional Expectation Function (CEF) and the linear projection model.</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## Best Predictor</span></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>A central goal of regression analysis is to find the best predictor of an outcome $Y$ given some variables $X$. We can write any predictor as a function $f(X)$ of $X$, and then the goal is to find the best function $m(X)$ in the class of $f(X)$. To start, we have to define what is "best".</span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>"Best": MSE minimizing, namely,</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>m(X) = \arg \min_{f(X)} \mathbb{E}<span class="co">[</span><span class="ot">(Y - f(X))^2</span><span class="co">]</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>::: {#thm-BP}</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>The best predictor of $Y$ given $X$ is $m(X) = \mathbb{E}<span class="co">[</span><span class="ot">Y|X</span><span class="co">]</span>$.</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>::: {.proof}</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>Let $e = Y - \mathbb{E}<span class="co">[</span><span class="ot">Y|X</span><span class="co">]</span>$</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">(Y - f(X))^2</span><span class="co">]</span> &amp;= \mathbb{E}<span class="co">[</span><span class="ot">(Y - \mathbb{E}[Y|X] + \mathbb{E}[Y|X] - f(X))^2</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>&amp;= \mathbb{E}<span class="co">[</span><span class="ot">e^2 + 2e(\mathbb{E}[Y|X] - f(X)) + (\mathbb{E}[Y|X] - f(X))^2</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>&amp;= \mathbb{E}<span class="co">[</span><span class="ot">e^2</span><span class="co">]</span> + \mathbb{E}<span class="co">[</span><span class="ot">(\mathbb{E}[Y|X] - f(X))^2</span><span class="co">]</span></span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>The third equality follows by </span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">e \cdot b(X)</span><span class="co">]</span> &amp;= \mathbb{E}\mathbb{E}<span class="co">[</span><span class="ot">(Y - \mathbb{E}[Y|X])b(X)|X</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>&amp;= \mathbb{E}<span class="co">[</span><span class="ot">(\mathbb{E}[Y|X] - \mathbb{E}[Y|X])b(X)</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>&amp;= 0</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>and the MSE is minimized at $m(X) = \mathbb{E}<span class="co">[</span><span class="ot">Y|X</span><span class="co">]</span>$</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>@thm-BP shows the reason why we should focus on CEF $\mathbb{E}<span class="co">[</span><span class="ot">Y|X</span><span class="co">]</span>$ and build model for $Y$ using CEF. The proof above already shows the condition we need for a CEF model:</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>Y = m(X) + e, \quad \mathbb{E}<span class="co">[</span><span class="ot">e|X</span><span class="co">]</span> = 0</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>These two equations together implies that $m(X) = \mathbb{E}<span class="co">[</span><span class="ot">Y|X</span><span class="co">]</span>$.</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Best Linear Predictor</span></span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>Follow our definition of "best", we can also define the best linear predictor.</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>::: {#def-BLP}</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="fu">## Best Linear Predictor</span></span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>The best linear predictor of $Y$ given $X$ is $X\beta$ where $\beta$ minimizes</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>S(\beta) = \mathbb{E}<span class="co">[</span><span class="ot">(Y - X\beta)^2</span><span class="co">]</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>The minimizer $\beta = \arg\min_b S(b)$ is the linear projection coefficient.</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>Now we try to solve for $\beta$, and find the assumptions we need during the solving process. First expand</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>S(\beta) = \mathbb{E}<span class="co">[</span><span class="ot">Y^2</span><span class="co">]</span> - 2\beta'\mathbb{E}<span class="co">[</span><span class="ot">X'Y</span><span class="co">]</span> + \beta'\mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>\beta</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>The first order condition is</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>0 = \frac{\partial}{\partial\beta}S(\beta) = -2\mathbb{E}<span class="co">[</span><span class="ot">X'Y</span><span class="co">]</span> + 2\mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>\beta</span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>and thus $\beta = \mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">X'Y</span><span class="co">]</span>$ is by definition the linear projection coefficient. $\beta$ is also referred to as a regression coefficient.</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>Therefore, the assumptions for the linear projection coefficient to exist need to ensure the existence of every term in $S(\beta)$ and that $\mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>$ is invertible.</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>**Assumption** (Existence of Linear Projection Coefficient)</span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$\mathbb{E}<span class="co">[</span><span class="ot">Y^2</span><span class="co">]</span> &lt; \infty$</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$\mathbb{E}\Vert X \Vert^2 &lt; \infty$</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>$\mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>$ is positive definite.</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>There is no linearity assumption required for the existence of linear projection coefficient!</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>By construction, the projection error $\epsilon = Y - X\beta$ where $\beta = \mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">X'Y</span><span class="co">]</span>$ satisfies $\mathbb{E}<span class="co">[</span><span class="ot">X'\epsilon</span><span class="co">]</span> = 0$, which is implied by the first order condition. Now, we have a linear projection model:</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>Y = X\beta + \epsilon, \quad \beta = \mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">X'Y</span><span class="co">]</span>, \quad \mathbb{E}<span class="co">[</span><span class="ot">X'\epsilon</span><span class="co">]</span> = 0</span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear CEF Model {#sec-blp}</span></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a>Estimating the general form of CEF is difficult (not impossible, e.g kernel estimator), because a function can be seen as a parameter with infinite dimension. For practical reasons, we impose linearity assumption on the CEF model,</span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a>Y = X\beta_0 + e, \quad \mathbb{E}<span class="co">[</span><span class="ot">e|X</span><span class="co">]</span> = 0</span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-187"><a href="#cb1-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-188"><a href="#cb1-188" aria-hidden="true" tabindex="-1"></a>**Justification for Linear CEF**:</span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$\beta_0$ is the linear projection coefficient. Notice that $\mathbb{E}<span class="co">[</span><span class="ot">e|X</span><span class="co">]</span> = 0$ implies $\mathbb{E}<span class="co">[</span><span class="ot">X'e</span><span class="co">]</span> = 0$, and solving $\mathbb{E}<span class="co">[</span><span class="ot">X'(Y - X\beta_0)</span><span class="co">]</span> = 0$ gives $\beta_0 = \mathbb{E}<span class="co">[</span><span class="ot">X'X</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">X'Y</span><span class="co">]</span>$. Therefore, if CEF is linear, the CEF coefficient is the linear projection coefficient.</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$\beta_0$ is the best linear predictor. This is implied by point 1.</span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>If CEF is not linear, $X\beta_0$ is the best linear approximation of CEF. One can show $\beta_0 = \arg \min_\beta \mathbb{E}<span class="co">[</span><span class="ot">(\mathbb{E}[Y|X] - X\beta)^2</span><span class="co">]</span>$. The proof is similar to the proof for @thm-BP.</span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>**When Linear CEF is the True CEF**</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>In general, we need to impose linearity assumption for CEF. But there are situations when CEF is inherently linear. For example,</span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Saturated model: $X_1, ... X_p$ are dummy variables, then the CEF is a linear function of $X_1, ... X_p$ and all cross-products of $X_i$.</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$X$ and $Y$ are jointly normal. $\mathbb{E}<span class="co">[</span><span class="ot">Y|X</span><span class="co">]</span> = \mu_Y + \Sigma_{XY}\Sigma_X^{-1}(X - \mu_X)$.</span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## OLS Estimation</span></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>The OLS estimator is obtain by minimizing the sample analogy of $S(\beta)$, namely</span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>\hat\beta = \arg \min_\beta \frac1n \sum_{i = 1}^{n}(Y_i - X_i\beta)^2</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>and the OLS estimator takes the form</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>\hat\beta = (X'X)^{-1}(X'Y)</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>The consistency of $\hat\beta$ can be obtained by decomposing using the linear projection model,</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>\hat\beta = (X'X)^{-1}(X'(X\beta + \epsilon)) = \beta + (X'X)^{-1}(X'\epsilon)</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>The probability limit of the second term is $0$ by the property of $\epsilon$. Therefore, OLS estimator always converges to the linear projection coefficient $\beta$ regardless of linearity assumption. If CEF is assumed to be linear, $\hat\beta$ converges to $\beta_0$ because $\beta_0 = \beta$.</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>**Question**: OLS is a special case of GMM. Because the first order condition of the minimizing problem of OLS is $\frac1n \sum_{i = 1}^{n}X_i(Y_i - X_i\hat\beta) = 0$, which is also a moment condition for GMM. But GMM is only consistent, OLS is unbiased and consistent, why?</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a><span class="fu">## Partialling Out Regression {#sec-FWL}</span></span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a>(Borrowed from Professor Victor Chernozhukov's <span class="co">[</span><span class="ot">notes</span><span class="co">](https://ocw.mit.edu/courses/14-382-econometrics-spring-2017/pages/lecture-notes/)</span>)</span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>In Econometric analysis, it is common to have some parameters of interest out of all regression coefficients. We partition the regressors into two groups</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>X = (D, W)</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>where $D$ is our variable of interest with dimension $p_1$ and $W$ is the covariates with dimension $p_2$. We consider the linear projection model</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a>Y = D\tau + W\beta + \epsilon</span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>$$ {#eq-model}</span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>The interpretation of $\theta$ is the partial effect of $D$ on $Y$. In this chapter, we explore the math behind this interpretation.</span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a>Define the partialling-out operator in **population** with respect to $W$ under the assumption of the existence of linear projection coefficient</span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>\tilde{V} = V - W\gamma_{vw}, \quad \gamma_{vw} = \arg \min_b \mathbb{E}<span class="co">[</span><span class="ot">(V - Wb)^2</span><span class="co">]</span></span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>It is easy to verify that this partialling-out operator is a linear operator</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>Y = V + U \rightarrow \tilde{Y} = \tilde{V} + \tilde{U}</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>We apply this partialling-out operator to model @eq-model to get</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a>\tilde{Y} = \tilde{D}\tau + \tilde{W}\beta + \tilde\epsilon</span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a>which implies</span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a>\tilde{Y} = \tilde{D}\tau + \epsilon</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>$$ {#eq-po}</span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>because $\tilde{W} = 0$ and $\tilde\epsilon = \epsilon$, which holds by the property of projection error $\mathbb{E}<span class="co">[</span><span class="ot">\epsilon W</span><span class="co">]</span>$.</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>For this new linear projection model in @eq-po, by solving $\mathbb{E}<span class="co">[</span><span class="ot">\tilde{D}'\epsilon</span><span class="co">]</span> = 0$, we have</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>\tau = \mathbb{E}<span class="co">[</span><span class="ot">\tilde{D}'\tilde{D}</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">\tilde{D}'Y</span><span class="co">]</span></span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>This is the "partial effect" of $D$ on $Y$. This result is also know as the Frisch-Waugh-Lovell theorem.</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a>Similarly, we can also define the partialling-out operator in **sample**</span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>\check{V} = V - W\hat\gamma_{vw}, \quad \hat\gamma_{vw} = \arg \min_b  \frac1n \sum_{i = 1}^n(V - Wb)^2</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>And the estimator of $\tau$ is </span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>\hat\tau = (\check{D}'\check{D})^{-1}(\check{D}'\check{Y})</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>which is the sample version of FWL theorem.</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a><span class="fu">#### The Adaptive Property of FWL/PO {-}</span></span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a>Chernozhukov's notes introduce a lemma about the adaptive property of FWL estimator. Here we try to explain the adaptive property from a different angle, the class of plug-in estimators.</span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>Consider the coefficient $\tau = \mathbb{E}<span class="co">[</span><span class="ot">\tilde{D}'\tilde{D}</span><span class="co">]</span>^{-1}\mathbb{E}<span class="co">[</span><span class="ot">\tilde{D}'Y</span><span class="co">]</span>$ an its estimator $\hat\tau = (\check{D}'\check{D})^{-1}(\check{D}'\check{Y})$, there is another estimator between these two quantities,</span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>\tilde\tau = (\tilde{D}'\tilde{D})^{-1}(\tilde{D}'\tilde{Y})</span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>The difference between $\tilde\tau$ and $\hat\tau$ is that we use the population version of partialled out variables $(\tilde{D}, \tilde{Y})$ instead of the sample version. Note that $\tilde\tau$ is the OLS estimator of $\tau$ but it is an **infeasible** estimator because $(\tilde{D}, \tilde{Y})$ are not available. </span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>On the contrary, $\hat\tau$ is feasible by plugging in $(\check{D}, \check{Y})$ as estimators of $(\tilde{D}, \tilde{Y})$. We call $\hat\tau$ a plug-in estimator. We can derive the asymptotics of $\tilde\tau$ as OLS estimator, but the question is, **does $\hat\tau$ have the same asymptotics as $\tilde\tau$?**</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a>The adaptive property lemma in Chernozhukov's notes shows that $\hat\tau$ and $\tilde\tau$ are asymptotically equivalent under mild regularity conditions without giving a proof. In our plug-in estimator setting, it is not difficult to verify this lemma by expending $\hat\tau$ twice with mean value theorem.</span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Robustness of FWL/PO {-}</span></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a>The adaptive property is a robustness property, which means that the first step estimators does not have (local) effect on the second step estimators. @chernozhukov2018double utilizes this property and develops the Double Machine Learning (DML) estimator for partially linear models.</span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a>Consider the partially linear model</span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>Y = D\tau + g(W) + \epsilon</span>
+<span id="cb1-293"><a href="#cb1-293" aria-hidden="true" tabindex="-1"></a>$$ {#eq-partiallinear}</span>
+<span id="cb1-294"><a href="#cb1-294" aria-hidden="true" tabindex="-1"></a>where we allow $W$ to be high dimensional or $g(\cdot)$ to be highly nonlinear while $D$ remains low dimensional. OLS does not work for this model. Machine Learning estimators for $\tau$ is not root-n consistent and thus, is difficult to do inference on $\tau$.</span>
+<span id="cb1-295"><a href="#cb1-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-296"><a href="#cb1-296" aria-hidden="true" tabindex="-1"></a>The solution is to consider a generalization of FWL</span>
+<span id="cb1-297"><a href="#cb1-297" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-298"><a href="#cb1-298" aria-hidden="true" tabindex="-1"></a>Y - \mathbb{E}<span class="co">[</span><span class="ot">Y|W</span><span class="co">]</span> = (D - \mathbb{E}<span class="co">[</span><span class="ot">D|W</span><span class="co">]</span>)\tau + \epsilon, \quad \mathbb{E}<span class="co">[</span><span class="ot">(D - \mathbb{E}[D|W])\epsilon</span><span class="co">]</span> = 0</span>
+<span id="cb1-299"><a href="#cb1-299" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-300"><a href="#cb1-300" aria-hidden="true" tabindex="-1"></a>We can use ML to estimate $\mathbb{E}<span class="co">[</span><span class="ot">Y|W</span><span class="co">]</span>$ and $\mathbb{E}<span class="co">[</span><span class="ot">D|W</span><span class="co">]</span>$ in the first step, and obtain OLS estimator $\hat\tau$. With some extra algorithms to control other sources of bias, $\hat\tau$ is root-n consistent. </span>
+<span id="cb1-301"><a href="#cb1-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-302"><a href="#cb1-302" aria-hidden="true" tabindex="-1"></a>This gives us the advantage of FWL/PO over the original model in @eq-partiallinear. If we go back to our model in @eq-model, in the low dimensional $W$ setting, $\gamma_{yw}$ and $\gamma_{dw}$ are estimated by OLS (sample version PO), which guarantees to be root-n consistent. The robustness of FWL means that even if the convergence rate of$\gamma_{yw}$ and $\gamma_{dw}$ lower than root-n, $\hat\tau$ is still root-n consistent.</span>
+<span id="cb1-303"><a href="#cb1-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-304"><a href="#cb1-304" aria-hidden="true" tabindex="-1"></a><span class="fu">#### Contamination Bias in Linear Regressions [@goldsmith2022contamination] {-}</span></span>
+<span id="cb1-305"><a href="#cb1-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-306"><a href="#cb1-306" aria-hidden="true" tabindex="-1"></a>We use this paper to illustrate the use of FWL/PO in research. This paper considers linear regression in the presence of </span>
+<span id="cb1-307"><a href="#cb1-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-308"><a href="#cb1-308" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Multiple treatments with correlation</span>
+<span id="cb1-309"><a href="#cb1-309" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Heterogeneous treatment effect</span>
+<span id="cb1-310"><a href="#cb1-310" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Covariates $W$</span>
+<span id="cb1-311"><a href="#cb1-311" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Propensity scores and treatment effect are functions of $W$</span>
+<span id="cb1-312"><a href="#cb1-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-313"><a href="#cb1-313" aria-hidden="true" tabindex="-1"></a>Point 1 is the key setting. Point 2 and 3 are common in linear regression. Point 4 ensures that the propensity score and the treatment effect are correlated (I think this is a natural setting, but the authors of the paper found an application where heterogeneous treatment effect is uncorrelated with propensity score ). Examples of such setting include stratified RCT, staggered Diff-in-Diff, etc. In fact, the paper is a generalization of the heterogeneous DID problem.</span>
+<span id="cb1-314"><a href="#cb1-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-315"><a href="#cb1-315" aria-hidden="true" tabindex="-1"></a>From Chapter @sec-hette, we know that ATE is a convex combination of the ATT and ATU. But if there are multiple treatments, the ATE identified in linear regression is no longer a convex combination (there are negative weights). We can use FWL/PO to illustrate.</span>
+<span id="cb1-316"><a href="#cb1-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-317"><a href="#cb1-317" aria-hidden="true" tabindex="-1"></a>Consider a simple case: a stratified RCT with treatment $D_i = {0, 1, 2}$. People may self-select into strata, so controlling for covariates is necessary. With strata, people are randomly assigned to a treatment level, so $D_i$ follows a multinomial distribution with probability $(p_0(W), p_1(W), p_2(W))$. We can use two binary variable $D_i^1$ and $D_i^2$ to represent $D_i$, then $p_1(W)$ and $p_2(W)$ are propensity scores of $D^1$ and $D^2$ respectively. Note that $D^1$ and $D^2$ are correlated because receiving the first treatment means that you cannot receive the second. To estimate the effect of $D^1$ and $D^2$, the linear regression many economists would run is </span>
+<span id="cb1-318"><a href="#cb1-318" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-319"><a href="#cb1-319" aria-hidden="true" tabindex="-1"></a>Y = D^1\tau_1 + D^2\tau_2 + W\beta + \epsilon</span>
+<span id="cb1-320"><a href="#cb1-320" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-321"><a href="#cb1-321" aria-hidden="true" tabindex="-1"></a>By FWL, $\tau_1$ is equivalent to that in the regression</span>
+<span id="cb1-322"><a href="#cb1-322" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-323"><a href="#cb1-323" aria-hidden="true" tabindex="-1"></a>Y - \mathbb{E}<span class="co">[</span><span class="ot">Y|W, D^2</span><span class="co">]</span> = \tau_1(D^1 - \mathbb{E}<span class="co">[</span><span class="ot">D^1|W, D^2</span><span class="co">]</span>) + \epsilon</span>
+<span id="cb1-324"><a href="#cb1-324" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb1-325"><a href="#cb1-325" aria-hidden="true" tabindex="-1"></a>Notice that $D^1 - \mathbb{E}<span class="co">[</span><span class="ot">D^1|W, D^2</span><span class="co">]</span>$ is not the CEF error of $D^1$ because by the experimental design, the CEF of $D^1$ is a function of only $W$. This is the source of "contamination bias". Another way to see this is that the treatment effect $\tau_1$ of $D^1$ should be independent of $D^2$, however, it is a function of $D^2$ and $W$ in the linear regression, which means that $\tau_1$ is "contaminated" by the units with $D^2$ treatment.</span>
+<span id="cb1-326"><a href="#cb1-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-327"><a href="#cb1-327" aria-hidden="true" tabindex="-1"></a>The easiest way to avoid contamination bias is by regression adjustment, i.e including all interaction terms between $D^k$ and demeaned $W$.</span>
+<span id="cb1-328"><a href="#cb1-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-329"><a href="#cb1-329" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb1-330"><a href="#cb1-330" aria-hidden="true" tabindex="-1"></a><span class="fu">## Connection to the Negative Weights Literature</span></span>
+<span id="cb1-331"><a href="#cb1-331" aria-hidden="true" tabindex="-1"></a>The contamination bias problem identified here -- where OLS coefficients with multiple treatments can place negative weights on certain subgroup treatment effects -- is closely related to the broader "negative weights" literature that has become a major theme in difference-in-differences research. In particular, the staggered DiD setting is a special case of the multiple-treatment framework analyzed by @goldsmith2022contamination, where different treatment cohorts act as multiple correlated treatments. See @sec-hette (Chapter 8) for a detailed treatment of heterogeneous treatment effects and the negative weights problem in DiD designs.</span>
+<span id="cb1-332"><a href="#cb1-332" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb1-333"><a href="#cb1-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-334"><a href="#cb1-334" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb1-335"><a href="#cb1-335" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb1-336"><a href="#cb1-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-337"><a href="#cb1-337" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**@abadie2020sampling** -- The foundational reference for this chapter. Provides the framework for distinguishing sampling-based from design-based uncertainty and derives finite population corrections for regression estimators.</span>
+<span id="cb1-338"><a href="#cb1-338" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**MacKinnon, Nielsen, and Webb (2023), "Cluster-Robust Inference: A Guide to Empirical Practice," *Journal of Econometrics*** -- A practical guide for applied researchers on cluster-robust inference, covering when and how to cluster standard errors, with guidance on few-cluster problems and wild bootstrap methods.</span>
+<span id="cb1-339"><a href="#cb1-339" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Cattaneo, Feng, and Underwood (2024)** -- Recent advances in randomization inference that complement the design-based perspective developed in this chapter.</span>
+<span id="cb1-340"><a href="#cb1-340" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>For extensions of the FWL/partialling-out framework to high-dimensional and nonparametric settings via Double Machine Learning, see @sec-DML (Chapter 10).</span>
+<span id="cb1-341"><a href="#cb1-341" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

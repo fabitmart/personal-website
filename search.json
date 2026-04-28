@@ -1,0 +1,142 @@
+[
+  {
+    "objectID": "teaching.html",
+    "href": "teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "Applied Econometrics Reading Group Notes — Notes on Mostly Harmless Econometrics and Beyond. Developed with Fangzhou Yu and Yangqi Zhang for the Oz Metrics Reading Group at UNSW (2022–23, ongoing).\nTopics covered: experimental ideal, sampling design, DAGs, sensitivity analysis, instrumental variables, synthetic control, regression discontinuity, difference-in-differences and event studies, and double machine learning (theory and applied).\nRead the notes →"
+  },
+  {
+    "objectID": "teaching.html#course-materials",
+    "href": "teaching.html#course-materials",
+    "title": "Teaching",
+    "section": "",
+    "text": "Applied Econometrics Reading Group Notes — Notes on Mostly Harmless Econometrics and Beyond. Developed with Fangzhou Yu and Yangqi Zhang for the Oz Metrics Reading Group at UNSW (2022–23, ongoing).\nTopics covered: experimental ideal, sampling design, DAGs, sensitivity analysis, instrumental variables, synthetic control, regression discontinuity, difference-in-differences and event studies, and double machine learning (theory and applied).\nRead the notes →"
+  },
+  {
+    "objectID": "teaching.html#university-teaching",
+    "href": "teaching.html#university-teaching",
+    "title": "Teaching",
+    "section": "University teaching",
+    "text": "University teaching\n\nUNSW School of Economics\n2021\n\nEnvironmental Economics — Lecturer-in-Charge\nEvidence-Based Problem Solving (Business Statistics) — Teaching Assistant\n\n2020\n\nBusiness and Government (Public Economics) — Lecturer-in-Charge\nEconomics Perspectives (Philosophy of Economics) — Lecturer\nBusiness Decision Making (Microeconomics) — Teaching Assistant\nGame Theory & Business Strategy — Teaching Assistant"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Fabio I. Martinenghi",
+    "section": "",
+    "text": "Research Fellow, University of Newcastle (MandEval project)"
+  },
+  {
+    "objectID": "index.html#news",
+    "href": "index.html#news",
+    "title": "Fabio I. Martinenghi",
+    "section": "News",
+    "text": "News\n\n2026 — Best Paper Award, 15th Australasian Workshop on Econometrics and Health Economics (for Career, Family, and IVF, with Maryam Naghsh Nejad).\n2026 — An open repository of COVID-19 vaccine mandate studies accepted at npj Vaccines.\n2026 — Does refusing legal aid cause harm? accepted at the Journal of Law & Economics.\n2025 — Career, Family, and IVF featured on the Grattan Institute’s Wonk List."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "CV",
+    "section": "",
+    "text": "Download CV (PDF)   Last updated: April 2026"
+  },
+  {
+    "objectID": "cv.html#fields-of-interest",
+    "href": "cv.html#fields-of-interest",
+    "title": "CV",
+    "section": "Fields of Interest",
+    "text": "Fields of Interest\nHealth Economics · Education · Law & Economics."
+  },
+  {
+    "objectID": "cv.html#employment",
+    "href": "cv.html#employment",
+    "title": "CV",
+    "section": "Employment",
+    "text": "Employment\n\nOct 2024 –\nResearch Fellow, MandEval\nUniversity of Newcastle & University of Western Australia\nStudying the impact of vaccine mandates on uptake using Australian administrative data (AIR-PLIDA).\n\n\nSep 2021 – Sep 2024\nResearch Associate, Economics of Education Knowledge Hub\nUniversity of New South Wales, Sydney\nWorked on academic and non-academic projects using NSW Education administrative data."
+  },
+  {
+    "objectID": "cv.html#other-positions-affiliations",
+    "href": "cv.html#other-positions-affiliations",
+    "title": "CV",
+    "section": "Other Positions & Affiliations",
+    "text": "Other Positions & Affiliations\n\nApr 2024 –\nHonorary Associate Lecturer\nUniversity of New South Wales\n\n\nAug 2023 –\nAffiliate, Tax and Transfer Policy Institute\nCrawford School of Public Policy, Australian National University\n\n\nMay 2023 –\nInvestigator, NHMRC grant APP1127437\nNational Perinatal Epidemiology and Statistics Unit · Centre for Big Data Research in Health, UNSW\n\n\nOct 2020 –\nAffiliate, ARC Centre of Excellence for Children and Families over the Life Course\nUniversities of Sydney, Melbourne, Queensland and Western Australia"
+  },
+  {
+    "objectID": "cv.html#education",
+    "href": "cv.html#education",
+    "title": "CV",
+    "section": "Education",
+    "text": "Education\n\n2018–2020\nVisiting Scholar, University of New South Wales\nAwarded Tuition Fee Scholarship.\n\n\n2016–2020\nPh.D. in Economics, University of Milan\nThesis: Essays in Policy Evaluation. Research topics: Applied Micro, Law & Economics.\n\n\nJan 2018\nIRVAPP Winter School — Advanced Methods in Impact Evaluation\nTopics: discontinuities, causality and machine learning, instrumental variables.\n\n\n2014–2016\nMSc in Economics, University of Nottingham\n\n\n2011–2014\nUndergraduate Degree (Cum Laude) in Philosophy, Università Cattolica del Sacro Cuore, Italy\nDissertation: Measurement and Modelling in Economics: An Epistemological Perspective."
+  },
+  {
+    "objectID": "cv.html#working-papers-publications",
+    "href": "cv.html#working-papers-publications",
+    "title": "CV",
+    "section": "Working Papers & Publications",
+    "text": "Working Papers & Publications\n\nLegal aid eligibility and court outcomes: a design-based double-machine-learning approach.\nForthcoming, Journal of Law & Economics. TTPI WP.\nDouble-machine-learning approach with administrative data on Legal Aid applicants to estimate the effect of aid refusal on court outcomes.\n\n\nAn open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence.\nLead author, with Blyth, C. and the MandEval team. Forthcoming, npj Vaccines. Article.\nA dataset covering more than 500 papers on COVID-19 mandates, manually curated and with data extracted by an LLM, plus a worked scoping review of the quasi-experimental evidence on uptake and downstream outcomes.\n\n\nVaccinating Now or Vaccinating Later: separating pull-forward and net effects using a dynamic regression discontinuity design.\nLead author, with Attwell, K., Genie, M. and the MandEval team. Submitted. PDF.\nStudies a novel COVID-19 vaccine mandate targeting graduating high-school students. A daily panel of linked administrative data (AIR-PLIDA) lets RDD run dynamically, disentangling intensive and extensive margins. Develops a toy model for external validity.\n\n\nCareer, Family, and IVF: the impact of involuntary childlessness and fertility treatment.\nWith Maryam Naghsh Nejad. IZA WP.\nDynamic triple DID approach to study the impacts of childlessness and IVF on women’s income and mental health, using Australian administrative data.\n\n\nConceiving naturally after IVF: the effect of an ART conception on obstetric outcomes.\nWith Zhang, X., Rombauts, L. and Chambers, G. arXiv.\nLeverages idiosyncratic spontaneous pregnancy after a failed ART cycle to estimate the effect of ART on outcomes such as c-section and birth weight, using Australian administrative data (ANZARD).\n\n\nGetting Explicit Instruction Right.\nWith Richard Holden. Submitted. arXiv.\nStudies the dramatic effect of a public NSW school introducing the Explicit Instruction pedagogy, using synthetic control on administrative school data.\n\n\nGrandmaternal health shocks, informal childcare, and maternal outcomes.\nWith Jan Kabatek. In progress.\nStudies the effect of grandmaternal acute health episodes (identified by selected PBS drugs) on the labour outcomes of mothers with children aged 0–4."
+  },
+  {
+    "objectID": "cv.html#teaching-experience",
+    "href": "cv.html#teaching-experience",
+    "title": "CV",
+    "section": "Teaching Experience",
+    "text": "Teaching Experience\n\n2021\nLecturer-in-Charge, Environmental Economics\nUniversity of New South Wales\n\n\n2021\nTeaching Assistant, Business Decision Making\nUniversity of New South Wales\n\n\n2021\nTeaching Assistant, Game Theory & Business Strategy\nUniversity of New South Wales\n\n\n2020\nLecturer-in-Charge, Business and Government\nUniversity of New South Wales\n\n\n2020\nTeaching Assistant, Game Theory & Business Strategy\nUniversity of New South Wales\n\n\n2019–2020\nLecturer, Economics Perspectives\nUniversity of New South Wales\n\n\n2017\nTeaching Assistant, Advanced Industrial Organisation\nUniversity of Milan"
+  },
+  {
+    "objectID": "cv.html#conferences-invited-seminars",
+    "href": "cv.html#conferences-invited-seminars",
+    "title": "CV",
+    "section": "Conferences & Invited Seminars",
+    "text": "Conferences & Invited Seminars\nAmerican–European Health Economics Study Group · Invited seminar at CLEAN, Bocconi · STEP UP Conference (‘What Works in Education?’) · Australian Workshop on Public Finance · Labour Econometrics Workshop · Western Economic Association International Conference."
+  },
+  {
+    "objectID": "cv.html#technical-skills",
+    "href": "cv.html#technical-skills",
+    "title": "CV",
+    "section": "Technical Skills",
+    "text": "Technical Skills\nR (incl. arrow, duckdb, data.table for larger-than-memory data) · Stata · Python · SQL."
+  },
+  {
+    "objectID": "cv.html#other",
+    "href": "cv.html#other",
+    "title": "CV",
+    "section": "Other",
+    "text": "Other\n\nRefereeing experience for Empirical Economics and Health Policy & Technology.\nMentee at the SOLE Mentoring Program under Amanda Pallais (Harvard) and Basit Zafar (University of Michigan)."
+  },
+  {
+    "objectID": "cv.html#references",
+    "href": "cv.html#references",
+    "title": "CV",
+    "section": "References",
+    "text": "References\nAvailable on request."
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "Accepted\nDoes refusing legal aid cause harm? A design-based double-machine-learning approach\nJournal of Law & Economics (forthcoming).\nKeywords: indigent defense, crime, criminal justice. JEL: I30, K14, H44.\n\nPDF\n\n\n\nAccepted\nAn open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence\nWith C. Blyth and the MandEval team. npj Vaccines (forthcoming).\nKeywords: immunisation, pandemics, policy, impact, best practice.\n\nJournal"
+  },
+  {
+    "objectID": "research.html#published-accepted",
+    "href": "research.html#published-accepted",
+    "title": "Research",
+    "section": "",
+    "text": "Accepted\nDoes refusing legal aid cause harm? A design-based double-machine-learning approach\nJournal of Law & Economics (forthcoming).\nKeywords: indigent defense, crime, criminal justice. JEL: I30, K14, H44.\n\nPDF\n\n\n\nAccepted\nAn open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence\nWith C. Blyth and the MandEval team. npj Vaccines (forthcoming).\nKeywords: immunisation, pandemics, policy, impact, best practice.\n\nJournal"
+  },
+  {
+    "objectID": "research.html#submitted",
+    "href": "research.html#submitted",
+    "title": "Research",
+    "section": "Submitted",
+    "text": "Submitted\n\nSubmitted\nVaccinating Now or Vaccinating Later: Dynamic RDD Evidence on Speeding-Up Vaccine Uptake via Time-Limited Non-Monetary Incentives\nWith K. Attwell, M. Genie, and the MandEval team.\nKeywords: mandate, vaccination, incentives, uptake, adolescents. JEL: I12, I18.\n\nPDF\n\n\n\nSubmitted\nGetting Explicit Instruction Right\nWith Richard Holden (UNSW).\nKeywords: education, explicit instruction, pedagogy. JEL: I20, I21.\n\narXiv"
+  },
+  {
+    "objectID": "research.html#working-papers",
+    "href": "research.html#working-papers",
+    "title": "Research",
+    "section": "Working Papers",
+    "text": "Working Papers\n\nWorking paper\nCareer, Family, and IVF: The Impact of Involuntary Childlessness and Fertility Treatment\nWith Maryam Naghsh Nejad. Best Paper Award, 15th Australasian Workshop on Econometrics and Health Economics. Featured on the Grattan Institute’s Wonk List (2025).\nKeywords: involuntary childlessness, IVF, mental health, labour market outcomes, fertility and career trade-offs. JEL: J13, J22, I14, I31, J16.\n\nPDF\n\n\n\nWorking paper\nConceiving Naturally After IVF: the effect of an IVF conception on mode and timing of birth\nWith X. Zhang, L. Rombauts, and G. Chambers.\nKeywords: fertility, assisted reproduction, IVF, obstetric outcomes, infertility. JEL: I10, I12, I19.\n\narXiv"
+  }
+]

@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.23">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>10&nbsp; Double/Debiased Machine Learning (DML) – Applied Econometrics Reading Group Notes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./09-propensity-dml-application.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-226bd0f977fa82dfae4534cac220d79a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-6c5314280c86e53d2a1a2ca4c5fd5b4a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./10-dml-theory.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Applied Econometrics Reading Group Notes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-experimental-ideal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">A Preamble</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-sampling-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Sampling-based and Design-based Uncertainty</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-dags.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">DAG</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Sensitivity Analysis</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-instrumental-variables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Instrumental Variable</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-synthetic-control.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Synthetic Control Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-rdd.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Regression Discontinuity Designs</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-did-event-studies.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Difference in Differences and Event Study</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-propensity-dml-application.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-dml-theory.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#a-general-motivation-and-introduction" id="toc-a-general-motivation-and-introduction" class="nav-link active" data-scroll-target="#a-general-motivation-and-introduction"><span class="header-section-number">10.1</span> A General Motivation and Introduction</a></li>
+  <li><a href="#the-parametric-version" id="toc-the-parametric-version" class="nav-link" data-scroll-target="#the-parametric-version"><span class="header-section-number">10.2</span> The Parametric Version</a></li>
+  <li><a href="#key-components-in-dml" id="toc-key-components-in-dml" class="nav-link" data-scroll-target="#key-components-in-dml"><span class="header-section-number">10.3</span> Key Components in DML</a>
+  <ul class="collapse">
+  <li><a href="#regularization-bias-and-neyman-orthogonality" id="toc-regularization-bias-and-neyman-orthogonality" class="nav-link" data-scroll-target="#regularization-bias-and-neyman-orthogonality"><span class="header-section-number">10.3.1</span> Regularization Bias and Neyman Orthogonality</a></li>
+  <li><a href="#overfitting-bias-and-cross-fitting" id="toc-overfitting-bias-and-cross-fitting" class="nav-link" data-scroll-target="#overfitting-bias-and-cross-fitting"><span class="header-section-number">10.3.2</span> Overfitting Bias and Cross-fitting</a></li>
+  </ul></li>
+  <li><a href="#construct-neyman-orthogonality" id="toc-construct-neyman-orthogonality" class="nav-link" data-scroll-target="#construct-neyman-orthogonality"><span class="header-section-number">10.4</span> Construct Neyman Orthogonality</a>
+  <ul class="collapse">
+  <li><a href="#residualize" id="toc-residualize" class="nav-link" data-scroll-target="#residualize">Residualize</a></li>
+  <li><a href="#riesz-representation" id="toc-riesz-representation" class="nav-link" data-scroll-target="#riesz-representation">Riesz Representation</a></li>
+  <li><a href="#automatic-characterization" id="toc-automatic-characterization" class="nav-link" data-scroll-target="#automatic-characterization">Automatic Characterization</a></li>
+  </ul></li>
+  <li><a href="#the-doubleml-package" id="toc-the-doubleml-package" class="nav-link" data-scroll-target="#the-doubleml-package"><span class="header-section-number">10.5</span> The <code>DoubleML</code> Package</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">10.6</span> Conclusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span id="sec-DML" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Double/Debiased Machine Learning (DML)</span></span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="a-general-motivation-and-introduction" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="a-general-motivation-and-introduction"><span class="header-section-number">10.1</span> A General Motivation and Introduction</h2>
+<p>Machine learning methods have emerged as valuable tools for prediction, utilizing large and diverse datasets. These methods are designed to handle the high-dimensional challenge or discover complex relationships in the data. Take Lasso for example, which is minimizing the objective function <span class="math display">\[
+\min_\beta \left(\underbrace{\sum_{i = 1}^n (Y_i - X_i\beta)^2}_{\color{orange}{\text{OLS}}} + \underbrace{\lambda\sum_{j = 1}^p |\beta_j|}_{\color{blue}{\text{Penalty}}}\right)
+\]</span> The first component is the objective function for OLS and the second term is some <span style="color: blue;">penalty or “regularization”</span> on the sum of coefficient magnitude. The penalty term is particularly helpful when <span class="math inline">\(X_i\)</span> is high-dimensional (large <span class="math inline">\(p\)</span>). When <span class="math inline">\(p\)</span> is close to <span class="math inline">\(n\)</span>, OLS tends to be <span style="color: orange;">overfitting</span> and captures the noises in the dataset. While in Lasso, the penalty term discourages overfitting by shrinking small parameters to zero. In fact, most of the machine learning methods are facing this problem of trade-off between overfitting and regularization. For the regression tree method, we could grow a small tree for crude fitting but is subject to regularization bias, or we could grow a large tree that is very likely to be overfitting.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>librarian<span class="sc">::</span><span class="fu">shelf</span>(rpart, rpart.plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'rpart.plot' was built under R version 4.4.3</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>small.tree <span class="ot">&lt;-</span> <span class="fu">rpart</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars, <span class="at">cp =</span> <span class="fl">0.1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>large.tree <span class="ot">&lt;-</span> <span class="fu">rpart</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars, <span class="at">minsplit =</span> <span class="dv">5</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(small.tree)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(large.tree)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="10-dml-theory_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Another feature of the machine learning methods is that the mainstream method for controlling the trade-off between overfitting and regularization is based on the fitness to the data, and it works great in prediction problems. However, these features of machine learning are not suitable for causal inference, which is more common than prediction problems in Economics. Because</p>
+<ol type="1">
+<li>Overfitting and regularization both induce bias in parameter estimators, making inference (e.g hypothesis testing) difficult</li>
+<li>Causal inference is about evaluating counterfactuals, which is not observed. Not really make sense to use goodness of fit to control overfitting and regularization</li>
+<li>Identification is not clear</li>
+</ol>
+<p>Then how can we perform causal inference in the presence of large datasets and make use of the modern machine learning methods? The Double/Debiased Machine Learning (DML) theory developed by <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> provides us with a general framework that incorporates a wide range of machine learning methods including</p>
+<ul>
+<li>Ridge</li>
+<li>Lasso</li>
+<li>Random Forests</li>
+<li>Boosted Trees</li>
+<li>Gradient Boosting</li>
+<li>Deep and Standard Neural Nets</li>
+<li>The aggregation and cross-hybrids of the above methods</li>
+</ul>
+<p>The DML solves the three challenges in causal inference with machine learning by constructing orthogonal moment conditions and making use of cross-fitting to eliminate regularization and overfitting bias, such that the parameter estimators retain <span class="math inline">\(\sqrt{n}-\)</span>consistency. Since the theory targets the moment conditions, the identification or model assumptions can be made analogous to the normal M or GMM estimators. In the following section, we are going to start from the Frisch-Waugh-Lovell (FWL) Theorem in a linear regression setting, and generalize FWL to an orthogonality property that fits into a high-dimensional world. Our focus is how this orthogonality condition, which is the key condition in DML, allows us to obtain asymptotically normally distributed estimators. Note that our discussion here is more like some preliminary knowledge or preparations for reading <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> and intuitive introductions to the DML theory. If you are interested, please read the original paper and refer to the specific details.</p>
+</section>
+<section id="the-parametric-version" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="the-parametric-version"><span class="header-section-number">10.2</span> The Parametric Version</h2>
+<p>Consider a linear model <span class="math display">\[
+Y_i = \theta_0D_i + X_i\beta_0 + \epsilon_i, \quad \mathbb{E}[\epsilon_i|D_i, X_i] = 0
+\]</span></p>
+<p>Here, we separate the explanatory variables <span class="math inline">\((D_i, X_i)\)</span> because in causal inference, we are usually interested in the effect of one treatment variable <span class="math inline">\(D_i\)</span> and including <span class="math inline">\(p\)</span> dimensional <span class="math inline">\(X_i\)</span> for the exogeneity condition to hold. Let <span class="math inline">\(\theta_0\)</span> be our parameter of interest and <span class="math inline">\(\beta_0\)</span> be nuisance parameters. Now let’s find moment conditions that can identify <span class="math inline">\(\theta_0\)</span>, and note that essentially, we just need to find exogeneity, i.e.&nbsp;<span class="math inline">\(\mathbb{E}[\cdot] = 0\)</span>.</p>
+<ol type="1">
+<li><span class="math inline">\(\mathbb{E}[D_i(Y_i - \theta_0D_i - X_i\beta_0)] = 0\)</span></li>
+<li><span class="math inline">\(\mathbb{E}[(D_i - X_i\alpha_0)(Y_i - \theta_0D_i)] = 0\)</span></li>
+<li><span class="math inline">\(\mathbb{E}[(D_i - X_i\alpha_0)(Y_i - \theta_0D_i - X_i\beta_0)] = 0\)</span></li>
+<li><span class="math inline">\(\mathbb{E}[(D_i - X_i\alpha_0)((Y_i - X_i\gamma_0) - \theta_0(D_i - X_i\alpha_0))] = 0\)</span></li>
+</ol>
+<p>where <span class="math inline">\(\alpha_0\)</span> and <span class="math inline">\(\gamma_0\)</span> are the coefficients in the regressions <span class="math display">\[
+D_i = X_i\alpha_0 + u_i, \quad \quad Y_i = X_i\gamma_0 + v_i
+\]</span></p>
+<p>Let’s check the moment conditions one by one.</p>
+<ol type="1">
+<li><span class="math inline">\(\mathbb{E}[D_i(Y_i - \theta_0D_i - X_i\beta_0)] = 0\)</span></li>
+</ol>
+<p>This is <strong>one of</strong> the moment conditions in the regression <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(D_i\)</span> and <span class="math inline">\(X_i\)</span>, which is a direct translation of the exogeneity condition in our linear model because <span class="math inline">\(\mathbb{E}[\epsilon_i|D_i, X_i] = 0\)</span> implies <span class="math inline">\(\mathbb{E}[D_i\epsilon_i|X_i] = 0\)</span>. However, this moment is “<strong>infeasible</strong>”, meaning that this moment itself is not adequate to estimate <span class="math inline">\(\theta_0\)</span> as <span class="math inline">\(\beta_0\)</span> is also unknown. Instead of running a full regression of <span class="math inline">\(Y_i\)</span> on <span class="math inline">\(D_i\)</span> and <span class="math inline">\(X_i\)</span>, an alternative feasible regression is that we have already obtained consistent estimator <span class="math inline">\(\hat\beta\)</span> for <span class="math inline">\(\beta_0\)</span>, then we can just plug in <span class="math inline">\(\hat\beta\)</span> and regression <span class="math inline">\(Y_i - X_i\hat\beta\)</span> on <span class="math inline">\(D_i\)</span>.</p>
+<ol start="2" type="1">
+<li><span class="math inline">\(\mathbb{E}[(D_i - X_i\alpha_0)(Y_i - \theta_0D_i)] = 0\)</span></li>
+</ol>
+<p>This one suggests us to regress <span class="math inline">\(D_i\)</span> on <span class="math inline">\(X_i\)</span> and residualize <span class="math inline">\(D_i\)</span> first, and run a IV regression using the residuals as instrument for <span class="math inline">\(D_i\)</span>. This moment holds because we subtracted the variation of <span class="math inline">\(X_i\)</span> from <span class="math inline">\(D_i\)</span> in the left parentheses and the variation in the right parentheses is just <span class="math inline">\(X_i\)</span> and <span class="math inline">\(\epsilon_i\)</span>, which is orthogonal to <span class="math inline">\(u_i\)</span>.</p>
+<ol start="3" type="1">
+<li><span class="math inline">\(\mathbb{E}[(D_i - X_i\alpha_0)(Y_i - \theta_0D_i - X_i\beta_0)] = 0\)</span></li>
+</ol>
+<p>Similar to 2, but we also included covariates <span class="math inline">\(X_i\)</span> in the IV regression. Also infeasible and we need to plug in <span class="math inline">\(\hat\beta\)</span>.</p>
+<ol start="4" type="1">
+<li><span class="math inline">\(\mathbb{E}[(D_i - X_i\alpha_0)((Y_i - X_i\gamma_0) - \theta_0(D_i - X_i\alpha_0))] = 0\)</span></li>
+</ol>
+<p>This one suggests us to residualize both <span class="math inline">\(D_i\)</span> and <span class="math inline">\(Y_i\)</span> in the first step, and run a residual-on-residual regression in the second step. <strong>This is a Frisch-Waugh-Lovell (FWL) style regression</strong> (See Section <a href="02-sampling-design.html#sec-FWL" class="quarto-xref"><span>Section 3.5</span></a> for details).</p>
+<p>For further discussion, we can characterize the parameters in the moments. <span class="math inline">\(\theta_0\)</span> is our parameter of interest and identified by the 4 moments. We call the rest of the parameters (<span class="math inline">\(\alpha_0\)</span>, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\gamma_0\)</span>) <strong>nuisance</strong> parameters. The nuisance parameters are not identified and we need to plug in the consistent estimators in moments in order to estimate <span class="math inline">\(\theta_0\)</span>. Given identification and estimation procedure is clear, we can think of the properties of <span class="math inline">\(\hat\theta\)</span> by the 4 moments.</p>
+<p>First, all 4 estimators are consistent as long as consistent nuisance estimator is plugged in, because solving the 4 sample moments gives <span class="math inline">\(\hat\theta = \frac1n\sum_i \cdot\)</span> and consistency holds by the weak law of large numbers. But consistency is not enough for performing statistical inference on <span class="math inline">\(\theta_0\)</span>, we need <strong>root-<span class="math inline">\(n\)</span> consistency</strong>, which is result from central limit theorem <span class="math inline">\(\frac{1}{\sqrt{n}}\sum_i(\hat\theta - \theta_0) \xrightarrow{d} N(0, V_\theta)\)</span>. We consider a general case <span class="math inline">\(g(W_i, \theta, \eta)\)</span> such that <span class="math inline">\(\mathbb{E}[g(\cdot)] = 0\)</span>, where <span class="math inline">\(W_i = (Y_i, D_i, X_i)\)</span> is the data, and <span class="math inline">\(\eta\)</span> represents the nuisance parameter. For example, in moment 3 <span class="math display">\[
+g(W_i, \theta, \eta) = (D_i - X_i\alpha)(Y_i - \theta D_i - X_i\beta), \quad \text{with } \eta = (\alpha, \beta)
+\]</span></p>
+<p>The estimators of <span class="math inline">\(\theta_0\)</span> is obtained by solving <span class="math display">\[
+\frac1n \sum_i g(W_i, \theta, \hat\eta) = 0
+\]</span> <strong>Note that <span class="math inline">\(\hat\eta\)</span> is nuisance estimator of linear coefficients, which is root-<span class="math inline">\(n\)</span> consistent by the property of OLS or GMM estimator</strong>, that is <span class="math inline">\(\sqrt{n}(\hat\eta - \eta_0) \xrightarrow{d} N(0, V_\eta)\)</span>. Assume there is some random variable <span class="math inline">\(t_i\)</span> with <span class="math inline">\(0\)</span> expectation such that <span class="math inline">\(\sqrt{n}(\hat\eta - \eta_0) = \sqrt{n}\left(\frac1n \sum_i t_i\right)\)</span>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Let <span class="math inline">\(\partial_\theta g(W_i, \theta, \eta)\)</span> denote the partial derivative of <span class="math inline">\(g(\cdot)\)</span> with respect to <span class="math inline">\(\theta\)</span> and <span class="math inline">\(G_\theta = \partial_\theta g(W_i, \theta_0, \eta_0)\)</span>, <span class="math inline">\(G_\eta = \partial_\eta g(W_i, \theta_0, \eta_0)\)</span>. Then solve the sample moment by mean value theorem, we have <span id="eq-asymdist"><span class="math display">\[
+\begin{aligned}
+\sqrt{n}(\hat\theta - \theta_0) &amp;= - \left(\frac1n \sum_i \partial_\theta g(W_i, \bar\theta, \hat\eta)\right)^{-1}\frac{1}{\sqrt{n}} \sum_i g(W_i, \theta_0, \hat\eta) \\
+&amp;= - \left(\frac1n \sum_i \partial_\theta g(W_i, \bar\theta, \hat\eta)\right)^{-1} \\
+&amp;\quad \quad \times \left(\frac{1}{\sqrt{n}}\sum_i g(W_i, \theta_0, \eta_0) + \left(\frac1n \sum_i \partial_\eta g(W_i, \theta_0, \bar\eta)\right)\sqrt{n}(\hat\eta - \eta_0)\right) \\
+&amp;= - G_\theta^{-1}\frac{1}{\sqrt{n}}\sum_i(g(W_i, \theta_0, \eta_0) + G_\eta t_i) + o_p(1)
+\end{aligned}
+\tag{10.1}\]</span></span> where <span class="math inline">\(\bar\theta\)</span> and <span class="math inline">\(\bar\eta\)</span> are the mean values. This result implies that <span class="math inline">\(V_\theta = G_\theta^{-1}\mathbb{E}[(g_0(W_i) + G_\eta t_i)(g_0(W_i) + G_\eta t_i)']G_\theta^{-1'}\)</span>. Thus, the impact of plugging in <span class="math inline">\(\hat\eta\)</span> on (the asymptotic variance of) <span class="math inline">\(\hat\theta\)</span> is captured by the term <span class="math inline">\(G_\eta t_i\)</span>.</p>
+<p><strong>Question: Is it possible that plugging in <span class="math inline">\(\hat\eta\)</span> has no impact on <span class="math inline">\(\hat\theta\)</span>?</strong></p>
+<p><strong>Yes, when <span class="math inline">\(G_\eta = 0\)</span>!</strong> In this case, <span class="math inline">\(\hat\eta\)</span> has zero impact on <span class="math inline">\(\hat\theta\)</span>, and <span class="math inline">\(V_\theta\)</span> reduces to <span class="math inline">\(G_\theta^{-1}\mathbb{E}[g_0(W_i)g_0(W_i)']G_\theta^{-1'}\)</span> which is the usual variance formula for GMM estimator. In fact, this is the <strong>parametric version of the orthogonality property</strong> mentioned in the introduction. To be specific,</p>
+<blockquote class="blockquote">
+<p>If a moment function <span class="math inline">\(g(W_i, \theta, \eta)\)</span> satisfies the condition <span class="math display">\[
+G_\eta = \mathbb{E}[\partial_\eta g(W_i, \theta_0, \eta_0)] = 0
+\]</span> then 1. the nuisance estimator <span class="math inline">\(\hat\eta\)</span> has no impact on the asymptotic variance of <span class="math inline">\(\hat\theta\)</span>.</p>
+</blockquote>
+<p>Now we can use this property to distinguish the 4 moment conditions. For moment 1, <span class="math inline">\(\eta = \beta\)</span>, then <span class="math display">\[
+\mathbb{E}[\partial_\beta D_i(Y_i - \theta_0 D_i - X_i\beta_0)] = - \mathbb{E}[D_iX_i] \neq 0
+\]</span> unless <span class="math inline">\(D_iX_i\)</span> has zero expectation. Therefore, moment 1 does not satisfy the orthogonal condition. Similarly, moment 2 is not orthogonal either.</p>
+<p>For moment 4, <span class="math inline">\(\eta = (\alpha, \gamma)\)</span>, then <span class="math display">\[\begin{aligned}
+&amp;\quad \ \mathbb{E}[\partial_{(\alpha, \gamma)}(D_i - X_i\alpha_0)((Y_i - X_i\gamma_0) - \theta_0(D_i - X_i\alpha_0))] \\
+&amp;= \mathbb{E}\begin{bmatrix} -X_i(Y_i - X_i\gamma_0 - \theta_0(D_i - X_i\alpha_0)) + (D_i - X_i\alpha_0)\theta_0X_i \\ -X_i(D_i - X_i\alpha_0) \end{bmatrix} \\
+&amp;= 0
+\end{aligned}\]</span> by the exogeneity of <span class="math inline">\(X_i\)</span>. Similarly, moment 3 also satisfies the orthogonal property. Thus, only moment 3 and 4 are free of the impact of <span class="math inline">\(\hat\eta\)</span>.</p>
+<p>This is our first result on this orthogonality property regard the effect on asymptotic variance, but this is not enough to show how powerful this property is. If we take a closer look at this condition, by the intuition behind derivatives, it is essential saying that a <strong>local</strong> change in <span class="math inline">\(\eta\)</span> will not deviate the moment function <span class="math inline">\(g(W_i, \theta, \eta)\)</span> at the point <span class="math inline">\((\theta_0, \eta_0)\)</span>, which can be regarded as the robustness of <span class="math inline">\(g(\cdot)\)</span>. To make this interpretation clearer, consider <span class="math inline">\(\theta(\gamma)\)</span> as a function of <span class="math inline">\(\gamma\)</span>, and by implicit function theorem, <span class="math display">\[
+\partial_\eta \theta(\eta_0) = - G_\theta^{-1}G_\eta = 0 \text{ if and only if } G_\eta = 0
+\]</span></p>
+<p>This is a first-order condition indicating that <strong>local</strong> inconsistency of <span class="math inline">\(\hat\eta\)</span> should not affect the consistency of <span class="math inline">\(\hat\theta\)</span>. The parametric setting in this section is unable to show this property because <span class="math inline">\(\hat\eta\)</span> and <span class="math inline">\(\hat\theta\)</span> has the same convergence rate root-<span class="math inline">\(n\)</span> and local inconsistency does not exist. Next, we show this first-order robustness property in the non-parametric or machine learning setting as in <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> as the convergence rate of machine learning estimator are generally slower than root-<span class="math inline">\(n\)</span>.</p>
+</section>
+<section id="key-components-in-dml" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="key-components-in-dml"><span class="header-section-number">10.3</span> Key Components in DML</h2>
+<section id="regularization-bias-and-neyman-orthogonality" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="regularization-bias-and-neyman-orthogonality"><span class="header-section-number">10.3.1</span> Regularization Bias and Neyman Orthogonality</h3>
+<p>In the previous section, we assumed linear parametric models <span class="math display">\[\begin{aligned}
+Y_i = \theta_0D_i + X_i\beta_0 + \epsilon_i \\
+D_i = X_i\alpha_0 + u_i, \quad \quad Y_i = X_i\gamma_0 + v_i
+\end{aligned}\]</span></p>
+<p>Linearity is hard to hold when <span class="math inline">\(X_i\)</span> is high-dimensional and the relationship is highly-nonlinear. To relax this assumption, we can consider the following models <span class="math display">\[\begin{aligned}
+Y_i = \theta_0D_i + \beta_0(X_i) + \epsilon_i \\
+D_i = \alpha_0(X_i) + u_i, \quad \quad Y_i = \gamma_0(X_i) + v_i
+\end{aligned}\]</span> Note that the nuisance functions <span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\gamma\)</span> are now functions of <span class="math inline">\(X_i\)</span> and we will rely on machine learning methods to flexibly estimate these functions. Estimation of <span class="math inline">\(\theta_0\)</span> follows analogously to the parametric version: obtain some machine learning estimator <span class="math inline">\(\hat\eta\)</span>, plug in the sample moments and solve for <span class="math inline">\(\hat\theta\)</span>. For example, the estimation procedure for moment 4 is</p>
+<ul>
+<li>Predict <span class="math inline">\(Y_i\)</span> with <span class="math inline">\(X_i\)</span> using some machine learning method and obtain residuals <span class="math inline">\(\hat{v}_i\)</span></li>
+<li>Predict <span class="math inline">\(D_i\)</span> with <span class="math inline">\(X_i\)</span> using some machine learning method and obtain residuals <span class="math inline">\(\hat{u}_i\)</span></li>
+<li>Regress <span class="math inline">\(\hat{v}_i\)</span> on <span class="math inline">\(\hat{u}_i\)</span> and obtain the OLS estimator <span class="math inline">\(\hat\theta\)</span></li>
+</ul>
+<p>The behavior of <span class="math inline">\(\hat\theta\)</span> by solving moment 1 and 4 is simulated in the Figure below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sim1" class="quarto-float quarto-figure quarto-figure-center anchored" width="100%">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fig/ch10_dml/sim1.png" id="fig-sim1" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-sim1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Without using orthogonal moment, <span class="math inline">\(\hat\theta\)</span> is subject to the regularization bias in the machine learning estimator of <span class="math inline">\(\eta_0\)</span> in the left panel, and the orthogonal moment in the right panel eliminates the bias. <strong>This is the first order robustness property we expected from the discussion in previous section.</strong> Now if we think of the orthogonality condition again <span class="math display">\[
+G_\eta = \mathbb{E}[\partial_\eta g(W_i, \theta_0, \eta_0)] = 0
+\]</span> It does not make sense in our new non-parametric setting. Because in the parametric setting, the derivative is with respect to parameters <span class="math inline">\(\eta\)</span>, which is now a function and it is unclear what a derivative with respect to a function is. In DML, this problem is solved by extending the orthogonality condition with the Gateaux derivative of a function.</p>
+<div id="def-gateaux" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 10.1 (Gateaux Derivative)</strong></span> The Gateaux derivative of <span class="math inline">\(g(W_i, \theta_0, \eta_0)\)</span> with respect to a function <span class="math inline">\(\eta\)</span> is defined as <span class="math display">\[
+\partial_r g(W_i, \theta_0, \eta_0 + r(\eta - \eta_0))
+\]</span></p>
+</div>
+<p>Then we can define the orthogonality condition in non-parametric setting<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<div id="def-neyman" class="theorem definition">
+<p><span class="theorem-title"><strong>Definition 10.2 (Neyman Orthogonality)</strong></span> <span class="math display">\[
+\mathbb{E}[\partial_r g(W_i, \theta_0, \eta_0 + r(\eta - \eta_0))] |_{r = 0} = 0 \ \forall \eta
+\]</span></p>
+</div>
+<p>Neyman orthogonal is a natural extension of <span class="math inline">\(G_\eta = 0\)</span> to the case when <span class="math inline">\(\eta\)</span> is a function or infinite-dimensional parameter. It is the key condition is DML theory which eliminates the regularization bias in plugged-in machine learning estimators. Formally, consider the estimator <span class="math inline">\(\hat\theta\)</span> by solving <span class="math display">\[
+\frac1n \sum_i g(W_i, \theta, \hat\eta) = 0
+\]</span> with machine learning estimator <span class="math inline">\(\hat\eta\)</span>. We can expand <span class="math inline">\(\sqrt{n}(\hat\theta - \theta_0)\)</span> follow similar steps as in Equation <a href="#eq-asymdist" class="quarto-xref">Equation&nbsp;<span>10.1</span></a>, and by moving <span class="math inline">\(G_\theta\)</span> to the RHS, <span id="eq-expand"><span class="math display">\[
+G_\theta\sqrt{n}(\hat\theta - \theta_0) = A_n + \sqrt{n}B(\hat\eta - \eta_0) + C\sqrt{n}O(\Vert\hat\eta - \eta_0\Vert^2) + o_p(1)
+\tag{10.2}\]</span></span></p>
+<ul>
+<li><span class="math inline">\(A_n\)</span> is well-behaved and approximately normally distributed under mild conditions + <span class="math inline">\(\Vert \hat\eta - \eta_0 \Vert \rightarrow 0\)</span> (consistent in MSE sense) + <strong>cross-fitting</strong>.</li>
+<li><span class="math inline">\(B = \mathbb{E}[\partial_r g(W_i, \theta_0, \eta_0 + r(\eta - \eta_0))] |_{r = 0}\)</span>. For non Neyman orthogonal moments, <span class="math inline">\(B \neq 0\)</span> in general. For Neyman orthogonal moments, <span class="math inline">\(B = 0\)</span>.</li>
+<li>Thus, when Neyman orthogonal, for root-<span class="math inline">\(n\)</span> consistency of <span class="math inline">\(\hat\theta\)</span> we only need <span class="math inline">\(C\sqrt{n}O(\Vert\hat\eta - \eta_0\Vert^2) \rightarrow 0\)</span>, which requires <span class="math display">\[
+\Vert \hat\eta - \eta_0 \Vert = o_p(n^{-1/4})
+\]</span></li>
+</ul>
+<p>This is attainable rate for a wide range of machine learning estimators, which insures root-<span class="math inline">\(n\)</span> consistency. Heuristically, we can also gain some intuition on the ambiguous term <strong>local</strong> inconsistency. From the perspective of convergence rate of an estimator, <strong>local</strong> inconsistency means that the convergence rate is slower than root-<span class="math inline">\(n\)</span> but <strong>faster than <span class="math inline">\(n^{1/4}\)</span></strong>.</p>
+</section>
+<section id="overfitting-bias-and-cross-fitting" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="overfitting-bias-and-cross-fitting"><span class="header-section-number">10.3.2</span> Overfitting Bias and Cross-fitting</h3>
+<p>You may notice that the right panel in <a href="#fig-sim1" class="quarto-xref">Figure&nbsp;<span>10.1</span></a> is not following the true distribution exactly. This is because although we eliminated regularization bias in <span class="math inline">\(\hat\eta\)</span> with Neyman orthogonality, there is still overfitting bias, which will impact the asymptotic distribution of <span class="math inline">\(A_n\)</span> in Equation <a href="#eq-expand" class="quarto-xref">Equation&nbsp;<span>10.2</span></a>, which is the leading term in <span class="math inline">\(\sqrt{n}(\hat\theta - \theta_0)\)</span>. In previous section, we mentioned that one of the conditions for <span class="math inline">\(A_n\)</span> to be well-behaved is to use <strong>cross-fitting</strong>. This is an algorithm that is similar to k-fold cross-validation in the machine learning literature. But instead of tuning the hyper-parameters (such as <span class="math inline">\(\lambda\)</span> of the penalty term in Lasso), DML uses “training” sets to obtain <span class="math inline">\(\hat\eta\)</span>, and uses validation” sets to estimate <span class="math inline">\(\hat\theta\)</span>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-crossfit" class="quarto-float quarto-figure quarto-figure-center anchored" width="100%">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-crossfit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fig/ch10_dml/crossfit.png" id="fig-crossfit" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-crossfit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The benefit of cross-fitting is illustrated in the Figure below. Both panels uses moment 4 while the left panel is fitting using the whole sample and the right panel is using the cross-fitting algorithm. In fact, the right panel is presenting the final version of DML: <strong>Neyman orthogonality + Cross-fitting</strong>, which delivers consistent and asymptotically normal estimators.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-sim2" class="quarto-float quarto-figure quarto-figure-center anchored" width="100%">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sim2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="fig/ch10_dml/sim2.png" id="fig-sim2" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-sim2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10.3
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="construct-neyman-orthogonality" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="construct-neyman-orthogonality"><span class="header-section-number">10.4</span> Construct Neyman Orthogonality</h2>
+<p>In previous sections, we have already learned the Neyman orthogonal moment condition (moment 3 and 4) for linear regressions. But what if we want to use DML on some other moment functions, for example derived from some structural model? Since Cross-fitting is just an algorithm and can be implemented with any data sample, the main hurdle in performing DML is to construct a Neyman orthogonal moment from a non-orthogonal moment. In <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> Section 2.2, various methods have been given for different models. Here, I will make a short summary based on my personal experience.</p>
+<section id="residualize" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="residualize">Residualize</h3>
+<p>Given a non Neyman orthogonal moment, the most intuitive way is to follow the idea of FWL, and residualize/concentrating-out the non-orthogonal moment. This idea is particularly straightforward with linear scores. For example, if we have moment 1, then we just need to residualize <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(D_i\)</span> with the high-dimensional component <span class="math inline">\(X_i\)</span> to get moment 4. Another example of residualizing linear score is the case of IV regression. The common moment condition with IV regression is <span class="math display">\[
+\mathbb{E}[Z_i(Y_i - \theta_0 D_i - \beta_0(X_i))] = 0
+\]</span> and residualizng gives us (See <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> Section 4.2 for details) <span class="math display">\[
+\mathbb{E}[(Z_i - \tau_0(X_i))((Y_i - \gamma_0(X_i) - \theta_0(D_i - \alpha_0(X_i)))] = 0
+\]</span></p>
+</section>
+<section id="riesz-representation" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="riesz-representation">Riesz Representation</h3>
+<p>A more general way to construct Neyman orthogonality for both linear and nonlinear scores is to use the Riesz Representation</p>
+<div id="thm-rr" class="theorem">
+<p><span class="theorem-title"><strong>Theorem 10.1 (Riesz Representation)</strong></span> For a parameter <span class="math inline">\(\theta = \mathbb{E}[m(W_i, \psi)]\)</span> where <span class="math inline">\(\psi\)</span> is some function, there exists a unique function <span class="math inline">\(\alpha\)</span> such that <span class="math display">\[
+\theta = \mathbb{E}[m(W_i, \psi)] = \mathbb{E}[\alpha(W_i)\psi(W_i)]
+\]</span></p>
+</div>
+<p>With <span class="math inline">\(\alpha\)</span> in hand, the moment condition can be found by <span class="math display">\[
+\mathbb{E}[m(W_i, \psi) + \alpha(W_i)(Y - \psi(W_i)) - \theta] = 0
+\]</span></p>
+<p>In some cases, this method can be easier than the residualizing method, such as in estimation of the ATE/ATT in <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> Section 5.1. Suppose we have potential outcomes <span class="math display">\[
+Y_i(1) = \psi(1, X_i) + \epsilon_i, \quad Y_i(0) = \psi(0, X_i) + \epsilon_i
+\]</span></p>
+<p>The parameter of interest is the ATE <span class="math display">\[
+\theta = \mathbb{E}[Y(1) - Y(0)] = \mathbb{E}[\psi(1, X_i)] - \mathbb{E}[\psi(0, X_i)]
+\]</span> Then the Riesz Representation is given by the well-known Inverse Propensity Weighting <span class="math display">\[
+\mathbb{E}[\psi(1, X_i)] = \mathbb{E}\left[\frac{D_iY_i}{e(X_i)}\right] = \mathbb{E}\left[\color{red}{\frac{D_i}{e(X_i)}} \psi(1, X_i)\right] = \mathbb{E}[\color{red}{\alpha(W_i)}\psi(1, X_i)]
+\]</span> and similar for <span class="math inline">\(\mathbb{E}[\psi(0, X_i)]\)</span>. The resulting Neyman orthogonal moment is the well-known Augmented Inverse Propensity Weighting.</p>
+<p>However, in general, this method can be “tricky” because first, we need an expectation-representation (<span class="math inline">\(\mathbb{E}[\alpha(W_i)\psi(W_i)]\)</span>) for the parameter. And second, we need to find the function <span class="math inline">\(\alpha\)</span>, which is not an easy task. See <span class="citation" data-cites="newey1994asymptotic">Newey (<a href="#ref-newey1994asymptotic" role="doc-biblioref">1994</a>)</span> for some special cases and <span class="citation" data-cites="ichimura2022influence">Ichimura and Newey (<a href="#ref-ichimura2022influence" role="doc-biblioref">2022</a>)</span> for a more general setting to find <span class="math inline">\(\alpha\)</span>.</p>
+</section>
+<section id="automatic-characterization" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="automatic-characterization">Automatic Characterization</h3>
+<p>This method is also utilizing the Riesz Representation, but the difference is that we do not need to find the analytical form of <span class="math inline">\(\alpha\)</span>. <span class="citation" data-cites="chernozhukov2021automatic">Chernozhukov et al. (<a href="#ref-chernozhukov2021automatic" role="doc-biblioref">2021</a>)</span> and <span class="citation" data-cites="chernozhukov2022automatic">Chernozhukov, Newey, and Singh (<a href="#ref-chernozhukov2022automatic" role="doc-biblioref">2022</a>)</span> find that <span class="math display">\[
+\alpha = \arg \min_{a(W_i)}\mathbb{E}[a^2(W_i) - 2m(W_i, a)]
+\]</span> and this optimization problem can be solved by some algorithm, which means that even if <span class="math inline">\(\alpha\)</span> is unknown, it can still be estimated.</p>
+</section>
+</section>
+<section id="the-doubleml-package" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="the-doubleml-package"><span class="header-section-number">10.5</span> The <code>DoubleML</code> Package</h2>
+<p>The theoretical components developed in this chapter — Neyman orthogonality and cross-fitting — are implemented in the <a href="https://docs.doubleml.org/"><code>DoubleML</code></a> R package <span class="citation" data-cites="bach2024doubleml">(<a href="#ref-bach2024doubleml" role="doc-biblioref">Bach et al. 2024</a>)</span>, which provides a unified interface for Double/Debiased Machine Learning. The package builds on the <code>mlr3</code> ecosystem, allowing the user to plug in any supervised learner (random forests, boosted trees, neural networks, etc.) as the first-stage machine learning method for estimating nuisance functions.</p>
+<p>The code below illustrates the Partially Linear Regression (PLR) model, which corresponds directly to <strong>moment 4</strong> from our parametric discussion. The <code>DoubleMLPLR</code> class residualizes both <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(D_i\)</span> against <span class="math inline">\(X_i\)</span> using the supplied learners (<code>ml_l</code> for <span class="math inline">\(Y \sim X\)</span> and <code>ml_m</code> for <span class="math inline">\(D \sim X\)</span>), then estimates <span class="math inline">\(\theta_0\)</span> from the residual-on-residual regression. Internally, the package performs cross-fitting (5-fold by default) to eliminate overfitting bias, exactly as described in the cross-fitting section above. The resulting estimator is <span class="math inline">\(\sqrt{n}\)</span>-consistent and asymptotically normal under the conditions we derived, enabling standard confidence intervals and hypothesis tests.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DoubleML)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Partially Linear Regression Model (corresponds to moment 4)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span>; p <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), <span class="at">ncol =</span> p)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> X[,<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">*</span>D <span class="sc">+</span> X[,<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> X[,<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(n)  <span class="co"># true theta = 1</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>dml_data <span class="ot">&lt;-</span> DoubleMLData<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> Y, <span class="at">D =</span> D, X),</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_col =</span> <span class="st">"Y"</span>, <span class="at">d_cols =</span> <span class="st">"D"</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>ml_l <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>ml_m <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>dml_plr <span class="ot">&lt;-</span> DoubleMLPLR<span class="sc">$</span><span class="fu">new</span>(dml_data, ml_l, ml_m)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>dml_plr<span class="sc">$</span><span class="fu">fit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>INFO  [16:03:55.386] [mlr3] Applying learner 'regr.ranger' on task 'nuis_l' (iter 1/5)
+INFO  [16:03:56.166] [mlr3] Applying learner 'regr.ranger' on task 'nuis_l' (iter 2/5)
+INFO  [16:03:56.359] [mlr3] Applying learner 'regr.ranger' on task 'nuis_l' (iter 3/5)
+INFO  [16:03:56.532] [mlr3] Applying learner 'regr.ranger' on task 'nuis_l' (iter 4/5)
+INFO  [16:03:56.701] [mlr3] Applying learner 'regr.ranger' on task 'nuis_l' (iter 5/5)
+INFO  [16:03:57.350] [mlr3] Applying learner 'regr.ranger' on task 'nuis_m' (iter 1/5)
+INFO  [16:03:57.681] [mlr3] Applying learner 'regr.ranger' on task 'nuis_m' (iter 2/5)
+INFO  [16:03:57.853] [mlr3] Applying learner 'regr.ranger' on task 'nuis_m' (iter 3/5)
+INFO  [16:03:58.021] [mlr3] Applying learner 'regr.ranger' on task 'nuis_m' (iter 4/5)
+INFO  [16:03:58.191] [mlr3] Applying learner 'regr.ranger' on task 'nuis_m' (iter 5/5)</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dml_plr<span class="sc">$</span><span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimates and significance testing of the effect of target variables
+  Estimate. Std. Error t value Pr(&gt;|t|)    
+D   1.02348    0.05635   18.16   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p>Because the nuisance functions <span class="math inline">\(\gamma_0(X_i)\)</span> and <span class="math inline">\(\alpha_0(X_i)\)</span> are estimated with random forests (a flexible ML method satisfying the <span class="math inline">\(o_p(n^{-1/4})\)</span> rate requirement), and the PLR score is Neyman orthogonal by construction, the <code>DoubleML</code> package delivers valid inference on <span class="math inline">\(\theta_0\)</span> even when the true relationships are nonlinear — precisely the promise of the DML framework.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Further Reading
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> — the original DML paper establishing the theoretical framework.</li>
+<li><span class="citation" data-cites="chernozhukov2024applied">Chernozhukov et al. (<a href="#ref-chernozhukov2024applied" role="doc-biblioref">2024</a>)</span> — a practical guide to applied causal inference powered by ML and AI, with worked examples.</li>
+<li><span class="citation" data-cites="chernozhukov2022automatic">Chernozhukov, Newey, and Singh (<a href="#ref-chernozhukov2022automatic" role="doc-biblioref">2022</a>)</span> — the automatic debiased machine learning framework, which eliminates the need to derive Neyman orthogonal moments analytically.</li>
+<li><span class="citation" data-cites="bach2024doubleml">Bach et al. (<a href="#ref-bach2024doubleml" role="doc-biblioref">2024</a>)</span> — the <code>DoubleML</code> R and Python package documentation and methodological overview.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">10.6</span> Conclusion</h2>
+<p>In this section, we introduced the DML theory and discussed how the Neyman orthogonality condition and cross-fitting algorithm can eliminate the regularization and overfitting bias in machine learning estimators and produce root-<span class="math inline">\(n\)</span> consistent estimator for causal inference. We also briefly summarized some new developments in constructing Neyman orthogonality from a non-orthogonal moment, such that DML is possible for general moments. Finally, I would like to mention a straightforward application of DML that adds to the applications given in <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span>, which is the Heckman selection model. Specifically, the Mills ratio in Heckman selection model can be estimated using machine learning methods without making the assumption that the conditional probability of choice is normally distributed, or when there is high-dimensional <span class="math inline">\(X_i\)</span>. And as the Mills ratio is just a linear component in the regression, the residualizing method directly applies.</p>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-bach2024doubleml" class="csl-entry" role="listitem">
+Bach, Philipp, Victor Chernozhukov, Malte S Kurz, and Martin Spindler. 2024. <span>“<span>DoubleML</span>: An Object-Oriented Implementation of Double Machine Learning in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 108 (3): 1–56.
+</div>
+<div id="ref-chernozhukov2018double" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Denis Chetverikov, Mert Demirer, Esther Duflo, Christian Hansen, Whitney Newey, and James Robins. 2018. <span>“Double/Debiased Machine Learning for Treatment and Structural Parameters.”</span> Oxford University Press Oxford, UK.
+</div>
+<div id="ref-chernozhukov2024applied" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Christian Hansen, Nathan Kallus, Martin Spindler, and Vasilis Syrgkanis. 2024. <em>Applied Causal Inference Powered by ML and AI</em>. Online textbook.
+</div>
+<div id="ref-chernozhukov2021automatic" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Whitney K Newey, Victor Quintas-Martinez, and Vasilis Syrgkanis. 2021. <span>“Automatic Debiased Machine Learning via Neural Nets for Generalized Linear Regression.”</span> <em>arXiv Preprint arXiv:2104.14737</em>.
+</div>
+<div id="ref-chernozhukov2022automatic" class="csl-entry" role="listitem">
+Chernozhukov, Victor, Whitney K Newey, and Rahul Singh. 2022. <span>“Automatic Debiased Machine Learning of Causal and Structural Effects.”</span> <em>Econometrica</em> 90 (3): 967–1027.
+</div>
+<div id="ref-ichimura2022influence" class="csl-entry" role="listitem">
+Ichimura, Hidehiko, and Whitney K Newey. 2022. <span>“The Influence Function of Semiparametric Estimators.”</span> <em>Quantitative Economics</em> 13 (1): 29–61.
+</div>
+<div id="ref-newey1994asymptotic" class="csl-entry" role="listitem">
+Newey, Whitney K. 1994. <span>“The Asymptotic Variance of Semiparametric Estimators.”</span> <em>Econometrica: Journal of the Econometric Society</em>, 1349–82.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p><span class="math inline">\(t_i\)</span> is called the influence function of <span class="math inline">\(\hat\eta\)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The Neyman orthogonality is a bit different from the one presented in <span class="citation" data-cites="chernozhukov2018double">Chernozhukov et al. (<a href="#ref-chernozhukov2018double" role="doc-biblioref">2018</a>)</span> because we exchanged the order of derivative and expectation, which is allowed under regularity conditions.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./09-propensity-dml-application.html" class="pagination-link" aria-label="Propensity Score and Double Machine Learning Identification: an application">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Propensity Score and Double Machine Learning Identification: an application</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Double/Debiased Machine Learning (DML) {#sec-DML}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## A General Motivation and Introduction</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>Machine learning methods have emerged as valuable tools for prediction, utilizing large and diverse datasets. These methods are designed to handle the high-dimensional challenge or discover complex relationships in the data. Take Lasso for example, which is minimizing the objective function</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>\min_\beta \left(\underbrace{\sum_{i = 1}^n (Y_i - X_i\beta)^2}_{\color{orange}{\text{OLS}}} + \underbrace{\lambda\sum_{j = 1}^p |\beta_j|}_{\color{blue}{\text{Penalty}}}\right)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>The first component is the objective function for OLS and the second term is some <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color: blue;"</span><span class="dt">&gt;</span>penalty or "regularization"<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> on the sum of coefficient magnitude. The penalty term is particularly helpful when $X_i$ is high-dimensional (large $p$). When $p$ is close to $n$, OLS tends to be <span class="dt">&lt;</span><span class="kw">span</span><span class="ot"> style</span><span class="op">=</span><span class="st">"color: orange;"</span><span class="dt">&gt;</span>overfitting<span class="dt">&lt;/</span><span class="kw">span</span><span class="dt">&gt;</span> and captures the noises in the dataset. While in Lasso, the penalty term discourages overfitting by shrinking small parameters to zero. In fact, most of the machine learning methods are facing this problem of trade-off between overfitting and regularization. For the regression tree method, we could grow a small tree for crude fitting but is subject to regularization bias, or we could grow a large tree that is very likely to be overfitting.</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>librarian<span class="sc">::</span><span class="fu">shelf</span>(rpart, rpart.plot)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>small.tree <span class="ot">&lt;-</span> <span class="fu">rpart</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars, <span class="at">cp =</span> <span class="fl">0.1</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>large.tree <span class="ot">&lt;-</span> <span class="fu">rpart</span>(mpg <span class="sc">~</span> ., <span class="at">data =</span> mtcars, <span class="at">minsplit =</span> <span class="dv">5</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(small.tree)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="fu">rpart.plot</span>(large.tree)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>Another feature of the machine learning methods is that the mainstream method for controlling the trade-off between overfitting and regularization is based on the fitness to the data, and it works great in prediction problems. However, these features of machine learning are not suitable for causal inference, which is more common than prediction problems in Economics. Because</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Overfitting and regularization both induce bias in parameter estimators, making inference (e.g hypothesis testing) difficult</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Causal inference is about evaluating counterfactuals, which is not observed. Not really make sense to use goodness of fit to control overfitting and regularization</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Identification is not clear</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>Then how can we perform causal inference in the presence of large datasets and make use of the modern machine learning methods? The Double/Debiased Machine Learning (DML) theory developed by @chernozhukov2018double provides us with a general framework that incorporates a wide range of machine learning methods including</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Ridge</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Lasso</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Random Forests</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Boosted Trees</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Gradient Boosting</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Deep and Standard Neural Nets</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The aggregation and cross-hybrids of the above methods</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>The DML solves the three challenges in causal inference with machine learning by constructing orthogonal moment conditions and making use of cross-fitting to eliminate regularization and overfitting bias, such that the parameter estimators retain $\sqrt{n}-$consistency. Since the theory targets the moment conditions, the identification or model assumptions can be made analogous to the normal M or GMM estimators. In the following section, we are going to start from the Frisch-Waugh-Lovell (FWL) Theorem in a linear regression setting, and generalize FWL to an orthogonality property that fits into a high-dimensional world. Our focus is how this orthogonality condition, which is the key condition in DML, allows us to obtain asymptotically normally distributed estimators. Note that our discussion here is more like some preliminary knowledge or preparations for reading @chernozhukov2018double and intuitive introductions to the DML theory. If you are interested, please read the original paper and refer to the specific details.</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Parametric Version</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>Consider a linear model</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>Y_i = \theta_0D_i + X_i\beta_0 + \epsilon_i, \quad \mathbb{E}<span class="co">[</span><span class="ot">\epsilon_i|D_i, X_i</span><span class="co">]</span> = 0</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>Here, we separate the explanatory variables $(D_i, X_i)$ because in causal inference, we are usually interested in the effect of one treatment variable $D_i$ and including $p$ dimensional $X_i$ for the exogeneity condition to hold. Let $\theta_0$ be our parameter of interest and $\beta_0$ be nuisance parameters. Now let's find moment conditions that can identify $\theta_0$, and note that essentially, we just need to find exogeneity, i.e. $\mathbb{E}<span class="co">[</span><span class="ot">\cdot</span><span class="co">]</span> = 0$.</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$\mathbb{E}<span class="co">[</span><span class="ot">D_i(Y_i - \theta_0D_i - X_i\beta_0)</span><span class="co">]</span> = 0$</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$\mathbb{E}<span class="co">[</span><span class="ot">(D_i - X_i\alpha_0)(Y_i - \theta_0D_i)</span><span class="co">]</span> = 0$</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>$\mathbb{E}<span class="co">[</span><span class="ot">(D_i - X_i\alpha_0)(Y_i - \theta_0D_i - X_i\beta_0)</span><span class="co">]</span> = 0$</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>$\mathbb{E}<span class="co">[</span><span class="ot">(D_i - X_i\alpha_0)((Y_i - X_i\gamma_0) - \theta_0(D_i - X_i\alpha_0))</span><span class="co">]</span> = 0$</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a>where $\alpha_0$ and $\gamma_0$ are the coefficients in the regressions</span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>D_i = X_i\alpha_0 + u_i, \quad \quad Y_i = X_i\gamma_0 + v_i</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a>Let's check the moment conditions one by one.</span>
+<span id="cb8-65"><a href="#cb8-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-66"><a href="#cb8-66" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>$\mathbb{E}<span class="co">[</span><span class="ot">D_i(Y_i - \theta_0D_i - X_i\beta_0)</span><span class="co">]</span> = 0$</span>
+<span id="cb8-67"><a href="#cb8-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-68"><a href="#cb8-68" aria-hidden="true" tabindex="-1"></a>This is **one of** the moment conditions in the regression $Y_i$ on $D_i$ and $X_i$, which is a direct translation of the exogeneity condition in our linear model because $\mathbb{E}[\epsilon_i|D_i, X_i] = 0$ implies $\mathbb{E}[D_i\epsilon_i|X_i] = 0$. However, this moment is "**infeasible**", meaning that this moment itself is not adequate to estimate $\theta_0$ as $\beta_0$ is also unknown. Instead of running a full regression of $Y_i$ on $D_i$ and $X_i$, an alternative feasible regression is that we have already obtained consistent estimator $\hat\beta$ for $\beta_0$, then we can just plug in $\hat\beta$ and regression $Y_i - X_i\hat\beta$ on $D_i$.</span>
+<span id="cb8-69"><a href="#cb8-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-70"><a href="#cb8-70" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>$\mathbb{E}<span class="co">[</span><span class="ot">(D_i - X_i\alpha_0)(Y_i - \theta_0D_i)</span><span class="co">]</span> = 0$</span>
+<span id="cb8-71"><a href="#cb8-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-72"><a href="#cb8-72" aria-hidden="true" tabindex="-1"></a>This one suggests us to regress $D_i$ on $X_i$ and residualize $D_i$ first, and run a IV regression using the residuals as instrument for $D_i$. This moment holds because we subtracted the variation of $X_i$ from $D_i$ in the left parentheses and the variation in the right parentheses is just $X_i$ and $\epsilon_i$, which is orthogonal to $u_i$.</span>
+<span id="cb8-73"><a href="#cb8-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-74"><a href="#cb8-74" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>$\mathbb{E}<span class="co">[</span><span class="ot">(D_i - X_i\alpha_0)(Y_i - \theta_0D_i - X_i\beta_0)</span><span class="co">]</span> = 0$</span>
+<span id="cb8-75"><a href="#cb8-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-76"><a href="#cb8-76" aria-hidden="true" tabindex="-1"></a>Similar to 2, but we also included covariates $X_i$ in the IV regression. Also infeasible and we need to plug in $\hat\beta$.</span>
+<span id="cb8-77"><a href="#cb8-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-78"><a href="#cb8-78" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>$\mathbb{E}<span class="co">[</span><span class="ot">(D_i - X_i\alpha_0)((Y_i - X_i\gamma_0) - \theta_0(D_i - X_i\alpha_0))</span><span class="co">]</span> = 0$</span>
+<span id="cb8-79"><a href="#cb8-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-80"><a href="#cb8-80" aria-hidden="true" tabindex="-1"></a>This one suggests us to residualize both $D_i$ and $Y_i$ in the first step, and run a residual-on-residual regression in the second step. **This is a Frisch-Waugh-Lovell (FWL) style regression** (See Section @sec-FWL for details). </span>
+<span id="cb8-81"><a href="#cb8-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-82"><a href="#cb8-82" aria-hidden="true" tabindex="-1"></a>For further discussion, we can characterize the parameters in the moments. $\theta_0$ is our parameter of interest and identified by the 4 moments. We call the rest of the parameters ($\alpha_0$, $\beta_0$ and $\gamma_0$) **nuisance** parameters. The nuisance parameters are not identified and we need to plug in the consistent estimators in moments in order to estimate $\theta_0$. Given identification and estimation procedure is clear, we can think of the properties of $\hat\theta$ by the 4 moments.</span>
+<span id="cb8-83"><a href="#cb8-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-84"><a href="#cb8-84" aria-hidden="true" tabindex="-1"></a>First, all 4 estimators are consistent as long as consistent nuisance estimator is plugged in, because solving the 4 sample moments gives $\hat\theta = \frac1n\sum_i \cdot$ and consistency holds by the weak law of large numbers. But consistency is not enough for performing statistical inference on $\theta_0$, we need **root-$n$ consistency**, which is result from central limit theorem $\frac{1}{\sqrt{n}}\sum_i(\hat\theta - \theta_0) \xrightarrow{d} N(0, V_\theta)$. We consider a general case $g(W_i, \theta, \eta)$ such that $\mathbb{E}<span class="co">[</span><span class="ot">g(\cdot)</span><span class="co">]</span> = 0$, where $W_i = (Y_i, D_i, X_i)$ is the data, and $\eta$ represents the nuisance parameter. For example, in moment 3</span>
+<span id="cb8-85"><a href="#cb8-85" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-86"><a href="#cb8-86" aria-hidden="true" tabindex="-1"></a>g(W_i, \theta, \eta) = (D_i - X_i\alpha)(Y_i - \theta D_i - X_i\beta), \quad \text{with } \eta = (\alpha, \beta)</span>
+<span id="cb8-87"><a href="#cb8-87" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-88"><a href="#cb8-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-89"><a href="#cb8-89" aria-hidden="true" tabindex="-1"></a>The estimators of $\theta_0$ is obtained by solving</span>
+<span id="cb8-90"><a href="#cb8-90" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-91"><a href="#cb8-91" aria-hidden="true" tabindex="-1"></a>\frac1n \sum_i g(W_i, \theta, \hat\eta) = 0</span>
+<span id="cb8-92"><a href="#cb8-92" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-93"><a href="#cb8-93" aria-hidden="true" tabindex="-1"></a>**Note that $\hat\eta$ is nuisance estimator of linear coefficients, which is root-$n$ consistent by the property of OLS or GMM estimator**, that is $\sqrt{n}(\hat\eta - \eta_0) \xrightarrow{d} N(0, V_\eta)$. Assume there is some random variable $t_i$ with $0$ expectation such that $\sqrt{n}(\hat\eta - \eta_0) = \sqrt{n}\left(\frac1n \sum_i t_i\right)$.<span class="ot">[^inf]</span> Let $\partial_\theta g(W_i, \theta, \eta)$ denote the partial derivative of $g(\cdot)$ with respect to $\theta$ and $G_\theta = \partial_\theta g(W_i, \theta_0, \eta_0)$, $G_\eta = \partial_\eta g(W_i, \theta_0, \eta_0)$. Then solve the sample moment by mean value theorem, we have</span>
+<span id="cb8-94"><a href="#cb8-94" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-95"><a href="#cb8-95" aria-hidden="true" tabindex="-1"></a>\begin{aligned}</span>
+<span id="cb8-96"><a href="#cb8-96" aria-hidden="true" tabindex="-1"></a>\sqrt{n}(\hat\theta - \theta_0) &amp;= - \left(\frac1n \sum_i \partial_\theta g(W_i, \bar\theta, \hat\eta)\right)^{-1}\frac{1}{\sqrt{n}} \sum_i g(W_i, \theta_0, \hat\eta) <span class="sc">\\</span></span>
+<span id="cb8-97"><a href="#cb8-97" aria-hidden="true" tabindex="-1"></a>&amp;= - \left(\frac1n \sum_i \partial_\theta g(W_i, \bar\theta, \hat\eta)\right)^{-1} <span class="sc">\\</span></span>
+<span id="cb8-98"><a href="#cb8-98" aria-hidden="true" tabindex="-1"></a> &amp;\quad \quad \times \left(\frac{1}{\sqrt{n}}\sum_i g(W_i, \theta_0, \eta_0) + \left(\frac1n \sum_i \partial_\eta g(W_i, \theta_0, \bar\eta)\right)\sqrt{n}(\hat\eta - \eta_0)\right) <span class="sc">\\</span></span>
+<span id="cb8-99"><a href="#cb8-99" aria-hidden="true" tabindex="-1"></a>&amp;= - G_\theta^{-1}\frac{1}{\sqrt{n}}\sum_i(g(W_i, \theta_0, \eta_0) + G_\eta t_i) + o_p(1)</span>
+<span id="cb8-100"><a href="#cb8-100" aria-hidden="true" tabindex="-1"></a>\end{aligned}</span>
+<span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a>$$ {#eq-asymdist}</span>
+<span id="cb8-102"><a href="#cb8-102" aria-hidden="true" tabindex="-1"></a>where $\bar\theta$ and $\bar\eta$ are the mean values. This result implies that $V_\theta = G_\theta^{-1}\mathbb{E}<span class="co">[</span><span class="ot">(g_0(W_i) + G_\eta t_i)(g_0(W_i) + G_\eta t_i)'</span><span class="co">]</span>G_\theta^{-1'}$. Thus, the impact of plugging in $\hat\eta$ on (the asymptotic variance of) $\hat\theta$ is captured by the term $G_\eta t_i$. </span>
+<span id="cb8-103"><a href="#cb8-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-104"><a href="#cb8-104" aria-hidden="true" tabindex="-1"></a><span class="ot">[^inf]: </span>$t_i$ is called the influence function of $\hat\eta$.</span>
+<span id="cb8-105"><a href="#cb8-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-106"><a href="#cb8-106" aria-hidden="true" tabindex="-1"></a>**Question: Is it possible that plugging in $\hat\eta$ has no impact on $\hat\theta$?**</span>
+<span id="cb8-107"><a href="#cb8-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-108"><a href="#cb8-108" aria-hidden="true" tabindex="-1"></a>**Yes, when $G_\eta = 0$!** In this case, $\hat\eta$ has zero impact on $\hat\theta$, and $V_\theta$ reduces to $G_\theta^{-1}\mathbb{E}[g_0(W_i)g_0(W_i)']G_\theta^{-1'}$ which is the usual variance formula for GMM estimator. In fact, this is the **parametric version of the orthogonality property** mentioned in the introduction. To be specific,</span>
+<span id="cb8-109"><a href="#cb8-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-110"><a href="#cb8-110" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; If a moment function $g(W_i, \theta, \eta)$ satisfies the condition</span></span>
+<span id="cb8-111"><a href="#cb8-111" aria-hidden="true" tabindex="-1"></a><span class="at">$$</span></span>
+<span id="cb8-112"><a href="#cb8-112" aria-hidden="true" tabindex="-1"></a><span class="at">G_\eta = \mathbb{E}[\partial_\eta g(W_i, \theta_0, \eta_0)] = 0</span></span>
+<span id="cb8-113"><a href="#cb8-113" aria-hidden="true" tabindex="-1"></a><span class="at">$$</span></span>
+<span id="cb8-114"><a href="#cb8-114" aria-hidden="true" tabindex="-1"></a><span class="at">then </span></span>
+<span id="cb8-115"><a href="#cb8-115" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; 1. the nuisance estimator $\hat\eta$ has no impact on the asymptotic variance of $\hat\theta$.</span></span>
+<span id="cb8-116"><a href="#cb8-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-117"><a href="#cb8-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-118"><a href="#cb8-118" aria-hidden="true" tabindex="-1"></a>Now we can use this property to distinguish the 4 moment conditions. For moment 1, $\eta = \beta$, then</span>
+<span id="cb8-119"><a href="#cb8-119" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-120"><a href="#cb8-120" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\partial_\beta D_i(Y_i - \theta_0 D_i - X_i\beta_0)</span><span class="co">]</span> = - \mathbb{E}<span class="co">[</span><span class="ot">D_iX_i</span><span class="co">]</span> \neq 0</span>
+<span id="cb8-121"><a href="#cb8-121" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-122"><a href="#cb8-122" aria-hidden="true" tabindex="-1"></a>unless $D_iX_i$ has zero expectation. Therefore, moment 1 does not satisfy the orthogonal condition. Similarly, moment 2 is not orthogonal either.</span>
+<span id="cb8-123"><a href="#cb8-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-124"><a href="#cb8-124" aria-hidden="true" tabindex="-1"></a>For moment 4, $\eta = (\alpha, \gamma)$, then</span>
+<span id="cb8-125"><a href="#cb8-125" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb8-126"><a href="#cb8-126" aria-hidden="true" tabindex="-1"></a>&amp;\quad \ \mathbb{E}<span class="co">[</span><span class="ot">\partial_{(\alpha, \gamma)}(D_i - X_i\alpha_0)((Y_i - X_i\gamma_0) - \theta_0(D_i - X_i\alpha_0))</span><span class="co">]</span> <span class="sc">\\</span></span>
+<span id="cb8-127"><a href="#cb8-127" aria-hidden="true" tabindex="-1"></a>&amp;= \mathbb{E}\begin{bmatrix} -X_i(Y_i - X_i\gamma_0 - \theta_0(D_i - X_i\alpha_0)) + (D_i - X_i\alpha_0)\theta_0X_i <span class="sc">\\</span> -X_i(D_i - X_i\alpha_0) \end{bmatrix} <span class="sc">\\</span></span>
+<span id="cb8-128"><a href="#cb8-128" aria-hidden="true" tabindex="-1"></a>&amp;= 0</span>
+<span id="cb8-129"><a href="#cb8-129" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb8-130"><a href="#cb8-130" aria-hidden="true" tabindex="-1"></a>by the exogeneity of $X_i$. Similarly, moment 3 also satisfies the orthogonal property. Thus, only moment 3 and 4 are free of the impact of $\hat\eta$.</span>
+<span id="cb8-131"><a href="#cb8-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-132"><a href="#cb8-132" aria-hidden="true" tabindex="-1"></a>This is our first result on this orthogonality property regard the effect on asymptotic variance, but this is not enough to show how powerful this property is. If we take a closer look at this condition, by the intuition behind derivatives, it is essential saying that a **local** change in $\eta$ will not deviate the moment function $g(W_i, \theta, \eta)$ at the point $(\theta_0, \eta_0)$, which can be regarded as the robustness of $g(\cdot)$. To make this interpretation clearer, consider $\theta(\gamma)$ as a function of $\gamma$, and by implicit function theorem,</span>
+<span id="cb8-133"><a href="#cb8-133" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-134"><a href="#cb8-134" aria-hidden="true" tabindex="-1"></a>\partial_\eta \theta(\eta_0) = - G_\theta^{-1}G_\eta = 0 \text{ if and only if } G_\eta = 0</span>
+<span id="cb8-135"><a href="#cb8-135" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-136"><a href="#cb8-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-137"><a href="#cb8-137" aria-hidden="true" tabindex="-1"></a>This is a first-order condition indicating that **local** inconsistency of $\hat\eta$ should not affect the consistency of $\hat\theta$. The parametric setting in this section is unable to show this property because $\hat\eta$ and $\hat\theta$ has the same convergence rate root-$n$ and local inconsistency does not exist. Next, we show this first-order robustness property in the non-parametric or machine learning setting as in @chernozhukov2018double as the convergence rate of machine learning estimator are generally slower than root-$n$.</span>
+<span id="cb8-138"><a href="#cb8-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-139"><a href="#cb8-139" aria-hidden="true" tabindex="-1"></a><span class="fu">## Key Components in DML</span></span>
+<span id="cb8-140"><a href="#cb8-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-141"><a href="#cb8-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Regularization Bias and Neyman Orthogonality</span></span>
+<span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a>In the previous section, we assumed linear parametric models</span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a>Y_i = \theta_0D_i + X_i\beta_0 + \epsilon_i <span class="sc">\\</span></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a>D_i = X_i\alpha_0 + u_i, \quad \quad Y_i = X_i\gamma_0 + v_i</span>
+<span id="cb8-147"><a href="#cb8-147" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb8-148"><a href="#cb8-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-149"><a href="#cb8-149" aria-hidden="true" tabindex="-1"></a>Linearity is hard to hold when $X_i$ is high-dimensional and the relationship is highly-nonlinear. To relax this assumption, we can consider the following models</span>
+<span id="cb8-150"><a href="#cb8-150" aria-hidden="true" tabindex="-1"></a>$$\begin{aligned}</span>
+<span id="cb8-151"><a href="#cb8-151" aria-hidden="true" tabindex="-1"></a>Y_i = \theta_0D_i + \beta_0(X_i) + \epsilon_i <span class="sc">\\</span></span>
+<span id="cb8-152"><a href="#cb8-152" aria-hidden="true" tabindex="-1"></a>D_i = \alpha_0(X_i) + u_i, \quad \quad Y_i = \gamma_0(X_i) + v_i</span>
+<span id="cb8-153"><a href="#cb8-153" aria-hidden="true" tabindex="-1"></a>\end{aligned}$$</span>
+<span id="cb8-154"><a href="#cb8-154" aria-hidden="true" tabindex="-1"></a>Note that the nuisance functions $\beta$, $\alpha$ and $\gamma$ are now functions of $X_i$ and we will rely on machine learning methods to flexibly estimate these functions. Estimation of $\theta_0$ follows analogously to the parametric version: obtain some machine learning estimator $\hat\eta$, plug in the sample moments and solve for $\hat\theta$. For example, the estimation procedure for moment 4 is</span>
+<span id="cb8-155"><a href="#cb8-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-156"><a href="#cb8-156" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Predict $Y_i$ with $X_i$ using some machine learning method and obtain residuals $\hat{v}_i$</span>
+<span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Predict $D_i$ with $X_i$ using some machine learning method and obtain residuals $\hat{u}_i$</span>
+<span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Regress $\hat{v}_i$ on $\hat{u}_i$ and obtain the OLS estimator $\hat\theta$</span>
+<span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a>The behavior of $\hat\theta$ by solving moment 1 and 4 is simulated in the Figure below.</span>
+<span id="cb8-161"><a href="#cb8-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-164"><a href="#cb8-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-165"><a href="#cb8-165" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-sim1</span></span>
+<span id="cb8-166"><a href="#cb8-166" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-167"><a href="#cb8-167" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "100%"</span></span>
+<span id="cb8-168"><a href="#cb8-168" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'fig/ch10_dml/sim1.png'</span>)</span>
+<span id="cb8-169"><a href="#cb8-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-170"><a href="#cb8-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-171"><a href="#cb8-171" aria-hidden="true" tabindex="-1"></a>Without using orthogonal moment, $\hat\theta$ is subject to the regularization bias in the machine learning estimator of $\eta_0$ in the left panel, and the orthogonal moment in the right panel eliminates the bias. **This is the first order robustness property we expected from the discussion in previous section.** Now if we think of the orthogonality condition again</span>
+<span id="cb8-172"><a href="#cb8-172" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-173"><a href="#cb8-173" aria-hidden="true" tabindex="-1"></a>G_\eta = \mathbb{E}<span class="co">[</span><span class="ot">\partial_\eta g(W_i, \theta_0, \eta_0)</span><span class="co">]</span> = 0</span>
+<span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a>It does not make sense in our new non-parametric setting. Because in the parametric setting, the derivative is with respect to parameters $\eta$, which is now a function and it is unclear what a derivative with respect to a function is. In DML, this problem is solved by extending the orthogonality condition with the Gateaux derivative of a function.</span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a>::: {#def-gateaux}</span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## Gateaux Derivative</span></span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a>The Gateaux derivative of $g(W_i, \theta_0, \eta_0)$ with respect to a function $\eta$ is defined as</span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a>\partial_r g(W_i, \theta_0, \eta_0 + r(\eta - \eta_0))</span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a>Then we can define the orthogonality condition in non-parametric setting<span class="ot">[^neyman]</span></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a><span class="ot">[^neyman]: </span>The Neyman orthogonality is a bit different from the one presented in @chernozhukov2018double because we exchanged the order of derivative and expectation, which is allowed under regularity conditions.</span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a>::: {#def-neyman}</span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a><span class="fu">## Neyman Orthogonality</span></span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\partial_r g(W_i, \theta_0, \eta_0 + r(\eta - \eta_0))</span><span class="co">]</span> |_{r = 0} = 0 \ \forall \eta</span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a>Neyman orthogonal is a natural extension of $G_\eta = 0$ to the case when $\eta$ is a function or infinite-dimensional parameter. It is the key condition is DML theory which eliminates the regularization bias in plugged-in machine learning estimators. Formally, consider the estimator $\hat\theta$ by solving</span>
+<span id="cb8-197"><a href="#cb8-197" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-198"><a href="#cb8-198" aria-hidden="true" tabindex="-1"></a>\frac1n \sum_i g(W_i, \theta, \hat\eta) = 0</span>
+<span id="cb8-199"><a href="#cb8-199" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-200"><a href="#cb8-200" aria-hidden="true" tabindex="-1"></a>with machine learning estimator $\hat\eta$. We can expand $\sqrt{n}(\hat\theta - \theta_0)$ follow similar steps as in Equation @eq-asymdist, and by moving $G_\theta$ to the RHS,</span>
+<span id="cb8-201"><a href="#cb8-201" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-202"><a href="#cb8-202" aria-hidden="true" tabindex="-1"></a>G_\theta\sqrt{n}(\hat\theta - \theta_0) = A_n + \sqrt{n}B(\hat\eta - \eta_0) + C\sqrt{n}O(\Vert\hat\eta - \eta_0\Vert^2) + o_p(1)</span>
+<span id="cb8-203"><a href="#cb8-203" aria-hidden="true" tabindex="-1"></a>$$ {#eq-expand}</span>
+<span id="cb8-204"><a href="#cb8-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-205"><a href="#cb8-205" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$A_n$ is well-behaved and approximately normally distributed under mild conditions + $\Vert \hat\eta - \eta_0 \Vert \rightarrow 0$ (consistent in MSE sense) + **cross-fitting**.</span>
+<span id="cb8-206"><a href="#cb8-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>$B = \mathbb{E}<span class="co">[</span><span class="ot">\partial_r g(W_i, \theta_0, \eta_0 + r(\eta - \eta_0))</span><span class="co">]</span> |_{r = 0}$. For non Neyman orthogonal moments, $B \neq 0$ in general. For Neyman orthogonal moments, $B = 0$.</span>
+<span id="cb8-207"><a href="#cb8-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Thus, when Neyman orthogonal, for root-$n$ consistency of $\hat\theta$ we only need $C\sqrt{n}O(\Vert\hat\eta - \eta_0\Vert^2) \rightarrow 0$, which requires</span>
+<span id="cb8-208"><a href="#cb8-208" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-209"><a href="#cb8-209" aria-hidden="true" tabindex="-1"></a>\Vert \hat\eta - \eta_0 \Vert = o_p(n^{-1/4})</span>
+<span id="cb8-210"><a href="#cb8-210" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-211"><a href="#cb8-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-212"><a href="#cb8-212" aria-hidden="true" tabindex="-1"></a>This is attainable rate for a wide range of machine learning estimators, which insures root-$n$ consistency. Heuristically, we can also gain some intuition on the ambiguous term **local** inconsistency. From the perspective of convergence rate of an estimator, **local** inconsistency means that the convergence rate is slower than root-$n$ but **faster than $n^{1/4}$**. </span>
+<span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a><span class="fu">### Overfitting Bias and Cross-fitting</span></span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>You may notice that the right panel in @fig-sim1 is not following the true distribution exactly. This is because although we eliminated regularization bias in $\hat\eta$ with Neyman orthogonality, there is still overfitting bias, which will impact the asymptotic distribution of $A_n$ in Equation @eq-expand, which is the leading term in $\sqrt{n}(\hat\theta - \theta_0)$. In previous section, we mentioned that one of the conditions for $A_n$ to be well-behaved is to use **cross-fitting**. This is an algorithm that is similar to k-fold cross-validation in the machine learning literature. But instead of tuning the hyper-parameters (such as $\lambda$ of the penalty term in Lasso), DML uses "training" sets to obtain $\hat\eta$, and uses validation" sets to estimate $\hat\theta$.</span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-crossfit</span></span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "100%"</span></span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'fig/ch10_dml/crossfit.png'</span>)</span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-227"><a href="#cb8-227" aria-hidden="true" tabindex="-1"></a>The benefit of cross-fitting is illustrated in the Figure below. Both panels uses moment 4 while the left panel is fitting using the whole sample and the right panel is using the cross-fitting algorithm. In fact, the right panel is presenting the final version of DML: **Neyman orthogonality + Cross-fitting**, which delivers consistent and asymptotically normal estimators.</span>
+<span id="cb8-228"><a href="#cb8-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-231"><a href="#cb8-231" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-232"><a href="#cb8-232" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-sim2</span></span>
+<span id="cb8-233"><a href="#cb8-233" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb8-234"><a href="#cb8-234" aria-hidden="true" tabindex="-1"></a><span class="co">#| out-width: "100%"</span></span>
+<span id="cb8-235"><a href="#cb8-235" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(<span class="st">'fig/ch10_dml/sim2.png'</span>)</span>
+<span id="cb8-236"><a href="#cb8-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-237"><a href="#cb8-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-238"><a href="#cb8-238" aria-hidden="true" tabindex="-1"></a><span class="fu">## Construct Neyman Orthogonality</span></span>
+<span id="cb8-239"><a href="#cb8-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-240"><a href="#cb8-240" aria-hidden="true" tabindex="-1"></a>In previous sections, we have already learned the Neyman orthogonal moment condition (moment 3 and 4) for linear regressions. But what if we want to use DML on some other moment functions, for example derived from some structural model?  Since Cross-fitting is just an algorithm and can be implemented with any data sample, the main hurdle in performing DML is to construct a Neyman orthogonal moment from a non-orthogonal moment. In @chernozhukov2018double Section 2.2, various methods have been given for different models. Here, I will make a short summary based on my personal experience.</span>
+<span id="cb8-241"><a href="#cb8-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-242"><a href="#cb8-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Residualize {-}</span></span>
+<span id="cb8-243"><a href="#cb8-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-244"><a href="#cb8-244" aria-hidden="true" tabindex="-1"></a>Given a non Neyman orthogonal moment, the most intuitive way is to follow the idea of FWL, and residualize/concentrating-out the non-orthogonal moment. This idea is particularly straightforward with linear scores. For example, if we have moment 1, then we just need to residualize $Y_i$ and $D_i$ with the high-dimensional component $X_i$ to get moment 4. Another example of residualizing linear score is the case of IV regression. The common moment condition with IV regression is </span>
+<span id="cb8-245"><a href="#cb8-245" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-246"><a href="#cb8-246" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">Z_i(Y_i - \theta_0 D_i - \beta_0(X_i))</span><span class="co">]</span> = 0</span>
+<span id="cb8-247"><a href="#cb8-247" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-248"><a href="#cb8-248" aria-hidden="true" tabindex="-1"></a>and residualizng gives us (See @chernozhukov2018double Section 4.2 for details)</span>
+<span id="cb8-249"><a href="#cb8-249" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-250"><a href="#cb8-250" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">(Z_i - \tau_0(X_i))((Y_i - \gamma_0(X_i) - \theta_0(D_i - \alpha_0(X_i)))</span><span class="co">]</span> = 0</span>
+<span id="cb8-251"><a href="#cb8-251" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-252"><a href="#cb8-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-253"><a href="#cb8-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### Riesz Representation {-}</span></span>
+<span id="cb8-254"><a href="#cb8-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-255"><a href="#cb8-255" aria-hidden="true" tabindex="-1"></a>A more general way to construct Neyman orthogonality for both linear and nonlinear scores is to use the Riesz Representation</span>
+<span id="cb8-256"><a href="#cb8-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-257"><a href="#cb8-257" aria-hidden="true" tabindex="-1"></a>::: {#thm-rr}</span>
+<span id="cb8-258"><a href="#cb8-258" aria-hidden="true" tabindex="-1"></a><span class="fu">## Riesz Representation</span></span>
+<span id="cb8-259"><a href="#cb8-259" aria-hidden="true" tabindex="-1"></a>For a parameter $\theta = \mathbb{E}<span class="co">[</span><span class="ot">m(W_i, \psi)</span><span class="co">]</span>$ where $\psi$ is some function, there exists a unique function $\alpha$ such that</span>
+<span id="cb8-260"><a href="#cb8-260" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-261"><a href="#cb8-261" aria-hidden="true" tabindex="-1"></a>\theta = \mathbb{E}<span class="co">[</span><span class="ot">m(W_i, \psi)</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">\alpha(W_i)\psi(W_i)</span><span class="co">]</span></span>
+<span id="cb8-262"><a href="#cb8-262" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-263"><a href="#cb8-263" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-264"><a href="#cb8-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-265"><a href="#cb8-265" aria-hidden="true" tabindex="-1"></a>With $\alpha$ in hand, the moment condition can be found by</span>
+<span id="cb8-266"><a href="#cb8-266" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-267"><a href="#cb8-267" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">m(W_i, \psi) + \alpha(W_i)(Y - \psi(W_i)) - \theta</span><span class="co">]</span> = 0</span>
+<span id="cb8-268"><a href="#cb8-268" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-269"><a href="#cb8-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-270"><a href="#cb8-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-271"><a href="#cb8-271" aria-hidden="true" tabindex="-1"></a>In some cases, this method can be easier than the residualizing method, such as in estimation of the ATE/ATT in @chernozhukov2018double Section 5.1. Suppose we have potential outcomes </span>
+<span id="cb8-272"><a href="#cb8-272" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-273"><a href="#cb8-273" aria-hidden="true" tabindex="-1"></a>Y_i(1) = \psi(1, X_i) + \epsilon_i, \quad Y_i(0) = \psi(0, X_i) + \epsilon_i</span>
+<span id="cb8-274"><a href="#cb8-274" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-275"><a href="#cb8-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-276"><a href="#cb8-276" aria-hidden="true" tabindex="-1"></a>The parameter of interest is the ATE</span>
+<span id="cb8-277"><a href="#cb8-277" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-278"><a href="#cb8-278" aria-hidden="true" tabindex="-1"></a>\theta = \mathbb{E}<span class="co">[</span><span class="ot">Y(1) - Y(0)</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">\psi(1, X_i)</span><span class="co">]</span> - \mathbb{E}<span class="co">[</span><span class="ot">\psi(0, X_i)</span><span class="co">]</span></span>
+<span id="cb8-279"><a href="#cb8-279" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-280"><a href="#cb8-280" aria-hidden="true" tabindex="-1"></a>Then the Riesz Representation is given by the well-known Inverse Propensity Weighting </span>
+<span id="cb8-281"><a href="#cb8-281" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-282"><a href="#cb8-282" aria-hidden="true" tabindex="-1"></a>\mathbb{E}<span class="co">[</span><span class="ot">\psi(1, X_i)</span><span class="co">]</span> = \mathbb{E}\left<span class="co">[</span><span class="ot">\frac{D_iY_i}{e(X_i)}\right</span><span class="co">]</span> = \mathbb{E}\left<span class="co">[</span><span class="ot">\color{red}{\frac{D_i}{e(X_i)}} \psi(1, X_i)\right</span><span class="co">]</span> = \mathbb{E}<span class="co">[</span><span class="ot">\color{red}{\alpha(W_i)}\psi(1, X_i)</span><span class="co">]</span></span>
+<span id="cb8-283"><a href="#cb8-283" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-284"><a href="#cb8-284" aria-hidden="true" tabindex="-1"></a>and similar for $\mathbb{E}<span class="co">[</span><span class="ot">\psi(0, X_i)</span><span class="co">]</span>$. The resulting Neyman orthogonal moment is the well-known Augmented Inverse Propensity Weighting.</span>
+<span id="cb8-285"><a href="#cb8-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-286"><a href="#cb8-286" aria-hidden="true" tabindex="-1"></a>However, in general, this method can be "tricky" because first, we need an expectation-representation ($\mathbb{E}<span class="co">[</span><span class="ot">\alpha(W_i)\psi(W_i)</span><span class="co">]</span>$) for the parameter. And second, we need to find the function $\alpha$, which is not an easy task. See @newey1994asymptotic for some special cases and @ichimura2022influence for a more general setting to find $\alpha$.</span>
+<span id="cb8-287"><a href="#cb8-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-288"><a href="#cb8-288" aria-hidden="true" tabindex="-1"></a><span class="fu">### Automatic Characterization {-}</span></span>
+<span id="cb8-289"><a href="#cb8-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-290"><a href="#cb8-290" aria-hidden="true" tabindex="-1"></a>This method is also utilizing the Riesz Representation, but the difference is that we do not need to find the analytical form of $\alpha$. @chernozhukov2021automatic and @chernozhukov2022automatic find that</span>
+<span id="cb8-291"><a href="#cb8-291" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-292"><a href="#cb8-292" aria-hidden="true" tabindex="-1"></a>\alpha = \arg \min_{a(W_i)}\mathbb{E}<span class="co">[</span><span class="ot">a^2(W_i) - 2m(W_i, a)</span><span class="co">]</span></span>
+<span id="cb8-293"><a href="#cb8-293" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb8-294"><a href="#cb8-294" aria-hidden="true" tabindex="-1"></a>and this optimization problem can be solved by some algorithm, which means that even if $\alpha$ is unknown, it can still be estimated.</span>
+<span id="cb8-295"><a href="#cb8-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-296"><a href="#cb8-296" aria-hidden="true" tabindex="-1"></a><span class="fu">## The `DoubleML` Package</span></span>
+<span id="cb8-297"><a href="#cb8-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a>The theoretical components developed in this chapter --- Neyman orthogonality and cross-fitting --- are implemented in the <span class="co">[</span><span class="ot">`DoubleML`</span><span class="co">](https://docs.doubleml.org/)</span> R package <span class="co">[</span><span class="ot">@bach2024doubleml</span><span class="co">]</span>, which provides a unified interface for Double/Debiased Machine Learning. The package builds on the <span class="in">`mlr3`</span> ecosystem, allowing the user to plug in any supervised learner (random forests, boosted trees, neural networks, etc.) as the first-stage machine learning method for estimating nuisance functions.</span>
+<span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a>The code below illustrates the Partially Linear Regression (PLR) model, which corresponds directly to **moment 4** from our parametric discussion. The <span class="in">`DoubleMLPLR`</span> class residualizes both $Y_i$ and $D_i$ against $X_i$ using the supplied learners (<span class="in">`ml_l`</span> for $Y \sim X$ and <span class="in">`ml_m`</span> for $D \sim X$), then estimates $\theta_0$ from the residual-on-residual regression. Internally, the package performs cross-fitting (5-fold by default) to eliminate overfitting bias, exactly as described in the cross-fitting section above. The resulting estimator is $\sqrt{n}$-consistent and asymptotically normal under the conditions we derived, enabling standard confidence intervals and hypothesis tests.</span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: doubleml-plr</span></span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: true</span></span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DoubleML)</span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3)</span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mlr3learners)</span>
+<span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a><span class="co"># Partially Linear Regression Model (corresponds to moment 4)</span></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">500</span>; p <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rnorm</span>(n <span class="sc">*</span> p), <span class="at">ncol =</span> p)</span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a>D <span class="ot">&lt;-</span> X[,<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(n)</span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">*</span>D <span class="sc">+</span> X[,<span class="dv">1</span>]<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> X[,<span class="dv">2</span>] <span class="sc">+</span> <span class="fu">rnorm</span>(n)  <span class="co"># true theta = 1</span></span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>dml_data <span class="ot">&lt;-</span> DoubleMLData<span class="sc">$</span><span class="fu">new</span>(</span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">Y =</span> Y, <span class="at">D =</span> D, X),</span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a>  <span class="at">y_col =</span> <span class="st">"Y"</span>, <span class="at">d_cols =</span> <span class="st">"D"</span></span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a>ml_l <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb8-326"><a href="#cb8-326" aria-hidden="true" tabindex="-1"></a>ml_m <span class="ot">&lt;-</span> <span class="fu">lrn</span>(<span class="st">"regr.ranger"</span>, <span class="at">num.trees =</span> <span class="dv">500</span>)</span>
+<span id="cb8-327"><a href="#cb8-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-328"><a href="#cb8-328" aria-hidden="true" tabindex="-1"></a>dml_plr <span class="ot">&lt;-</span> DoubleMLPLR<span class="sc">$</span><span class="fu">new</span>(dml_data, ml_l, ml_m)</span>
+<span id="cb8-329"><a href="#cb8-329" aria-hidden="true" tabindex="-1"></a>dml_plr<span class="sc">$</span><span class="fu">fit</span>()</span>
+<span id="cb8-330"><a href="#cb8-330" aria-hidden="true" tabindex="-1"></a>dml_plr<span class="sc">$</span><span class="fu">summary</span>()</span>
+<span id="cb8-331"><a href="#cb8-331" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-332"><a href="#cb8-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-333"><a href="#cb8-333" aria-hidden="true" tabindex="-1"></a>Because the nuisance functions $\gamma_0(X_i)$ and $\alpha_0(X_i)$ are estimated with random forests (a flexible ML method satisfying the $o_p(n^{-1/4})$ rate requirement), and the PLR score is Neyman orthogonal by construction, the <span class="in">`DoubleML`</span> package delivers valid inference on $\theta_0$ even when the true relationships are nonlinear --- precisely the promise of the DML framework.</span>
+<span id="cb8-334"><a href="#cb8-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-335"><a href="#cb8-335" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb8-336"><a href="#cb8-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## Further Reading</span></span>
+<span id="cb8-337"><a href="#cb8-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-338"><a href="#cb8-338" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@chernozhukov2018double --- the original DML paper establishing the theoretical framework.</span>
+<span id="cb8-339"><a href="#cb8-339" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@chernozhukov2024applied --- a practical guide to applied causal inference powered by ML and AI, with worked examples.</span>
+<span id="cb8-340"><a href="#cb8-340" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@chernozhukov2022automatic --- the automatic debiased machine learning framework, which eliminates the need to derive Neyman orthogonal moments analytically.</span>
+<span id="cb8-341"><a href="#cb8-341" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>@bach2024doubleml --- the <span class="in">`DoubleML`</span> R and Python package documentation and methodological overview.</span>
+<span id="cb8-342"><a href="#cb8-342" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb8-343"><a href="#cb8-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-344"><a href="#cb8-344" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
+<span id="cb8-345"><a href="#cb8-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-346"><a href="#cb8-346" aria-hidden="true" tabindex="-1"></a>In this section, we introduced the DML theory and discussed how the Neyman orthogonality condition and cross-fitting algorithm can eliminate the regularization and overfitting bias in machine learning estimators and produce root-$n$ consistent estimator for causal inference. We also briefly summarized some new developments in constructing Neyman orthogonality from a non-orthogonal moment, such that DML is possible for general moments. Finally, I would like to mention a straightforward application of DML that adds to the applications given in @chernozhukov2018double, which is the Heckman selection model. Specifically, the Mills ratio in Heckman selection model can be estimated using machine learning methods without making the assumption that the conditional probability of choice is normally distributed, or when there is high-dimensional $X_i$. And as the Mills ratio is just a linear component in the regression, the residualizing method directly applies.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
