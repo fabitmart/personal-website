@@ -11,7 +11,9 @@ project:
 website:
   title: "Fabio I. Martinenghi"
   description: "Research Fellow, University of Newcastle — applied microeconomics, health, education, law."
-  site-url: "https://www.fabitmart.com"
+  # During testing: serves at https://fabitmart.github.io/personal-website/
+  # Switch back to "https://www.fabitmart.com" when DNS is cut over.
+  site-url: "https://fabitmart.github.io/personal-website"
   navbar:
     background: light
     pinned: true
