@@ -1,0 +1,52 @@
+---
+title: "Fabio I. Martinenghi"
+pagetitle: "Fabio I. Martinenghi"
+description-meta: "Research Fellow, University of Newcastle. Applied microeconomics in health, education, and law."
+toc: false
+---
+
+::: {.subtitle}
+Research Fellow, University of Newcastle (MandEval project)
+:::
+
+::: {.affiliations}
+Tax and Transfer Policy Institute (ANU) · ARC Centre of Excellence for Children and Families over the Life Course
+:::
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4}
+<!-- TODO: drop a square headshot at assets/headshot.jpg, then this image will appear -->
+![](assets/headshot.jpg){.headshot fig-alt="Photo of Fabio I. Martinenghi"}
+:::
+
+::: {.g-col-12 .g-col-md-8}
+
+I am a Research Fellow at the University of Newcastle, within the **MandEval** project — a multi-university research project studying the impact of vaccine mandates on vaccine uptake.
+
+My research focuses on **Health, Education, and Law & Economics**, where I apply modern econometric tools to large administrative datasets to answer policy-relevant questions.
+
+::: {.contact-row}
+<a href="mailto:fabio.martinenghi@newcastle.edu.au" aria-label="Email"><i class="bi bi-envelope"></i></a>
+<a href="https://orcid.org/0000-0002-1644-4613" aria-label="ORCID"><img src="assets/orcid.svg" alt="ORCID" style="height:1.1em;width:1.1em;vertical-align:-0.18em"></a>
+<a href="https://x.com/fabitmart" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+<a href="https://bsky.app/profile/fabitmart.bsky.social" aria-label="Bluesky">🦋</a>
+:::
+
+:::
+
+:::
+
+## News
+
+::: {.news-list}
+
+[2026]{.news-date} — **Best Paper Award**, 15th Australasian Workshop on Econometrics and Health Economics (for *Career, Family, and IVF*, with Maryam Naghsh Nejad).
+
+[2026]{.news-date} — *An open repository of COVID-19 vaccine mandate studies* accepted at *npj Vaccines*.
+
+[2026]{.news-date} — *Does refusing legal aid cause harm?* accepted at the *Journal of Law & Economics*.
+
+[2025]{.news-date} — *Career, Family, and IVF* featured on the Grattan Institute's [Wonk List](https://grattan.edu.au/).
+
+:::

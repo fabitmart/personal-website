@@ -1,0 +1,212 @@
+/*-- scss:defaults --*/
+
+$primary: #2C5F8D;
+$link-color: #2C5F8D;
+$link-hover-color: darken(#2C5F8D, 10%);
+$body-color: #222;
+$body-bg: #fff;
+$navbar-bg: #fff;
+
+/*-- scss:rules --*/
+
+// Constrain content width on text pages for readability
+main.content {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Tighter heading rhythm
+h1, h2, h3 {
+  letter-spacing: -0.01em;
+}
+
+h1.title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #555;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+// Headshot block
+.headshot {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+// Status badges on the Research page
+.badge-paper {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.18em 0.6em;
+  border-radius: 999px;
+  vertical-align: middle;
+  margin-right: 0.4em;
+}
+
+.badge-accepted {
+  @extend .badge-paper;
+  background: #1f7a4d;
+  color: #fff;
+}
+
+.badge-submitted {
+  @extend .badge-paper;
+  background: #b8860b;
+  color: #fff;
+}
+
+.badge-wp {
+  @extend .badge-paper;
+  background: #6c757d;
+  color: #fff;
+}
+
+// Per-paper card
+.paper {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.paper:last-child {
+  border-bottom: none;
+}
+
+.paper-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  margin-bottom: 0.25rem;
+}
+
+.paper-meta {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 0.15rem 0;
+}
+
+.paper-keywords {
+  color: #777;
+  font-style: italic;
+  font-size: 0.88rem;
+}
+
+.paper-links {
+  margin-top: 0.4rem;
+  font-size: 0.92rem;
+}
+
+.paper-links a {
+  margin-right: 0.85rem;
+}
+
+// News list
+.news-item {
+  margin-bottom: 0.5rem;
+}
+
+.news-date {
+  display: inline-block;
+  font-weight: 600;
+  color: $primary;
+  min-width: 4.5rem;
+}
+
+// Contact icon row on home
+.contact-row {
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
+.contact-row a {
+  margin-right: 0.85rem;
+  color: $primary;
+}
+
+// CV embed (legacy — kept in case of future PDF embed)
+.cv-embed {
+  width: 100%;
+  height: 90vh;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+// Native HTML CV layout — date column + content column
+.cv-section {
+  margin-top: 2rem;
+}
+
+.cv-section h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #444;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.cv-entry {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1.25rem;
+  padding: 0.55rem 0;
+  align-items: start;
+}
+
+.cv-entry + .cv-entry {
+  border-top: 1px solid #f0f0f0;
+}
+
+.cv-entry > p {
+  margin: 0;
+}
+
+.cv-entry > p:first-child {
+  color: #777;
+  font-size: 0.88rem;
+  padding-top: 0.15rem;
+}
+
+.cv-entry > p:nth-child(2) em {
+  color: #666;
+  font-size: 0.92rem;
+}
+
+.cv-paper {
+  margin-bottom: 1.1rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.cv-paper:last-child {
+  border-bottom: none;
+}
+
+.cv-paper > p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.cv-paper strong:first-child {
+  font-size: 1.02rem;
+}
+
+@media (max-width: 600px) {
+  .cv-entry {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+  .cv-date { font-size: 0.82rem; }
+}

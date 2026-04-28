@@ -1,0 +1,211 @@
+---
+title: "CV"
+pagetitle: "CV — Fabio I. Martinenghi"
+toc: true
+toc-depth: 2
+toc-location: right
+toc-title: "Sections"
+---
+
+[**Download CV (PDF)**](assets/cv.pdf){.btn .btn-primary role="button"}
+&nbsp;&nbsp;<span style="color:#777;font-size:0.9rem">Last updated: April 2026</span>
+
+## Fields of Interest {.cv-section}
+
+Health Economics · Education · Law & Economics.
+
+## Employment {.cv-section}
+
+::: {.cv-entry}
+Oct 2024 –
+
+**Research Fellow, [MandEval](https://www.uwa.edu.au/news/Article/2023/March/Ground-breaking-medical-research-projects-awarded-22-million)**\
+University of Newcastle & University of Western Australia\
+*Studying the impact of vaccine mandates on uptake using Australian administrative data (AIR-PLIDA).*
+:::
+
+::: {.cv-entry}
+Sep 2021 – Sep 2024
+
+**Research Associate, Economics of Education Knowledge Hub**\
+University of New South Wales, Sydney\
+*Worked on academic and non-academic projects using NSW Education administrative data.*
+:::
+
+## Other Positions & Affiliations {.cv-section}
+
+::: {.cv-entry}
+Apr 2024 –
+
+**Honorary Associate Lecturer**\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+Aug 2023 –
+
+**Affiliate, Tax and Transfer Policy Institute**\
+Crawford School of Public Policy, Australian National University
+:::
+
+::: {.cv-entry}
+May 2023 –
+
+**Investigator, NHMRC grant APP1127437**\
+National Perinatal Epidemiology and Statistics Unit · Centre for Big Data Research in Health, UNSW
+:::
+
+::: {.cv-entry}
+Oct 2020 –
+
+**Affiliate, ARC Centre of Excellence for Children and Families over the Life Course**\
+Universities of Sydney, Melbourne, Queensland and Western Australia
+:::
+
+## Education {.cv-section}
+
+::: {.cv-entry}
+2018–2020
+
+**Visiting Scholar, University of New South Wales**\
+*Awarded Tuition Fee Scholarship.*
+:::
+
+::: {.cv-entry}
+2016–2020
+
+**Ph.D. in Economics, University of Milan**\
+Thesis: *Essays in Policy Evaluation*. Research topics: Applied Micro, Law & Economics.
+:::
+
+::: {.cv-entry}
+Jan 2018
+
+**IRVAPP Winter School — Advanced Methods in Impact Evaluation**\
+*Topics: discontinuities, causality and machine learning, instrumental variables.*
+:::
+
+::: {.cv-entry}
+2014–2016
+
+**MSc in Economics, University of Nottingham**
+:::
+
+::: {.cv-entry}
+2011–2014
+
+**Undergraduate Degree (*Cum Laude*) in Philosophy, Università Cattolica del Sacro Cuore, Italy**\
+Dissertation: *Measurement and Modelling in Economics: An Epistemological Perspective*.
+:::
+
+## Working Papers & Publications {.cv-section}
+
+::: {.cv-paper}
+**Legal aid eligibility and court outcomes: a design-based double-machine-learning approach.**\
+*Forthcoming, Journal of Law & Economics.* [TTPI WP](https://crawford.anu.edu.au/sites/default/files/2025-02/complete_f_martinenghi_wp_feb_2024.pdf).\
+*Double-machine-learning approach with administrative data on Legal Aid applicants to estimate the effect of aid refusal on court outcomes.*
+:::
+
+::: {.cv-paper}
+**An open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence.**\
+Lead author, with Blyth, C. and the MandEval team. *Forthcoming, npj Vaccines.* [Article](https://www.nature.com/articles/s41541-026-01454-4).\
+*A dataset covering more than 500 papers on COVID-19 mandates, manually curated and with data extracted by an LLM, plus a worked scoping review of the quasi-experimental evidence on uptake and downstream outcomes.*
+:::
+
+::: {.cv-paper}
+**Vaccinating Now or Vaccinating Later: separating pull-forward and net effects using a dynamic regression discontinuity design.**\
+Lead author, with Attwell, K., Genie, M. and the MandEval team. *Submitted.* [PDF](https://drive.google.com/file/d/1hNJ9m_VlW7hmkQfRk0wGbvPBWwIEQkdn/view?usp=drive_link).\
+*Studies a novel COVID-19 vaccine mandate targeting graduating high-school students. A daily panel of linked administrative data (AIR-PLIDA) lets RDD run dynamically, disentangling intensive and extensive margins. Develops a toy model for external validity.*
+:::
+
+::: {.cv-paper}
+**Career, Family, and IVF: the impact of involuntary childlessness and fertility treatment.**\
+With Maryam Naghsh Nejad. [IZA WP](https://www.iza.org/publications/dp/17965/career-family-and-ivf-the-impact-of-involuntary-childlessness-and-fertility-treatment).\
+*Dynamic triple DID approach to study the impacts of childlessness and IVF on women's income and mental health, using Australian administrative data.*
+:::
+
+::: {.cv-paper}
+**Conceiving naturally after IVF: the effect of an ART conception on obstetric outcomes.**\
+With Zhang, X., Rombauts, L. and Chambers, G. [arXiv](https://arxiv.org/pdf/2405.00234v2).\
+*Leverages idiosyncratic spontaneous pregnancy after a failed ART cycle to estimate the effect of ART on outcomes such as c-section and birth weight, using Australian administrative data (ANZARD).*
+:::
+
+::: {.cv-paper}
+**Getting Explicit Instruction Right.**\
+With Richard Holden. *Submitted.* [arXiv](http://arxiv.org/abs/2506.10480).\
+*Studies the dramatic effect of a public NSW school introducing the Explicit Instruction pedagogy, using synthetic control on administrative school data.*
+:::
+
+::: {.cv-paper}
+**Grandmaternal health shocks, informal childcare, and maternal outcomes.**\
+With Jan Kabatek. *In progress.*\
+*Studies the effect of grandmaternal acute health episodes (identified by selected PBS drugs) on the labour outcomes of mothers with children aged 0–4.*
+:::
+
+## Teaching Experience {.cv-section}
+
+::: {.cv-entry}
+2021
+
+**Lecturer-in-Charge, *Environmental Economics***\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+2021
+
+**Teaching Assistant, *Business Decision Making***\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+2021
+
+**Teaching Assistant, *Game Theory & Business Strategy***\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+2020
+
+**Lecturer-in-Charge, *Business and Government***\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+2020
+
+**Teaching Assistant, *Game Theory & Business Strategy***\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+2019–2020
+
+**Lecturer, *Economics Perspectives***\
+University of New South Wales
+:::
+
+::: {.cv-entry}
+2017
+
+**Teaching Assistant, *Advanced Industrial Organisation***\
+University of Milan
+:::
+
+## Conferences & Invited Seminars {.cv-section}
+
+American–European Health Economics Study Group · Invited seminar at CLEAN, Bocconi · STEP UP Conference ('What Works in Education?') · Australian Workshop on Public Finance · Labour Econometrics Workshop · Western Economic Association International Conference.
+
+## Technical Skills {.cv-section}
+
+R (incl. `arrow`, `duckdb`, `data.table` for larger-than-memory data) · Stata · Python · SQL.
+
+## Other {.cv-section}
+
+- Refereeing experience for *Empirical Economics* and *Health Policy & Technology*.
+- Mentee at the *SOLE Mentoring Program* under Amanda Pallais (Harvard) and Basit Zafar (University of Michigan).
+
+## References {.cv-section}
+
+Available on request.

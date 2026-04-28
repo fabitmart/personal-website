@@ -1,0 +1,29 @@
+---
+title: "Teaching"
+pagetitle: "Teaching — Fabio I. Martinenghi"
+toc: false
+---
+
+## Course materials
+
+**Applied Econometrics Reading Group Notes** — *Notes on Mostly Harmless Econometrics and Beyond.* Developed with Fangzhou Yu and Yangqi Zhang for the Oz Metrics Reading Group at UNSW (2022–23, ongoing).
+
+Topics covered: experimental ideal, sampling design, DAGs, sensitivity analysis, instrumental variables, synthetic control, regression discontinuity, difference-in-differences and event studies, and double machine learning (theory and applied).
+
+[[Read the notes →](notes/index.html)]{.paper-links}
+
+## University teaching
+
+### UNSW School of Economics
+
+**2021**
+
+- *Environmental Economics* — Lecturer-in-Charge
+- *Evidence-Based Problem Solving* (Business Statistics) — Teaching Assistant
+
+**2020**
+
+- *Business and Government* (Public Economics) — Lecturer-in-Charge
+- *Economics Perspectives* (Philosophy of Economics) — Lecturer
+- *Business Decision Making* (Microeconomics) — Teaching Assistant
+- *Game Theory & Business Strategy* — Teaching Assistant

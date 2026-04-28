@@ -1,0 +1,61 @@
+project:
+  type: website
+  output-dir: _site
+  pre-render: cmd /c .\build-cv.cmd
+  post-render: cmd /c .\build-notes.cmd
+  resources:
+    - assets/cv.pdf
+    - assets/orcid.svg
+    - assets/headshot.jpg
+
+website:
+  title: "Fabio I. Martinenghi"
+  description: "Research Fellow, University of Newcastle — applied microeconomics, health, education, law."
+  site-url: "https://www.fabitmart.com"
+  navbar:
+    background: light
+    pinned: true
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "Research"
+        href: research.qmd
+      - text: "Teaching"
+        href: teaching.qmd
+      - text: "Notes"
+        href: notes/index.html
+      - text: "CV"
+        href: cv.qmd
+    right:
+      - icon: envelope
+        href: "mailto:fabio.martinenghi@newcastle.edu.au"
+        aria-label: Email
+      - text: '<img src="assets/orcid.svg" alt="ORCID" style="height:1.05em;width:1.05em;vertical-align:-0.18em">'
+        href: "https://orcid.org/0000-0002-1644-4613"
+        aria-label: ORCID
+      - icon: twitter-x
+        href: "https://x.com/fabitmart"
+        aria-label: Twitter / X
+      - text: "🦋"
+        href: "https://bsky.app/profile/fabitmart.bsky.social"
+        aria-label: Bluesky
+      # TODO: uncomment once you supply Google Scholar + GitHub URLs
+      # - icon: mortarboard
+      #   href: "https://scholar.google.com/citations?user=YOUR_ID"
+      #   aria-label: Google Scholar
+      # - icon: github
+      #   href: "https://github.com/YOUR_HANDLE"
+      #   aria-label: GitHub
+  page-footer:
+    left: "© 2026 Fabio I. Martinenghi"
+    right: "Built with [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles.scss
+    toc: false
+    link-external-newwindow: true
+    smooth-scroll: true
+    mainfont: "Source Sans Pro, system-ui, -apple-system, sans-serif"

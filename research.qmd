@@ -1,0 +1,97 @@
+---
+title: "Research"
+pagetitle: "Research — Fabio I. Martinenghi"
+toc: true
+toc-depth: 2
+toc-title: "On this page"
+---
+
+## Published & Accepted
+
+::: {.paper}
+[Accepted]{.badge-accepted}
+
+[Does refusing legal aid cause harm? A design-based double-machine-learning approach]{.paper-title}
+
+[*Journal of Law & Economics* (forthcoming).]{.paper-meta}
+
+[*Keywords:* indigent defense, crime, criminal justice. *JEL:* I30, K14, H44.]{.paper-keywords}
+
+::: {.paper-links}
+[[PDF](https://drive.google.com/file/d/1Bi0BNi1KFUdW3smPJKYPsLcuaqXagt-B/view?usp=sharing)]{}
+:::
+:::
+
+::: {.paper}
+[Accepted]{.badge-accepted}
+
+[An open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence]{.paper-title}
+
+[With C. Blyth and the MandEval team. *npj Vaccines* (forthcoming).]{.paper-meta}
+
+[*Keywords:* immunisation, pandemics, policy, impact, best practice.]{.paper-keywords}
+
+::: {.paper-links}
+[[Journal](https://www.nature.com/articles/s41541-026-01454-4)]{}
+:::
+:::
+
+## Submitted
+
+::: {.paper}
+[Submitted]{.badge-submitted}
+
+[Vaccinating Now or Vaccinating Later: Dynamic RDD Evidence on Speeding-Up Vaccine Uptake via Time-Limited Non-Monetary Incentives]{.paper-title}
+
+[With K. Attwell, M. Genie, and the MandEval team.]{.paper-meta}
+
+[*Keywords:* mandate, vaccination, incentives, uptake, adolescents. *JEL:* I12, I18.]{.paper-keywords}
+
+::: {.paper-links}
+[[PDF](https://drive.google.com/file/d/12RhLRyZeYMTQfSTQU1mTXm8JLVSOLJhL/view?usp=drive_link)]{}
+:::
+:::
+
+::: {.paper}
+[Submitted]{.badge-submitted}
+
+[Getting Explicit Instruction Right]{.paper-title}
+
+[With Richard Holden (UNSW).]{.paper-meta}
+
+[*Keywords:* education, explicit instruction, pedagogy. *JEL:* I20, I21.]{.paper-keywords}
+
+::: {.paper-links}
+[[arXiv](https://arxiv.org/abs/2506.10480)]{}
+:::
+:::
+
+## Working Papers
+
+::: {.paper}
+[Working paper]{.badge-wp}
+
+[Career, Family, and IVF: The Impact of Involuntary Childlessness and Fertility Treatment]{.paper-title}
+
+[With Maryam Naghsh Nejad. **Best Paper Award**, 15th Australasian Workshop on Econometrics and Health Economics. Featured on the Grattan Institute's Wonk List (2025).]{.paper-meta}
+
+[*Keywords:* involuntary childlessness, IVF, mental health, labour market outcomes, fertility and career trade-offs. *JEL:* J13, J22, I14, I31, J16.]{.paper-keywords}
+
+::: {.paper-links}
+[[PDF](https://drive.google.com/file/d/1aVramDm_5DLOY8xUcQ4LEhqnppkGVIMa/view?usp=sharing)]{}
+:::
+:::
+
+::: {.paper}
+[Working paper]{.badge-wp}
+
+[Conceiving Naturally After IVF: the effect of an IVF conception on mode and timing of birth]{.paper-title}
+
+[With X. Zhang, L. Rombauts, and G. Chambers.]{.paper-meta}
+
+[*Keywords:* fertility, assisted reproduction, IVF, obstetric outcomes, infertility. *JEL:* I10, I12, I19.]{.paper-keywords}
+
+::: {.paper-links}
+[[arXiv](https://arxiv.org/abs/2405.00234)]{}
+:::
+:::

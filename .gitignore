@@ -1,0 +1,24 @@
+# Quarto build output and cache
+_site/
+.quarto/
+
+# CV — latexmk byproducts (cv.pdf is regenerated from cv.tex on each render)
+cv/cv.pdf
+cv/*.aux
+cv/*.fdb_latexmk
+cv/*.fls
+cv/*.log
+cv/*.out
+cv/*.synctex.gz
+
+# CV PDF copied into assets/ by build-cv.cmd — regenerated on render
+assets/cv.pdf
+
+# Editor / OS noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
