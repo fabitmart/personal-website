@@ -41,14 +41,14 @@ toc-title: "On this page"
 ::: {.paper}
 [Submitted]{.badge-submitted}
 
-[Vaccinating Now or Vaccinating Later: Dynamic RDD Evidence on Speeding-Up Vaccine Uptake via Time-Limited Non-Monetary Incentives]{.paper-title}
+[Pull-Forward and Induced Vaccination Under Time-Limited Mandates: Evidence from a Low-Coercion Mandate]{.paper-title}
 
-[With K. Attwell, M. Genie, and the MandEval team.]{.paper-meta}
+[Lead author, with M. Genie, K. Attwell, and the MandEval team.]{.paper-meta}
 
 [*Keywords:* mandate, vaccination, incentives, uptake, adolescents. *JEL:* I12, I18.]{.paper-keywords}
 
 ::: {.paper-links}
-[[PDF](https://drive.google.com/file/d/12RhLRyZeYMTQfSTQU1mTXm8JLVSOLJhL/view?usp=drive_link)]{}
+[[arXiv](https://arxiv.org/abs/2509.22714)]{}
 :::
 :::
 
@@ -78,7 +78,7 @@ toc-title: "On this page"
 [*Keywords:* involuntary childlessness, IVF, mental health, labour market outcomes, fertility and career trade-offs. *JEL:* J13, J22, I14, I31, J16.]{.paper-keywords}
 
 ::: {.paper-links}
-[[PDF](https://drive.google.com/file/d/1aVramDm_5DLOY8xUcQ4LEhqnppkGVIMa/view?usp=sharing)]{}
+[[IZA WP](https://www.iza.org/publications/dp/17965/career-family-and-ivf-the-impact-of-involuntary-childlessness-and-fertility-treatment)]{}
 :::
 :::
 

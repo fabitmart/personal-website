@@ -113,9 +113,9 @@ Lead author, with Blyth, C. and the MandEval team. *Forthcoming, npj Vaccines.* 
 :::
 
 ::: {.cv-paper}
-**Vaccinating Now or Vaccinating Later: separating pull-forward and net effects using a dynamic regression discontinuity design.**\
-Lead author, with Attwell, K., Genie, M. and the MandEval team. *Submitted.* [PDF](https://drive.google.com/file/d/1hNJ9m_VlW7hmkQfRk0wGbvPBWwIEQkdn/view?usp=drive_link).\
-*Studies a novel COVID-19 vaccine mandate targeting graduating high-school students. A daily panel of linked administrative data (AIR-PLIDA) lets RDD run dynamically, disentangling intensive and extensive margins. Develops a toy model for external validity.*
+**Pull-Forward and Induced Vaccination Under Time-Limited Mandates: Evidence from a Low-Coercion Mandate.**\
+Lead author, with Genie, M., Attwell, K. and the MandEval team. *Submitted.* [arXiv](https://arxiv.org/abs/2509.22714).\
+*Studies a novel COVID-19 vaccine mandate targeting graduating high-school students. A daily panel of linked administrative data (AIR-PLIDA) lets RDD run dynamically, decomposing the effect into pull-forward and induction components. Develops a toy model for external validity.*
 :::
 
 ::: {.cv-paper}
@@ -195,7 +195,7 @@ University of Milan
 
 ## Conferences & Invited Seminars {.cv-section}
 
-American–European Health Economics Study Group · Invited seminar at CLEAN, Bocconi · STEP UP Conference ('What Works in Education?') · Australian Workshop on Public Finance · Labour Econometrics Workshop · Western Economic Association International Conference.
+American–European Health Economics Study Group · Australasian Workshop on Econometrics and Health Economics · Invited seminar at CLEAN, Bocconi · STEP UP Conference ('What Works in Education?') · Australian Workshop on Public Finance · Labour Econometrics Workshop · Western Economic Association International Conference.
 
 ## Technical Skills {.cv-section}
 

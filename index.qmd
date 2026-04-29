@@ -29,8 +29,6 @@ My research focuses on **Health, Education, and Law & Economics**, where I apply
 ::: {.contact-row}
 <a href="mailto:fabio.martinenghi@newcastle.edu.au" aria-label="Email"><i class="bi bi-envelope"></i></a>
 <a href="https://orcid.org/0000-0002-1644-4613" aria-label="ORCID"><img src="assets/orcid.svg" alt="ORCID" style="height:1.1em;width:1.1em;vertical-align:-0.18em"></a>
-<a href="https://x.com/fabitmart" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
-<a href="https://bsky.app/profile/fabitmart.bsky.social" aria-label="Bluesky">🦋</a>
 :::
 
 :::
@@ -43,10 +41,12 @@ My research focuses on **Health, Education, and Law & Economics**, where I apply
 
 [2026]{.news-date} — **Best Paper Award**, 15th Australasian Workshop on Econometrics and Health Economics (for *Career, Family, and IVF*, with Maryam Naghsh Nejad).
 
-[2026]{.news-date} — *An open repository of COVID-19 vaccine mandate studies* accepted at *npj Vaccines*.
+[2026]{.news-date} — *An open repository of COVID-19 vaccine mandate studies* **accepted** at *npj Vaccines*.
 
-[2026]{.news-date} — *Does refusing legal aid cause harm?* accepted at the *Journal of Law & Economics*.
+[2026]{.news-date} — *Does refusing legal aid cause harm?* **accepted** at the *Journal of Law & Economics*.
 
-[2025]{.news-date} — *Career, Family, and IVF* featured on the Grattan Institute's [Wonk List](https://grattan.edu.au/).
+[2025]{.news-date} — *Career, Family, and IVF*&nbsp; featured on the Grattan Institute's [Wonk List](https://grattan.edu.au/).
+
+[2025]{.news-date} — Presented *Career, Family, and IVF* at the American–European Health Economics Study Group.
 
 :::
