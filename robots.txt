@@ -1,1 +1,1 @@
-Sitemap: https://fabitmart.github.io/personal-website/sitemap.xml
+Sitemap: https://fabitmart.com/sitemap.xml
