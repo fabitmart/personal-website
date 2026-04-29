@@ -23,11 +23,11 @@ toc-title: "On this page"
 :::
 
 ::: {.paper}
-[Accepted]{.badge-accepted}
+[Published]{.badge-accepted}
 
 [An open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence]{.paper-title}
 
-[With C. Blyth and the MandEval team. *npj Vaccines* (forthcoming).]{.paper-meta}
+[With C. Blyth and the MandEval team. Published in *npj Vaccines* (2026).]{.paper-meta}
 
 [*Keywords:* immunisation, pandemics, policy, impact, best practice.]{.paper-keywords}
 

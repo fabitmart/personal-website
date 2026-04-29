@@ -6,7 +6,7 @@ toc: false
 ---
 
 ::: {.subtitle}
-Research Fellow, University of Newcastle (MandEval project)
+Research Fellow, University of Newcastle
 :::
 
 ::: {.affiliations}
@@ -41,7 +41,7 @@ My research focuses on **Health, Education, and Law & Economics**, where I apply
 
 [2026]{.news-date} — **Best Paper Award**, 15th Australasian Workshop on Econometrics and Health Economics (for *Career, Family, and IVF*, with Maryam Naghsh Nejad).
 
-[2026]{.news-date} — *An open repository of COVID-19 vaccine mandate studies* **accepted** at *npj Vaccines*.
+[2026]{.news-date} — *[An open repository of COVID-19 vaccine mandate studies](https://www.nature.com/articles/s41541-026-01454-4)* **published** in *npj Vaccines*.
 
 [2026]{.news-date} — *Does refusing legal aid cause harm?* **accepted** at the *Journal of Law & Economics*.
 

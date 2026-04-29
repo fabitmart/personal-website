@@ -108,7 +108,7 @@ Dissertation: *Measurement and Modelling in Economics: An Epistemological Perspe
 
 ::: {.cv-paper}
 **An open repository of COVID-19 vaccine mandate studies with a worked scoping review of quasi-experimental evidence.**\
-Lead author, with Blyth, C. and the MandEval team. *Forthcoming, npj Vaccines.* [Article](https://www.nature.com/articles/s41541-026-01454-4).\
+Lead author, with Blyth, C. and the MandEval team. Published in *npj Vaccines* (2026). [Article](https://www.nature.com/articles/s41541-026-01454-4).\
 *A dataset covering more than 500 papers on COVID-19 mandates, manually curated and with data extracted by an LLM, plus a worked scoping review of the quasi-experimental evidence on uptake and downstream outcomes.*
 :::
 
