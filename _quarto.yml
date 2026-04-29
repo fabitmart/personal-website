@@ -3,22 +3,19 @@ project:
   output-dir: _site
   pre-render: cmd /c .\build-cv.cmd
   post-render: cmd /c .\build-notes.cmd
-
-# Disable freeze cache — Dropbox locks .quarto/_freeze on every render.
-# Costs ~5s extra per render; saves the lock-induced crashes.
-execute:
-  freeze: false
   resources:
     - assets/cv.pdf
     - assets/orcid.svg
     - assets/headshot.jpg
+    - CNAME
+
+execute:
+  freeze: false
 
 website:
   title: "Fabio I. Martinenghi"
   description: "Research Fellow, University of Newcastle — applied microeconomics, health, education, law."
-  # During testing: serves at https://fabitmart.github.io/personal-website/
-  # Switch back to "https://www.fabitmart.com" when DNS is cut over.
-  site-url: "https://fabitmart.github.io/personal-website"
+  site-url: "https://fabitmart.com"
   navbar:
     background: light
     pinned: true
