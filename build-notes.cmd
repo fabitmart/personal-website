@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-set "SRC=..\..\clo-author-metrics\Paper\gitbook_notes\_book"
+set "SRC=C:\Users\fabitmart\Dropbox\Claude\clo-author-metrics\Paper\gitbook_notes\_book"
 set "DEST=_site\notes"
 
 if not exist "%SRC%\index.html" (
