@@ -1,13 +1,52 @@
 /*-- scss:defaults --*/
 
-$primary: #2C5F8D;
-$link-color: #2C5F8D;
-$link-hover-color: darken(#2C5F8D, 10%);
-$body-color: #222;
-$body-bg: #fff;
-$navbar-bg: #fff;
+// =============================================================
+// Teal Deep palette
+// =============================================================
+$teal-bg:           #0D1F1E;
+$teal-surface:      #152928;
+$teal-border:       #1E3836;
+$teal-text:         #E5ECEB;
+$teal-muted:        #7EBBB8;
+$teal-accent:       #3EC9C1;
+$teal-accent-hover: #5DD8D1;
+
+// Bootstrap variable overrides
+$primary:           $teal-accent;
+$link-color:        $teal-accent;
+$link-hover-color:  $teal-accent-hover;
+$body-color:        $teal-text;
+$body-bg:           $teal-bg;
+$border-color:      $teal-border;
+
+// Navbar (YAML uses background: dark → Bootstrap applies navbar-dark bg-dark)
+$navbar-bg:                   #0A1918;
+$navbar-dark-color:           $teal-text;
+$navbar-dark-hover-color:     $teal-accent;
+$navbar-dark-active-color:    $teal-accent;
+$navbar-dark-brand-color:     $teal-text;
+$navbar-dark-brand-hover-color: $teal-accent;
+
+// Footer
+$footer-bg:  #0A1918;
+$footer-fg:  $teal-muted;
 
 /*-- scss:rules --*/
+
+// Force the dark navbar background (overrides Bootstrap's bg-dark default)
+.navbar.bg-dark, .navbar-dark.bg-dark {
+  background-color: #0A1918 !important;
+  border-bottom: 1px solid $teal-border;
+}
+
+// Footer
+.nav-footer {
+  background: #0A1918;
+  color: $teal-muted;
+  border-top: 1px solid $teal-border;
+
+  a { color: $teal-muted; &:hover { color: $teal-accent; } }
+}
 
 // Constrain content width on text pages for readability
 main.content {
@@ -17,8 +56,9 @@ main.content {
 }
 
 // Tighter heading rhythm
-h1, h2, h3 {
+h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.01em;
+  color: $teal-text;
 }
 
 h1.title {
@@ -27,17 +67,42 @@ h1.title {
 }
 
 .subtitle {
-  color: #555;
+  color: $teal-muted;
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
 }
 
-// Headshot block
+.bio-text {
+  display: flow-root; // contains the floated headshot
+}
+
+.bio-text p {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+// Collapse Pandoc's wrapper paragraph around the headshot image
+.bio-text p:has(> .headshot) {
+  margin: 0;
+}
+
+// Headshot block — floated so bio text wraps around it
 .headshot {
-  width: 100%;
-  max-width: 200px;
+  width: 236px;
+  max-width: 40%;
+  float: left;
+  margin: 0.4rem 1.5rem 0.75rem 0;
   border-radius: 4px;
-  margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+  .headshot {
+    float: none;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 0 1rem 0;
+  }
 }
 
 // Status badges on the Research page
@@ -55,27 +120,27 @@ h1.title {
 
 .badge-accepted {
   @extend .badge-paper;
-  background: #1f7a4d;
-  color: #fff;
+  background: #1F8A7E;
+  color: $teal-text;
 }
 
 .badge-submitted {
   @extend .badge-paper;
-  background: #b8860b;
-  color: #fff;
+  background: #C99B1A;
+  color: $teal-bg;
 }
 
 .badge-wp {
   @extend .badge-paper;
-  background: #6c757d;
-  color: #fff;
+  background: #3F5658;
+  color: #A8C4C2;
 }
 
 // Per-paper card
 .paper {
   margin-bottom: 1.75rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $teal-border;
 }
 
 .paper:last-child {
@@ -87,16 +152,18 @@ h1.title {
   font-size: 1.1rem;
   line-height: 1.35;
   margin-bottom: 0.25rem;
+  color: $teal-text;
 }
 
 .paper-meta {
-  color: #555;
+  color: $teal-muted;
   font-size: 0.95rem;
   margin: 0.15rem 0;
 }
 
 .paper-keywords {
-  color: #777;
+  color: $teal-muted;
+  opacity: 0.85;
   font-style: italic;
   font-size: 0.88rem;
 }
@@ -118,26 +185,29 @@ h1.title {
 .news-date {
   display: inline-block;
   font-weight: 600;
-  color: $primary;
+  color: $teal-accent;
   min-width: 4.5rem;
 }
 
 // Contact icon row on home
 .contact-row {
+  clear: both; // sit below the floated headshot, not beside it
   margin-top: 1rem;
   font-size: 1.4rem;
 }
 
 .contact-row a {
   margin-right: 0.85rem;
-  color: $primary;
+  color: $teal-accent;
+
+  &:hover { color: $teal-accent-hover; }
 }
 
 // CV embed (legacy — kept in case of future PDF embed)
 .cv-embed {
   width: 100%;
   height: 90vh;
-  border: 1px solid #ddd;
+  border: 1px solid $teal-border;
   border-radius: 4px;
 }
 
@@ -151,8 +221,8 @@ h1.title {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #444;
-  border-bottom: 1px solid #ddd;
+  color: $teal-text;
+  border-bottom: 1px solid $teal-border;
   padding-bottom: 0.25rem;
   margin-bottom: 1rem;
 }
@@ -166,7 +236,7 @@ h1.title {
 }
 
 .cv-entry + .cv-entry {
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid $teal-border;
 }
 
 .cv-entry > p {
@@ -174,20 +244,21 @@ h1.title {
 }
 
 .cv-entry > p:first-child {
-  color: #777;
+  color: $teal-muted;
   font-size: 0.88rem;
   padding-top: 0.15rem;
 }
 
 .cv-entry > p:nth-child(2) em {
-  color: #666;
+  color: $teal-muted;
+  opacity: 0.85;
   font-size: 0.92rem;
 }
 
 .cv-paper {
   margin-bottom: 1.1rem;
   padding-bottom: 0.9rem;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid $teal-border;
 }
 
 .cv-paper:last-child {
@@ -201,6 +272,7 @@ h1.title {
 
 .cv-paper strong:first-child {
   font-size: 1.02rem;
+  color: $teal-text;
 }
 
 @media (max-width: 600px) {
@@ -209,4 +281,25 @@ h1.title {
     gap: 0.25rem;
   }
   .cv-date { font-size: 0.82rem; }
+}
+
+// Bootstrap default tweaks for dark
+hr { border-color: $teal-border; opacity: 1; }
+
+code { color: $teal-accent; background: $teal-surface; padding: 0.1em 0.35em; border-radius: 3px; }
+
+blockquote { border-left: 3px solid $teal-border; padding-left: 1rem; color: $teal-muted; }
+
+table {
+  color: $teal-text;
+  border-color: $teal-border;
+  th { color: $teal-text; border-color: $teal-border; }
+  td { border-color: $teal-border; }
+}
+
+// TOC (Research page uses toc: true)
+.sidebar-navigation, #TOC, .toc-active {
+  color: $teal-muted;
+  a { color: $teal-muted; &:hover { color: $teal-accent; } }
+  .active a { color: $teal-accent; }
 }

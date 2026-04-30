@@ -17,7 +17,7 @@ website:
   description: "Research Fellow, University of Newcastle — applied microeconomics, health, education, law."
   site-url: "https://fabitmart.com"
   navbar:
-    background: light
+    background: dark
     pinned: true
     left:
       - text: "Home"
@@ -26,10 +26,10 @@ website:
         href: research.qmd
       - text: "Teaching"
         href: teaching.qmd
-      - text: "Notes"
-        href: notes/index.html
       - text: "CV"
         href: cv.qmd
+      - text: "Notes"
+        href: notes/index.html
     right:
       - icon: envelope
         href: "mailto:fabio.martinenghi@newcastle.edu.au"

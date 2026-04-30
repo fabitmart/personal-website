@@ -9,30 +9,19 @@ toc: false
 Research Fellow, University of Newcastle
 :::
 
-::: {.affiliations}
-Tax and Transfer Policy Institute (ANU) · ARC Centre of Excellence for Children and Families over the Life Course
-:::
-
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-4}
-<!-- TODO: drop a square headshot at assets/headshot.jpg, then this image will appear -->
+::: {.bio-text}
 ![](assets/headshot.jpg){.headshot fig-alt="Photo of Fabio I. Martinenghi"}
-:::
-
-::: {.g-col-12 .g-col-md-8}
 
 I am a Research Fellow at the University of Newcastle, within the **MandEval** project — a multi-university research project studying the impact of vaccine mandates on vaccine uptake.
 
-My research focuses on **Health, Education, and Law & Economics**, where I apply modern econometric tools to large administrative datasets to answer policy-relevant questions.
+My research spans **Health, Education, and Law & Economics**, applying modern econometric tools to large administrative datasets. In **Health**, I study fertility and vaccination behaviour. In **Law & Economics**, I work on questions in criminal and family law. In **Education**, I collaborate with Richard Holden at UNSW on pedagogical approaches and the returns to higher education.
+
+I am also affiliated with the **Tax and Transfer Policy Institute** at the Australian National University and with the **Australian Research Council Centre of Excellence for Children and Families over the Life Course**.
+:::
 
 ::: {.contact-row}
 <a href="mailto:fabio.martinenghi@newcastle.edu.au" aria-label="Email"><i class="bi bi-envelope"></i></a>
 <a href="https://orcid.org/0000-0002-1644-4613" aria-label="ORCID"><img src="assets/orcid.svg" alt="ORCID" style="height:1.1em;width:1.1em;vertical-align:-0.18em"></a>
-:::
-
-:::
-
 :::
 
 ## News
